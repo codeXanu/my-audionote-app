@@ -1,2 +1,6 @@
 @import "tailwindcss";
 
+.my-btn {
+  background-color: #FF3500 !important;
+  border-radius: 50px !important;
+}
