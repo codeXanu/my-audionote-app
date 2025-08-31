@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { FaApple } from "react-icons/fa";
 import { BiLogoPlayStore } from "react-icons/bi";
 import { FaArrowRight } from "react-icons/fa";
+import CardSection from './CardSection';
 
 
 
@@ -12,6 +13,8 @@ export default function HeroSection() {
   
 
   return (
+    <>
+   
     <div className="bg-white">
       
       <div className="relative isolate">
@@ -50,5 +53,9 @@ export default function HeroSection() {
         </div>
       </div>
     </div>
+
+
+      <CardSection />
+    </>
   )
 }
