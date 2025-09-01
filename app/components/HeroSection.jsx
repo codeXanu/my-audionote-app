@@ -56,6 +56,16 @@ export default function HeroSection() {
 
 
       <CardSection />
+
+      <div class="flex flex-col text-center w-full mt-15 ">
+          
+          <h1 class="sm:text-3xl text-2xl font-bold text-gray-900 leading-loose">
+                Take <span class="text-orange-600">Perfect</span> Notes
+            </h1>
+            <p class="text-gray-500 text-lg font-medium text-pretty max-w-md mx-auto">
+                See how Audionotes turns your audio into clear, organized notes you can use anytime.
+            </p>
+        </div>
     </>
   )
 }
