@@ -4,7 +4,7 @@ import "../testimonial.css";
 
 const testimonials = [
   {
-    id: 1,
+    id: 198,
     name: "Growing_Up",
     avatar: "👤",
     badge: "✒️",
@@ -153,9 +153,9 @@ export default function TestimonialSection() {
         <div className="scroll-content">
          
           {/* <div className="flex flex-wrap gap-6 justify-center"> */}
-          {loopTestimonials.map((t) => (
+          {loopTestimonials.map((t, index) => (
             <div
-              key={t.id}
+              key={index}
               className="bg-white border border-gray-400 rounded-2xl p-4 w-[300px] mx-2 flex-shrink-0 flex flex-col gap-3 text-left"
             >
               {/* Header: Avatar + Name + Badge */}
