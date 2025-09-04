@@ -1,0 +1,40 @@
+.testimonial-section {
+  padding: 2rem;
+  background: #fff;
+  text-align: center;
+  overflow: hidden;
+  margin-top: 10rem;
+}
+
+.scroll-container {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 2rem 0;
+}
+
+.scroll-content {
+  display: inline-flex;
+  animation: scroll-left 45s linear infinite;
+  
+}
+
+.scroll-right .scroll-content {
+  animation: scroll-right 45s linear infinite;
+}
+
+
+/* Animations */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+/* Pause on hover */
+.scroll-container:hover .scroll-content {
+  animation-play-state: paused;
+}

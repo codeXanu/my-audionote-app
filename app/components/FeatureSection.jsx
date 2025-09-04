@@ -1,7 +1,7 @@
 export default function FeatureSection() {
   
   return (
-    <div className="bg-[#171413] min-h-screen py-26 mt-26">
+    <div className="bg-[#171413] min-h-screen py-26 mt-26 mb-0">
       {/* Header */}
       <div className="max-w-2xl mx-auto text-center mb-12">
         <h1 className="text-3xl font-bold text-white">

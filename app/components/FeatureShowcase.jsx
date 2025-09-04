@@ -16,28 +16,28 @@ const features = [
     title: "Transcribe and/or Translate",
     desc: "Get transcripts in 30+ languages",
     icon: "📄",
-    image: "/images/phone2.png",
+    image: "/showcase.png",
   },
   {
     id: 3,
     title: "Summarize or create custom outputs",
     desc: "Get high quality summaries, meeting notes, lecture notes or even custom outputs",
     icon: "📝",
-    image: "/images/phone3.png",
+    image: "/showcase.png",
   },
   {
     id: 4,
     title: "Chat with your note",
     desc: "Ask questions and chat with your note",
     icon: "💬",
-    image: "/images/phone4.png",
+    image: "/showcase.png",
   },
   {
     id: 5,
     title: "Publish/Share your note",
     desc: "Publish a note and share your notes with your friends",
     icon: "🔗",
-    image: "/images/phone5.png",
+    image: "/showcase.png",
   },
 ];
 

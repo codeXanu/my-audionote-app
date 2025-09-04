@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection";
 import FeatureShowcase from "./components/FeatureShowcase";
 import FeatureSection from "./components/FeatureSection";
 import PrivacyFirstSection from "./components/PrivacyFirstSection";
+import TestimonialSection from "./components/TestimonialSection";
 
 export default function Home() {
   return (
@@ -13,9 +14,14 @@ export default function Home() {
 
    <FeatureShowcase />
 
+  <section id="features">
    <FeatureSection />
 
+  </section>
+
    <PrivacyFirstSection />
+
+   <TestimonialSection />
    </>
   );
 }

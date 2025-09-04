@@ -1,6 +1,7 @@
 'use client'
 import MicIcon from '@mui/icons-material/Mic';
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 
 import { useState } from 'react'
@@ -22,7 +23,7 @@ export default function Header() {
     <header className="bg-white">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-            <a href="#" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
                 {/* Mic inside red circle */}
                 <div className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
                     <MicIcon className="h-5 w-5 text-white" />
@@ -32,7 +33,7 @@ export default function Header() {
                 <span className="text-lg font-semibold text-gray-900">
                     MyAudionotes
                 </span>
-            </a>
+            </Link>
             
         </div>
         <div className="flex lg:hidden">
@@ -48,9 +49,9 @@ export default function Header() {
 
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <Link href="#features" scroll={true} className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Features
-          </a>
+          </Link>
           <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Pricing
           </a>
