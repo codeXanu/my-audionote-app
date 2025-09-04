@@ -17,7 +17,7 @@ export default function CardSection() {
         <div className="flex flex-col text-center w-full mb-20">
           
           <h1 className="sm:text-3xl text-2xl font-bold text-gray-900 leading-loose">
-                Never take notes <span className="text-orange-600">manually</span>
+                Never take notes <span className="text-red-500">manually</span>
             </h1>
             <p className="mt-4 text-gray-500 text-lg font-medium text-pretty max-w-xl mx-auto">
                 From busy professionals to creative writers, students to entrepreneurs, 

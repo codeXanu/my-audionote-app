@@ -23,9 +23,9 @@ export default function HeroSection() {
           <div className="text-center">
             <h1 className="text-3xl font-semibold tracking-tight text-balance text-gray-900 sm:text-6xl">
                 Your cluttered{" "}
-                <span className="text-[#FF3500]">Thoughts</span>{" "}
+                <span className="text-red-500">Thoughts</span>{" "}
                 into clear{" "}
-                <span className="text-[#FF3500]">Text Notes</span>{" "}
+                <span className="text-red-500">Text Notes</span>{" "}
                 using AI
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
@@ -60,7 +60,7 @@ export default function HeroSection() {
       <div className="flex flex-col text-center w-full mt-15 ">
           
           <h1 className="sm:text-3xl text-2xl font-bold text-gray-900 leading-loose">
-                Take <span className="text-orange-600">Perfect</span> Notes
+                Take <span className="text-red-500">Perfect</span> Notes
             </h1>
             <p className="text-gray-500 text-lg font-medium text-pretty max-w-md mx-auto">
                 See how Audionotes turns your audio into clear, organized notes you can use anytime.
