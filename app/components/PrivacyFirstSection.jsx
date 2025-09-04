@@ -25,7 +25,7 @@ export default function PrivacyFirstSection() {
             </div>
           </div>
 
-          <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+          <div className="flex flex-wrap justify-center sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
 
             <div className="p-4 md:w-1/4 flex flex-col text-center items-center">
               <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-red-500 mb-15 flex-shrink-0">

@@ -11,11 +11,11 @@ export default function PricingSection() {
         
       {/* Toggle */}
         <div className="flex flex-col items-center mb-10">
-            <h2 className="text-3xl font-semibold tracking-tight text-balance text-gray-900 mb-20 sm:text-5xl">
+            <h2 className="text-3xl mb-4 font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">
                 Our <span className="text-red-500"> Plans </span>  & <span className="text-red-500"> Pricing </span> 
             </h2>
-            <p className="text-gray-400 text-lg mb-7">
-            Explore features designed to make your notes smarter and more organized.
+            <p className="text-gray-400 max-w-90 text-center text-lg mb-20">
+              Explore features designed to make your notes smarter and more organized.
             </p>
 
             <div className="relative flex bg-gray-100 rounded-full p-1">

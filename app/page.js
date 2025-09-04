@@ -5,6 +5,7 @@ import FeatureSection from "./components/FeatureSection";
 import PrivacyFirstSection from "./components/PrivacyFirstSection";
 import TestimonialSection from "./components/TestimonialSection";
 import PricingSection from "./components/PricingSection";
+import FAQSection from "./components/FAQSection";
 
 export default function Home() {
   return (
@@ -25,6 +26,8 @@ export default function Home() {
    <TestimonialSection />
 
    <PricingSection />
+
+   <FAQSection />
    </>
   );
 }
