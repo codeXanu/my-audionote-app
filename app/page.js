@@ -6,6 +6,8 @@ import PrivacyFirstSection from "./components/PrivacyFirstSection";
 import TestimonialSection from "./components/TestimonialSection";
 import PricingSection from "./components/PricingSection";
 import FAQSection from "./components/FAQSection";
+import Footer from "./components/Footer";
+import { FormatQuoteRounded } from "@mui/icons-material";
 
 export default function Home() {
   return (
@@ -26,8 +28,11 @@ export default function Home() {
    <TestimonialSection />
 
    <PricingSection />
+    <section id="faq">
+      <FAQSection />
+    </section> 
 
-   <FAQSection />
+   <Footer />
    </>
   );
 }

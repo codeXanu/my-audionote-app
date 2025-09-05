@@ -52,10 +52,10 @@ export default function Header() {
           <Link href="#features" scroll={true} className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Features
           </Link>
-          <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <a href="/pricing" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Pricing
           </a>
-          <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <a href="#faq"  className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             FAQ
           </a>
           <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">

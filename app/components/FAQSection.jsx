@@ -1,54 +1,13 @@
 "use client";
-import "../globals.css"
+
 
 import React, { useEffect, useRef, useState } from 'react';
-
-// const FAQSection = () => {
-//   return (
-//     <div className="max-w-screen-2xl mx-auto px-5 bg-white min-h-screen text-black faq-noselect">
-//       <div className="flex flex-col items-center">
-//         <h2 className="font-bold text-5xl mt-5 tracking-tight">FAQ</h2>
-//         <p className="text-neutral-500 text-xl mt-3">Frequently asked questions</p>
-//       </div>
-
-//       <div className="grid divide-y divide-neutral-200 max-w-3xl mx-auto mt-8">
-//         {faqData.map((faq, idx) => (
-//           <div key={idx} className="py-5">
-//             <details className="group">
-//               <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-//                 <span>{faq.question}</span>
-//                 <span className="transition group-open:rotate-180">
-//                   <svg
-//                     fill="none"
-//                     height="24"
-//                     width="24"
-//                     stroke="currentColor"
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="1.5"
-//                     viewBox="0 0 24 24"
-//                   >
-//                     <path d="M6 9l6 6 6-6"></path>
-//                   </svg>
-//                 </span>
-//               </summary>
-//               <p className="text-neutral-600 mt-3 ">
-//                 {faq.answer}
-//               </p>
-//             </details>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
 
 export default function FAQSection() {
   return (
     <div className="max-w-screen-2xl mx-auto mt-24 px-5 bg-white min-h-screen text-black faq-noselect">
       <div className="flex flex-col items-center mb-20">
-        <h2 className="font-bold text-5xl mt-5 tracking-tight">Frequently Asked Questions</h2>
+        <h2 className="font-bold text-5xl mt-5 tracking-tight"> <span className='text-red-500'>F</span>requently <span className='text-red-500'>A</span>sked <span className='text-red-500'>Q</span>uestions</h2>
         {/* <p className="text-neutral-500 text-xl mt-3">
           Frequently asked questions
         </p> */}
