@@ -63,7 +63,7 @@ export default function Header() {
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#">
+          <a href="/login">
             <Button variant="contained" className="my-btn">
                 Log in
             </Button>

@@ -12,26 +12,19 @@ import { FormatQuoteRounded } from "@mui/icons-material";
 export default function Home() {
   return (
    <>
+
    <Header />
-
    <HeroSection />
-
    <FeatureShowcase />
-
-  <section id="features">
-   <FeatureSection />
-
-  </section>
-
+    <section id="features">
+    <FeatureSection />
+    </section>
    <PrivacyFirstSection />
-
    <TestimonialSection />
-
    <PricingSection />
     <section id="faq">
       <FAQSection />
     </section> 
-
    <Footer />
    </>
   );
