@@ -1,7 +1,9 @@
 'use client'
-import MicIcon from '@mui/icons-material/Mic';
+
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import { FaMicrophoneAlt } from "react-icons/fa";
+
 
 
 import { useState } from 'react'
@@ -26,7 +28,7 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-3">
                 {/* Mic inside red circle */}
                 <div className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
-                    <MicIcon className="h-5 w-5 text-white" />
+                    <FaMicrophoneAlt className="h-5 w-5 text-white" />
                 </div>
 
                 {/* Text */}
@@ -58,7 +60,7 @@ export default function Header() {
           <a href="#faq"  className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             FAQ
           </a>
-          <a href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <a href="/homePage" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Mobile App
           </a>
         </PopoverGroup>

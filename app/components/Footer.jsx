@@ -3,7 +3,8 @@ import { FaLinkedin } from "react-icons/fa";
 import React from "react";
 import Button from "@mui/material/Button";
 import { FaArrowRight } from "react-icons/fa";
-import MicIcon from "@mui/icons-material/Mic";
+import { FaMicrophoneAlt } from "react-icons/fa";
+
 import Link from "next/link";
 
 const FooterSection = () => {
@@ -42,17 +43,10 @@ const FooterSection = () => {
     ],
   };
 
-  // const footerLinks = {
-  //   product: ['Features', 'Pricing', 'FAQ', 'iOS App'],
-  //   support: ['Support', 'Privacy Policy', 'Terms of Service', 'Refund Policy'],
-  //   useCases: ['ADHD', 'Content Creation', 'Journaling', 'Lecture Notes', 'Meetings'],
-  //   audiNotesFor: ['Doctors', 'Entrepreneur', 'Lawyers', 'Marketeers', 'Students'],
-  //   blogs: ['How to Write Meeting...', 'Different Types...', 'Best Note...', 'Top 5 Note...'],
-  // };
 
   return (
     <div className="bg-[#171413] min-h-screen text-white font-sans flex flex-col items-center p-8 md:p-12 mt-20">
-      <div className="mt-20 text-center">
+      <div className="mt-20 text-center mb-24">
         <h1 className="text-3xl font-semibold tracking-tight text-balance text-center mb-20 sm:text-8xl">
           {" "}
           Unleash the power of <br /> Voice Notes with AI{" "}
@@ -86,7 +80,7 @@ const FooterSection = () => {
               className="flex items-center  space-x-2 mb-4 border border-red-500 rounded-2xl "
             >
               <span className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
-                <MicIcon className="h-4 w-4 text-white" />
+                <FaMicrophoneAlt className="h-4 w-4 text-white" />
               </span>
               <div className="text-2xl font-semibold "> MyAudioNotes</div>
             </Link>
@@ -134,7 +128,7 @@ const FooterSection = () => {
         </div>
       </footer>
         <div className="text-center text-neutral-500 text-sm mt-8">
-          © {new Date().getFullYear()} My AudioNote App. All rights reserved.
+          © {new Date().getFullYear()} MyAudioNote App. All rights reserved.
         </div>
     </div>
   );
