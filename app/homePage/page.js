@@ -7,6 +7,14 @@ import { BiSolidArrowFromLeft } from "react-icons/bi";
 import { BiSolidArrowToLeft } from "react-icons/bi";
 import { MdWorkspacePremium } from "react-icons/md";
 import { FaMicrophoneAlt } from "react-icons/fa";
+import { GrFormUpload } from "react-icons/gr";
+import { FaYoutube } from "react-icons/fa";
+import { IoImage } from "react-icons/io5";
+
+
+
+import { TbWriting } from "react-icons/tb";
+
 
 
 import { getGreetingAndDate } from "../utils/getGreeting";
@@ -219,7 +227,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className={`fixed bottom-0  ${isOpen ? "left-[16%]" : " left-0 "} right-0 flex justify-center transition-all duration-300 z-50`}>
+          <div className={`fixed bottom-0  ${isOpen ? "left-[20%]" : " left-[5%] "} right-0 flex justify-center transition-all duration-300 z-50`}>
             <InputBox />
 
           </div>
@@ -243,26 +251,46 @@ function SidebarItem({ icon, label, isOpen }) {
   );
 }
 
+
+
+
 const InputBox = () => {
   return (
-    <div className="w-full flex justify-center z-50">
-      <div className="w-full max-w-3xl px-4">
-        <div className="p-4 bg-white rounded-full shadow-lg border border-gray-200 mb-4">
+    <div className="w-full flex justify-center z-50  ">
+      <div className="w-full max-w-4xl px-4 ">
+        <div className="p-4 bg-white rounded-full border border-gray-100 mb-4 shadow-2xl">
           <div className="flex items-center justify-between">
             {/* Left-side icons */}
             <div className="flex space-x-2">
-              <button className="p-3 rounded-full hover:bg-gray-100 text-orange-600">
-                {/* clock */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12.5V7.5c0-.28.22-.5.5-.5s.5.22.5.5v5.79l3.5 2.58c.27.2.36.57.2.88-.16.31-.53.42-.88.2L11 12.5z" /></svg>
+
+              <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all ">
+                <TbWriting className="w-6 h-6" />
+                <span className="max-w-0 max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all ">
+                  Text Note
+                </span>
               </button>
-              <button className="p-3 rounded-full hover:bg-gray-100 text-gray-500">
-                {/* pencil */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
+
+              <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all ">
+                <FaYoutube className="w-6 h-6" />
+                <span className="max-w-0 max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all ">
+                  YouTube Link
+                </span>
               </button>
-              <button className="p-3 rounded-full hover:bg-gray-100 text-gray-500">
-                {/* photo */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" /></svg>
+
+              <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all ">
+                <IoImage className="w-6 h-6" />
+                <span className="max-w-0 max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all ">
+                  Upload Image
+                </span>
               </button>
+
+              <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all ">
+                <GrFormUpload className="w-6 h-6" />
+                <span className="max-w-0 max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all ">
+                  Upload audio file
+                </span>
+              </button>
+
             </div>
 
             {/* Right-side button */}
