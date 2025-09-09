@@ -1,15 +1,9 @@
 'use client'
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import dynamic from "next/dynamic";
 
-// Load only on client
-const AudioVisualizer = dynamic(
-  () => import("react-audio-visualize").then(mod => mod.AudioVisualizer),
-  { ssr: false }
-);
 
 const RecorderModal = forwardRef((_, ref) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
@@ -23,6 +17,9 @@ const RecorderModal = forwardRef((_, ref) => {
   const animationRef = useRef(null);
   const canvasRef = useRef(null);
   const timerIntervalRef = useRef(null);
+  const isCancelledRef = useRef(false);
+  const streamRef = useRef(null);
+
 
 
 
@@ -37,10 +34,24 @@ const RecorderModal = forwardRef((_, ref) => {
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   };
 
+  const cleanupRecording = () => {
+    clearInterval(timerIntervalRef.current);
+    cancelAnimationFrame(animationRef.current);
+    if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+      audioContextRef.current.close();
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
+    }
+  };
+
 
 const startRecording = async () => {
     try {
+        isCancelledRef.current = false;
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       chunksRef.current = [];
@@ -50,8 +61,15 @@ const startRecording = async () => {
       };
 
       mediaRecorder.onstop = () => {
-        handleSaveRecording();
-        clearInterval(timerIntervalRef.current);
+        cleanupRecording();
+        // clearInterval(timerIntervalRef.current);
+        if (!isCancelledRef.current) {
+            handleSaveRecording();
+        }
+        // if (streamRef.current) {
+        //     streamRef.current.getTracks().forEach((t) => t.stop());
+        //     streamRef.current = null;
+        // }
       };
 
       mediaRecorder.start();
@@ -61,7 +79,12 @@ const startRecording = async () => {
       setTimer(0);
       
       timerIntervalRef.current = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
+        setTimer((prevTimer) => {
+          if (prevTimer + 1 >= 60) {
+            stopRecording(); // ⏱ auto stop at 1 min
+          }
+          return prevTimer + 1;
+        });
       }, 1000);
 
       await setupAudioVisualizer(stream);
@@ -86,7 +109,12 @@ const togglePause = () => {
       mediaRecorderRef.current.resume();
       setIsPaused(false);
       timerIntervalRef.current = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
+        setTimer((prevTimer) => {
+          if (prevTimer + 1 >= 60) {
+            stopRecording(); // auto stop if resume crosses 1 min
+          }
+          return prevTimer + 1;
+        });
       }, 1000);
       drawWaveform(); // Restart drawing when resuming
     }
@@ -97,28 +125,39 @@ const stopRecording = () => {
     if (mediaRecorderRef.current?.state === 'recording' || mediaRecorderRef.current?.state === 'paused') {
       mediaRecorderRef.current.stop();
     }
+    // if (streamRef.current) {
+    //     streamRef.current.getTracks().forEach((t) => t.stop());
+    //     streamRef.current = null;
+    // }
     setIsRecording(false);
-    clearInterval(timerIntervalRef.current);
-    cancelAnimationFrame(animationRef.current);
-    if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-      audioContextRef.current.close();
-    }
+    cleanupRecording();
+    // clearInterval(timerIntervalRef.current);
+    // cancelAnimationFrame(animationRef.current);
+    // if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+    //   audioContextRef.current.close();
+    // }
     setIsOpen(false);
   };
 
 
 const cancelRecording = () => {
     if (mediaRecorderRef.current?.state === 'recording' || mediaRecorderRef.current?.state === 'paused') {
-      mediaRecorderRef.current.stop();
+        isCancelledRef.current = true;
+        mediaRecorderRef.current.stop();
     }
+    // if (streamRef.current) {
+    //     streamRef.current.getTracks().forEach((t) => t.stop());
+    //     streamRef.current = null;
+    // }
     chunksRef.current = [];
     setIsRecording(false);
     setIsOpen(false);
-    clearInterval(timerIntervalRef.current);
-    cancelAnimationFrame(animationRef.current);
-    if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-      audioContextRef.current.close();
-    }
+    cleanupRecording();
+    // clearInterval(timerIntervalRef.current);
+    // cancelAnimationFrame(animationRef.current);
+    // if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+    //   audioContextRef.current.close();
+    // }
   };
 
 const handleSaveRecording = () => {
