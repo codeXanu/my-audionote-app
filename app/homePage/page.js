@@ -294,7 +294,7 @@ import CardsSection from "../components/CardsSection";
 import InputBox from "../components/InputBox";
 import { getGreetingAndDate } from "../utils/getGreeting";
 import MainHeader from "../components/MainHeader";
-import { Main } from "next/document";
+
 
 
 

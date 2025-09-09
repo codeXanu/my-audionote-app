@@ -7,7 +7,7 @@ import { User, Home, Star, Zap, Folder,Menu } from "lucide-react";
 // import SidebarItem from "./SidebarItem";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  // const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
