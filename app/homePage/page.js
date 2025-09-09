@@ -293,11 +293,13 @@ import Sidebar from "../components/Sidebar";
 import CardsSection from "../components/CardsSection";
 import InputBox from "../components/InputBox";
 import { getGreetingAndDate } from "../utils/getGreeting";
+import MainHeader from "../components/MainHeader";
+import { Main } from "next/document";
 
 
 
 export default function HomePage() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { greeting, formattedDate } = getGreetingAndDate("Anuj Maurya");
 
   const [blink, setBlink] = useState(false);
@@ -314,6 +316,7 @@ export default function HomePage() {
 
       {/* Main Content */}
       <div className="flex-1 p-6 relative">
+        <MainHeader />
         <div className="mt-4">
           <h1 className="text-3xl font-medium text-gray-700 mb-2">{greeting} !</h1>
           <p className="text-xl text-gray-400 font-medium mb-6">{formattedDate}</p>
@@ -323,10 +326,7 @@ export default function HomePage() {
         <CardsSection cards={cardsData} />
 
         {/* Input Box */}
-        <div
-          className={`fixed bottom-0 ${
-            isOpen ? "left-[20%]" : "left-[5%]"
-          } right-0 flex justify-center transition-all duration-300 z-50`}
+        <div className={`fixed bottom-0 ${isOpen ? "left-[20%]" : "left-[5%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
         >
           <InputBox />
         </div>

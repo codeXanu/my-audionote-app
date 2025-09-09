@@ -1,13 +1,18 @@
+'use client'
+import { useState } from "react";
 import { BiSolidArrowFromLeft, BiSolidArrowToLeft } from "react-icons/bi";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { MdWorkspacePremium } from "react-icons/md";
-import { User, Home, Star, Zap, Folder } from "lucide-react";
+import { User, Home, Star, Zap, Folder,Menu } from "lucide-react";
 // import SidebarItem from "./SidebarItem";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
+    <>
     <div
-      className={`${
+      className={` max-[1080px]:hidden ${
         isOpen ? "w-74" : "w-20 items-center"
       } h-[93vh] sticky top-6 border border-gray-200 rounded-4xl bg-white ml-7 mt-6 mb-6 flex flex-col transition-all duration-300 overflow-hidden`}
     >
@@ -78,11 +83,16 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         {isOpen && <span>Anuj Maurya</span>}
       </div>
     </div>
+
+
+      
+
+    </>
   );
 }
 
 
-function SidebarItem({ icon, label, isOpen }) {
+export function SidebarItem({ icon, label, isOpen }) {
   return (
     <div className="flex items-center rounded-full p-4 space-x-2 cursor-pointer hover:bg-gray-200 transition-all duration-300">
       {icon}
