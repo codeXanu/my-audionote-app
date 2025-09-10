@@ -1,28 +1,32 @@
-export default function Card({ card }) {
-  const truncateContent = (text, wordLimit) => {
-    const words = text.split(" ");
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    }
-    return text;
-  };
+'use client'
+
+import { truncateContent } from "../utils/truncateContent";
+import { FaMicrophone, FaRegFileAlt, FaRegImage, FaYoutube } from "react-icons/fa";
+
+export default function Card({ card, onClick }) {
+  
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md overflow-hidden border border-gray-300 w-full sm:w-[calc(50%-12px)] lg:w-[30%] flex flex-col min-h-[180px] md:min-h-[400px] hover:shadow-lg transition-shadow">
+    <div onClick={onClick} className="bg-white p-4 rounded-xl shadow-md overflow-hidden border border-gray-300 w-full sm:w-[calc(50%-12px)] lg:w-[30%] flex flex-col min-h-[180px] md:min-h-[400px] hover:shadow-lg transition-shadow">
       {/* Date + Duration */}
-      <div className="flex justify-between items-center text-xs text-gray-500">
+      <div className="flex justify-between items-center text-xs font-medium text-gray-500">
         <span>{card.date}</span>
-        {card.type === "Audio" && (
-          <span className="flex items-center ml-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 mr-1 text-gray-400"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12.5V7.5c0-.28.22-.5.5-.5s.5.22.5.5v5.79l3.5 2.58c.27.2.36.57.2.88-.16.31-.53.42-.88.2L11 12.5z" />
-            </svg>
-            {card.duration}
+        {card.type && (
+          <span className="flex items-center ml-2 text-gray-600 bg-gray-100 p-2 rounded-full">
+            {card.type === "Audio" && <FaMicrophone className="w-4 h-4 mr-1" />}
+            {card.type === "Text" && <FaRegFileAlt className="w-4 h-4 mr-1" />}
+            {card.type === "Image" && <FaRegImage className="w-4 h-4 mr-1" />}
+            {card.type === "Youtube" && <FaYoutube className="w-4 h-4 mr-1 text-red-500" />}
+
+            {card.type === "Audio"
+              ? card.duration
+              : card.type === "Text"
+              ? "Text"
+              : card.type === "Image"
+              ? "Image"
+              : card.type === "Youtube"
+              ? "YouTube Link"
+              : ""}
           </span>
         )}
       </div>

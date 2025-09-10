@@ -1,40 +1,74 @@
 'use client'
 
+
+
 const cardsData = [
-  {
+   {
     id: 1,
     date: "Sep 6, 2025 • 9:27 PM",
     title: "Job Inquiry from Anuj Kumar Maurya",
+    type: "Text",
+    transcript:
+      "Hello, my name is Anuj Kumar Maurya. I am a software engineer and I am looking for a job opportunity. Could you please help me with that?",
     content:
       "Hello, my name is Anuj Kumar Maurya. I am a software engineer and I am looking for a job opportunity. Could you please help me with that?",
-    type: "Text",
   },
   {
     id: 2,
     date: "Aug 28, 2025 • 11:08 PM",
     title: "Night Out Invitation",
-    content:
-      "Hello. How are you? What are you doing? Are you free today for a night out?",
-    duration: "00:13",
     type: "Audio",
+    duration: "00:13",
+    audioUrl: "https://www.kozco.com/tech/piano2-CoolEdit.mp3", // original URL kept
+    transcript:
+      "Hello. How are you? What are you doing? Are you free today for a night out?",
+    content: 
+      `Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? 
+      Hello. How are you? What are you doing? Are you free today for a night out? `,
   },
   {
     id: 3,
-    date: "Aug 28, 2025 • 11:08 PM",
-    title: "Night Out Invitation",
-    content:
-      "Hello. How are you? What are you doing? Are you free today for a night out?",
-    duration: "00:13",
-    type: "Audio",
+    date: "Aug 20, 2025 • 4:15 PM",
+    title: "Vacation Picture",
+    type: "Image",
+    imageUrl: "/uploads/images/vacation.png", // original URL kept
+    transcript: "Extracted text from vacation image using OCR.",
+    content: "Extracted text from vacation image using OCR.",
   },
   {
     id: 4,
-    date: "Aug 28, 2025 • 11:08 PM",
-    title: "Night Out Invitation",
-    content:
-      "Hello. How are you? What are you doing? Are you free today for a night out?",
-    duration: "00:13",
-    type: "Audio",
+    date: "Aug 18, 2025 • 6:30 PM",
+    title: "AI Tutorial",
+    type: "Youtube",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // original URL kept
+    transcript:
+      "This YouTube video explains the basics of building an AI assistant...",
+    content: "This YouTube video explains the basics of building an AI assistant...",
   },
   {
     id: 5,
@@ -294,6 +328,7 @@ import CardsSection from "../components/CardsSection";
 import InputBox from "../components/InputBox";
 import { getGreetingAndDate } from "../utils/getGreeting";
 import MainHeader from "../components/MainHeader";
+import CardDialouge from "../components/CardDialouge";
 
 
 
@@ -301,6 +336,18 @@ import MainHeader from "../components/MainHeader";
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
   const { greeting, formattedDate } = getGreetingAndDate("Anuj Maurya");
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [isDailougeOpen, setIsDailougeOpen] = useState(false);
+
+  // Disable background scroll when modal is open
+  useEffect(() => {
+    if (isDailougeOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isDailougeOpen]);
+
 
   const [blink, setBlink] = useState(false);
   useEffect(() => {
@@ -323,7 +370,8 @@ export default function HomePage() {
         </div>
 
         {/* Cards Section */}
-        <CardsSection cards={cardsData} />
+        <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
+        
 
         {/* Input Box */}
         <div className={`fixed bottom-0 ${isOpen ? "left-[20%]" : "left-[5%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
@@ -331,6 +379,13 @@ export default function HomePage() {
           <InputBox />
         </div>
       </div>
+
+      <CardDialouge
+          isOpen={!!selectedCard}
+          selectedCard={selectedCard}
+          onClose={() => setSelectedCard(null) }
+          setIsDailougeOpen={setIsDailougeOpen}
+        />
     </div>
   );
 }

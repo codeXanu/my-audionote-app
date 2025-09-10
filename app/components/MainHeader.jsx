@@ -30,8 +30,8 @@ export default function MainHeader() {
         </div>
 
         {/* Right Upgrade */}
-        <button>
-          <MdWorkspacePremium className="text-red-500 h-6 w-6" />
+        <button className="p-2 bg-red-50 rounded-3xl">
+          <MdWorkspacePremium className="text-red-500 h-6 w-6 " />
         </button>
       </div>
 
