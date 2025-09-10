@@ -1,9 +1,32 @@
+'use client'
+import {useEffect} from 'react'
 import { FcGoogle } from "react-icons/fc";
 import MicIcon from '@mui/icons-material/Mic';
 import { FaApple } from "react-icons/fa";
 import { BiLogoPlayStore } from "react-icons/bi";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, provider, signInWithPopup } from "../lib/firebase";
+
 
 const LoginPage = () => {
+  const router = useRouter();
+  
+  
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      if (u) router.replace("/homePage");                // already logged in → go to app
+    });
+    return () => unsub();
+  }, [router]); // App Router redirect pattern [4]
+
+  const signInWithGoogle = async () => {
+    const result = await signInWithPopup(auth, provider);         // sign in
+    
+    router.replace("/homePage");                         // navigate after success
+  };
+  
+
   return (
     <div className="min-h-screen flex lg:flex-row items-center justify-between text-black">
       {/* Left Section */}
@@ -74,7 +97,10 @@ const LoginPage = () => {
 
         {/* Buttons */}
         <div className="flex flex-col gap-3 w-full max-w-sm mb-12">
-          <button className="flex items-center justify-center gap-3 border rounded-3xl py-3 hover:bg-neutral-50 transition">
+          <button 
+            className="flex items-center justify-center gap-3 border rounded-3xl py-3 hover:bg-neutral-50 transition"
+            onClick={signInWithGoogle}
+          >
             <FcGoogle />
             Login with Google
           </button>

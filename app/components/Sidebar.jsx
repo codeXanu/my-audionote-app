@@ -4,17 +4,18 @@ import { BiSolidArrowFromLeft, BiSolidArrowToLeft } from "react-icons/bi";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { MdWorkspacePremium } from "react-icons/md";
 import { User, Home, Star, Zap, Folder,Menu } from "lucide-react";
-// import SidebarItem from "./SidebarItem";
+import ProfileMenu from "./ProfileMenu";
+
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  // const [mobileOpen, setMobileOpen] = useState(false);
+  
 
   return (
     <>
     <div
       className={` max-[1080px]:hidden ${
         isOpen ? "w-74" : "w-20 items-center"
-      } h-[93vh] sticky top-6 border border-gray-200 rounded-4xl bg-white ml-7 mt-6 mb-6 flex flex-col transition-all duration-300 overflow-hidden`}
+      } h-[93vh] sticky top-6 border border-gray-200 rounded-4xl bg-white ml-7 mt-6 mb-6 flex flex-col z-51 transition-all duration-300 overflow-hidden`}
     >
       {/* Logo + Toggle */}
       <div
@@ -76,12 +77,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       {/* User */}
-      <div className="p-4 border-t border-gray-100 flex items-center space-x-2">
+      <ProfileMenu isOpen={isOpen} />
+      {/* <div className="p-4 border-t border-gray-100 flex items-center space-x-2">
         <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
           <User size={16} />
         </div>
         {isOpen && <span>Anuj Maurya</span>}
-      </div>
+      </div> */}
     </div>
 
 

@@ -4,6 +4,7 @@
 html {
   scroll-behavior: smooth;
 }
+html { scrollbar-gutter: stable; }
 
 body {
   background: #ffffff;
@@ -42,3 +43,4 @@ button {
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-in-out;
 }
+

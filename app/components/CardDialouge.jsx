@@ -56,7 +56,7 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
 
      <div
       className="
-        fixed inset-0 z-50 flex items-stretch lg:items-center justify-center
+        fixed inset-0 z-90 flex items-stretch lg:items-center justify-center
         bg-black/50
       "
       role="dialog"

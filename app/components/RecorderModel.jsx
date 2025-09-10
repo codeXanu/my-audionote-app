@@ -163,6 +163,7 @@ const cancelRecording = () => {
 const handleSaveRecording = () => {
     if (chunksRef.current.length === 0) return;
     const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+    const file = new File([blob], "recording.webm", { type: "audio/webm" });
     const url = URL.createObjectURL(blob);
     setAudioURL(url);
   };

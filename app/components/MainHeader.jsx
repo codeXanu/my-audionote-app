@@ -11,6 +11,7 @@ import {
   DialogTitle,
   TransitionChild,
 } from "@headlessui/react";
+import ProfileMenu from "./ProfileMenu";
 
 export default function MainHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function MainHeader() {
       </div>
 
       {/* ✅ Mobile Drawer (Headless UI) */}
-      <Dialog open={mobileOpen} onClose={setMobileOpen} className="relative z-50 text-black">
+      <Dialog open={mobileOpen} onClose={setMobileOpen} className=" relative z-50 text-black min-[1081px]:hidden ">
         {/* Backdrop */}
         <DialogBackdrop
           transition
@@ -68,13 +69,15 @@ export default function MainHeader() {
                 {/* Drawer Content */}
                 <div className="relative flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-gray-200">
                   <div className="px-4">
-                    <DialogTitle className="text-base font-semibold text-gray-900">
-                      <div className="px-4 pb-4 border-b border-gray-200 flex items-center space-x-2">
+                    <DialogTitle className="flex items-center text-base font-semibold text-gray-900">
+                        {/* <div className="px-4 pb-4 border-b border-gray-200 flex items-center space-x-2">
                             <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
-                            <User size={16} />
+                              <User size={16} />
                             </div>
                             <span className="font-medium">Anuj Maurya</span>
-                        </div>
+                        </div> */}
+                               
+                       
                     </DialogTitle>
                   </div>
 
