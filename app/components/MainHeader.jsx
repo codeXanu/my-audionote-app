@@ -14,7 +14,7 @@ import {
 
 import BottomDrawer from "./BottomDrawer";
 
-export default function MainHeader() {
+export default function MainHeader( { activeItem, setActiveItem } ) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false)
   
@@ -86,7 +86,7 @@ export default function MainHeader() {
                           onAccount={() => console.log('Account')}
                           onSupport={() => console.log('Support')}
                           onPlans={() => console.log('Plans')}
-                          onLogout={() => console.log('Logout')}
+                          
                         />
                     
                        
@@ -94,10 +94,10 @@ export default function MainHeader() {
                   </div>
 
                   <nav className="mt-6 flex flex-col flex-1 px-4 gap-2">
-                    <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} />
-                    <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} />
-                    <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} />
-                    <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={true} />
+                     <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
+        <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
+        <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
+        <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={true} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} />
                   </nav>
 
                     <div className="bg-white p-4 rounded-4xl border border-gray-300 shadow-sm font-sans m-4">

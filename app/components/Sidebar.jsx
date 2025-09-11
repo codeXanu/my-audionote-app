@@ -7,7 +7,7 @@ import { User, Home, Star, Zap, Folder,Menu } from "lucide-react";
 import ProfileMenu from "./ProfileMenu";
 
 
-export default function Sidebar({ isOpen, setIsOpen }) {
+export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem }) {
   
 
   return (
@@ -40,10 +40,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
       {/* Navigation */}
       <nav className="flex flex-col flex-1 p-4 gap-1 mt-5">
-        <SidebarItem icon={<Home size={20} />} label="Home" isOpen={isOpen} />
-        <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={isOpen} />
-        <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={isOpen} />
-        <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={isOpen} />
+        <SidebarItem icon={<Home size={20} />} label="Home" isOpen={isOpen} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
+        <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={isOpen} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
+        <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={isOpen} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
+        <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={isOpen} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} />
       </nav>
 
       {/* Upgrade Box */}
@@ -94,9 +94,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 }
 
 
-export function SidebarItem({ icon, label, isOpen }) {
+export function SidebarItem({ icon, label, isOpen, active, onClick }) {
   return (
-    <div className="flex items-center rounded-full p-4 space-x-2 cursor-pointer hover:bg-gray-200 transition-all duration-300">
+    <div onClick={onClick} className={`flex items-center rounded-full p-4 space-x-2 cursor-pointer transition-all duration-300 ${active ? "bg-red-50 font-semibold" : "hover:bg-gray-200"} `}>
       {icon}
       {isOpen && <span >{label}</span>}
     </div>

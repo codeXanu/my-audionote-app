@@ -1,18 +1,18 @@
 'use client'
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator } from "@headlessui/react";
 import { User } from "lucide-react";
-import { signOut } from "firebase/auth";
+
 import { useRouter } from "next/navigation";
-import { auth } from "../lib/firebase";
+
 
 
 export default function ProfileMenu({ isOpen }) {
     const router = useRouter();
 
-    const handleLogout = async () => {
-        await signOut(auth);
-        router.push("/");
-    };
+    // const handleLogout = async () => {
+    //     await signOut(auth);
+    //     router.push("/");
+    // };
 
   return (
     <Menu as="div" className="relative ">
@@ -58,7 +58,7 @@ export default function ProfileMenu({ isOpen }) {
           <MenuSeparator className="my-2 h-px bg-gray-100" />
 
           <MenuItem>
-            <button className="w-full text-left px-4 py-2 flex items-center gap-3 text-red-600 data-[focus]:bg-red-50" onClick={handleLogout} >
+            <button className="w-full text-left px-4 py-2 flex items-center gap-3 text-red-600 data-[focus]:bg-red-50" onClick={() => handleLogout(router)} >
               <span className="i-lucide-log-out w-5 h-5" />
               Logout
             </button>

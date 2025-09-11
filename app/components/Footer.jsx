@@ -77,7 +77,7 @@ const FooterSection = () => {
             <Link
               href="/"
               scroll={true}
-              className="flex items-center  space-x-2 mb-4 border border-red-500 rounded-2xl "
+              className="flex items-center  space-x-2 mb-4 rounded-2xl "
             >
               <span className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
                 <FaMicrophoneAlt className="h-4 w-4 text-white" />

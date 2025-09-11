@@ -123,6 +123,8 @@ export default function HomePage() {
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
   const [user, setUser] = useState(null);
 
+  const [activeItem, setActiveItem] = useState("Home");
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
@@ -155,18 +157,34 @@ export default function HomePage() {
    
     <div className="flex text-black">
       {/* Sidebar */}
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} activeItem={activeItem} setActiveItem={setActiveItem} />
 
       {/* Main Content */}
       <div className="flex-1 p-6 relative">
-        <MainHeader />
+        <MainHeader activeItem={activeItem} setActiveItem={setActiveItem} />
         <div className="mt-4">
           <h1 className="text-3xl font-medium text-gray-700 mb-2">{greeting} !</h1>
           <p className="text-xl text-gray-400 font-medium mb-6">{formattedDate}</p>
         </div>
 
         {/* Cards Section */}
-        <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
+        {
+           activeItem === "Home" && 
+          <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
+        }
+        {
+           activeItem === "Favourites" && 
+          <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
+        }
+        {
+           activeItem === "Integrations" && 
+           <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
+        }
+        {
+           activeItem === "Folders" && 
+           <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
+        }
+        
         
 
         {/* Input Box */}

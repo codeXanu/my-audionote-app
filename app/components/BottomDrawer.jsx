@@ -3,6 +3,8 @@
 'use client'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { handleLogout } from '../utils/handleLogout'
+import { useRouter } from "next/navigation";
 
 export default function BottomDrawer({
   bottomDrawerOpen,
@@ -10,9 +12,10 @@ export default function BottomDrawer({
   onAccount,
   onSupport,
   onPlans,
-  onLogout,
   title = 'Menu',
 }) {
+
+  const router = useRouter();
   return (
     <Dialog
       open={bottomDrawerOpen}
@@ -47,7 +50,7 @@ export default function BottomDrawer({
 
             <div className="px-4 mb-4 sm:px-5 ">
               <div className="flex items-center justify-between py-2">
-                <DialogTitle className="text-sm font-medium text-gray-600">{title}</DialogTitle>
+                {/* <DialogTitle className="text-sm font-medium text-gray-600">{title}</DialogTitle> */}
                 <button
                   onClick={onClose}
                   className="inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
@@ -84,7 +87,7 @@ export default function BottomDrawer({
                 </button>
 
                 <button
-                  onClick={onLogout}
+                  onClick={() => handleLogout(router)}
                   className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 active:bg-gray-100 transition-colors"
                 >
                   <span className="i-ph-sign-out-duotone text-lg" />
