@@ -1,8 +1,9 @@
 'use client'
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
+import { buildAudioFormData } from "../utils/buildAudioFormData";
 
 
-const RecorderModal = forwardRef((_, ref) => {
+const RecorderModal = forwardRef(({userId}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -21,7 +22,7 @@ const RecorderModal = forwardRef((_, ref) => {
   const streamRef = useRef(null);
 
 
-
+  
 
   /** Allow parent to open recorder */
   useImperativeHandle(ref, () => ({
@@ -166,6 +167,10 @@ const handleSaveRecording = () => {
     const file = new File([blob], "recording.webm", { type: "audio/webm" });
     const url = URL.createObjectURL(blob);
     setAudioURL(url);
+    const formData = buildAudioFormData(file, userId);
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
   };
 
 
@@ -264,7 +269,7 @@ const setupAudioVisualizer = async (stream) => {
     <>
       {/* Recorder Modal */}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 p-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-999 p-4">
           <div className="bg-white rounded-2xl lg:rounded-full shadow-xl p-8 w-full max-w-4xl">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-2">
               

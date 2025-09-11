@@ -15,7 +15,7 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem }
     <div
       className={` max-[1080px]:hidden ${
         isOpen ? "w-74" : "w-20 items-center"
-      } h-[93vh] sticky top-6 border border-gray-200 rounded-4xl bg-white ml-7 mt-6 mb-6 flex flex-col z-51 transition-all duration-300 overflow-hidden`}
+      } h-[93vh] sticky top-6 border border-gray-200 rounded-4xl bg-white ml-7 mt-6 mb-6 flex flex-col z-50 transition-all duration-300 overflow-hidden`}
     >
       {/* Logo + Toggle */}
       <div

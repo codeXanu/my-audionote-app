@@ -122,6 +122,7 @@ export default function HomePage() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
   const [user, setUser] = useState(null);
+  // console.log(user.uid)
 
   const [activeItem, setActiveItem] = useState("Home");
 
@@ -190,7 +191,7 @@ export default function HomePage() {
         {/* Input Box */}
         <div className={`fixed bottom-0  ${isOpen ? "left-[20%]" : "left-[5%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
         >
-          <InputBox />
+          <InputBox userId={user.uid} />
         </div>
       </div>
 

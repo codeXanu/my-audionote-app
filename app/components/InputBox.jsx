@@ -57,12 +57,12 @@ import RecorderButton from "./RecorderButton";
 import RecorderModal from "./RecorderModel";
 
 
-export default function InputBox() {
+export default function InputBox( {userId} ) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const recorderRef = useRef();
 
   return (
-    <div className="w-full max-w-3xl flex justify-center z-50">
+    <div className="w-full max-w-3xl flex justify-center z-55">
       <div className="w-full max-w-4xl ">
         <div className="p-4 bg-white rounded-full border border-gray-100 mb-4 shadow-2xl">
           <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ export default function InputBox() {
         </div>
       </div>
 
-      <RecorderModal ref={recorderRef} />
+      <RecorderModal ref={recorderRef} userId={userId} />
 
       {/* Bottom Drawer */}
       {isDrawerOpen && (
