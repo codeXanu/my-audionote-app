@@ -4,7 +4,7 @@ import { User } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../lib/firebase";
-// import handleLogout from "../utils/handleLogout";
+
 
 export default function ProfileMenu({ isOpen }) {
     const router = useRouter();
@@ -74,3 +74,9 @@ export default function ProfileMenu({ isOpen }) {
     </Menu>
   );
 }
+
+
+
+
+
+

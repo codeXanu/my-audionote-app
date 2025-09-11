@@ -62,7 +62,7 @@ export default function InputBox() {
   const recorderRef = useRef();
 
   return (
-    <div className="w-full max-w-3xl flex justify-center bg-amber-300 z-50">
+    <div className="w-full max-w-3xl flex justify-center z-50">
       <div className="w-full max-w-4xl ">
         <div className="p-4 bg-white rounded-full border border-gray-100 mb-4 shadow-2xl">
           <div className="flex items-center justify-between">

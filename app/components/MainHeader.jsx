@@ -11,10 +11,13 @@ import {
   DialogTitle,
   TransitionChild,
 } from "@headlessui/react";
-import ProfileMenu from "./ProfileMenu";
+
+import BottomDrawer from "./BottomDrawer";
 
 export default function MainHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false)
+  
 
   return (
     <>
@@ -68,15 +71,24 @@ export default function MainHeader() {
 
                 {/* Drawer Content */}
                 <div className="relative flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-gray-200">
-                  <div className="px-4">
+                  <div className="px-4" >
                     <DialogTitle className="flex items-center text-base font-semibold text-gray-900">
-                        {/* <div className="px-4 pb-4 border-b border-gray-200 flex items-center space-x-2">
+                        <button onClick={() => setBottomDrawerOpen(true)} className=" px-8 p-3 rounded-full  border-gray-200 flex items-center justify-center space-x-2 hover:bg-gray-200 ">
                             <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
                               <User size={16} />
                             </div>
                             <span className="font-medium">Anuj Maurya</span>
-                        </div> */}
-                               
+                        </button>
+                        {/* <BottomDrawer /> */}
+                        <BottomDrawer
+                          bottomDrawerOpen={bottomDrawerOpen}
+                          onClose={() => setBottomDrawerOpen(false)}
+                          onAccount={() => console.log('Account')}
+                          onSupport={() => console.log('Support')}
+                          onPlans={() => console.log('Plans')}
+                          onLogout={() => console.log('Logout')}
+                        />
+                    
                        
                     </DialogTitle>
                   </div>
