@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import { buildAudioFormData } from "../utils/buildAudioFormData";
+import { buildAudioFormData } from "../lib/buildAudioFromData";
+import { fetchSummary } from "../lib/fetchSummary";
 
 
 const RecorderModal = forwardRef(({userId}, ref) => {
@@ -161,7 +162,8 @@ const cancelRecording = () => {
     // }
   };
 
-const handleSaveRecording = () => {
+const handleSaveRecording = async () => {
+    console.log("handleSaveRecordingRun")
     if (chunksRef.current.length === 0) return;
     const blob = new Blob(chunksRef.current, { type: "audio/webm" });
     const file = new File([blob], "recording.webm", { type: "audio/webm" });
@@ -170,6 +172,13 @@ const handleSaveRecording = () => {
     const formData = buildAudioFormData(file, userId);
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
+    }
+    try {
+      console.log("i am fetching")
+      const response = await fetchSummary(formData);
+      console.log("Backend response:", response);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 

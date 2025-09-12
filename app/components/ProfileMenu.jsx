@@ -1,7 +1,7 @@
 'use client'
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator } from "@headlessui/react";
 import { User } from "lucide-react";
-
+import { handleLogout } from "../utils/handleLogout";
 import { useRouter } from "next/navigation";
 
 
