@@ -1,5 +1,5 @@
 'use client'
-
+import Link from 'next/link';
 import Button from '@mui/material/Button';
 import { FaApple } from "react-icons/fa";
 import { BiLogoPlayStore } from "react-icons/bi";
@@ -32,11 +32,11 @@ export default function HeroSection() {
               Capture and turn your voice recordings, text notes, images, audio files, and YouTube videos into perfect notes for meetings, journals, lectures, emails, and more!
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-x-6">
-              <a href="#" >
+              <Link href="/home" >
                 <Button variant="contained" className='my-btn' sx={{ px: 5, py: 2, fontSize: "18px", borderRadius: "12px" }} endIcon={<FaArrowRight /> } >
                     Try For Free
                 </Button>
-              </a>
+              </Link>
               <div className='flex gap-6 mt-6'>
                 <button className="flex items-center gap-1.5 bg-gray-200 text-black px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition">
                     <BiLogoPlayStore />

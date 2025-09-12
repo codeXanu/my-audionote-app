@@ -2,9 +2,11 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { buildAudioFormData } from "../lib/buildAudioFromData";
 import { fetchSummary } from "../lib/fetchSummary";
+import { getAudioURL } from "../utils/makeAudioUrl";
+import { getAudioDuration } from "../utils/getAudioDuration";
 
 
-const RecorderModal = forwardRef(({userId}, ref) => {
+const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -176,6 +178,17 @@ const handleSaveRecording = async () => {
     try {
       console.log("i am fetching")
       const response = await fetchSummary(formData);
+      const newCard = {
+        id: response.id,
+        date: response.createdAt,
+        title: response.title || "Untitled",
+        type: response.type || "Audio",
+        duration: "00:13", // 👉 optional, if you want to calculate add here
+        audioUrl: getAudioURL(response.audioFile),
+        transcript: response.transcript,
+        content: response.summary,
+      };
+      setCardsData(prev => [newCard, ...prev])
       console.log("Backend response:", response);
     } catch (error) {
       console.error("Error:", error);
@@ -332,11 +345,11 @@ const setupAudioVisualizer = async (stream) => {
               
                 <button
                     onClick={stopRecording}
-                    className="flex items-center justify-center space-x-2 px-4 py-2 rounded-full text-white bg-gray-800 hover:bg-gray-900 transition-colors shadow-sm text-sm lg:text-base"
+                    className="flex items-center justify-center space-x-2 px-2 py-2 rounded-full text-white bg-gray-800 hover:bg-gray-900 transition-colors shadow-sm text-sm lg:text-base"
                     title="Stop Recording"
                 >
                     <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    <span>stop recording</span>
+                    <span>Stop Recording</span>
                 </button>
               </div>
 
@@ -346,12 +359,12 @@ const setupAudioVisualizer = async (stream) => {
       )}
 
       {/* Audio Preview */}
-      {audioURL && (
+      {/* {audioURL && (
         <div className="mt-4 w-full flex flex-col items-center">
           <p className="text-sm font-medium mb-2">Recording saved!</p>
           <audio controls src={audioURL} className="w-full max-w-lg rounded-lg" />
         </div>
-      )}
+      )} */}
     </>
   );
 });

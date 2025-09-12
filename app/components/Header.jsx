@@ -51,18 +51,18 @@ export default function Header() {
 
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <Link href="#features" scroll={true} className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <Link href="/#features" scroll={true} className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Features
           </Link>
-          <a href="/pricing" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          <Link href="/pricing" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Pricing
-          </a>
-          <a href="#faq"  className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          </Link>
+          <Link href="/#faq"  className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             FAQ
-          </a>
-          <a href="/homePage" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+          </Link>
+          <Link href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             Mobile App
-          </a>
+          </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="/login">
@@ -89,40 +89,40 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
-                  href="#"
+                <Link
+                  href="/#features"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-100"
                 >
                   Features
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/pricing"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Pricing
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/#faq"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   FAQ
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Mobile App
-                </a>
+                </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <Link
+                  href="/login"
                   
                 >
                  <Button variant="contained" className="my-btn">
                     Log in
                 </Button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

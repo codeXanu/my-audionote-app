@@ -10,9 +10,9 @@ import Link from "next/link";
 const FooterSection = () => {
   const footerLinks = {
     product: [
-      { text: "Features", url: "#features" },
+      { text: "Features", url: "/#features" },
       { text: "Pricing", url: "/pricing" },
-      { text: "FAQ", url: "/faq" },
+      { text: "FAQ", url: "/#faq" },
       { text: "iOS App", url: "/ios" },
     ],
     support: [
@@ -51,7 +51,8 @@ const FooterSection = () => {
           {" "}
           Unleash the power of <br /> Voice Notes with AI{" "}
         </h1>
-        <Button
+        <Link
+          href="home"
           variant="contained"
           className="my-btn"
           sx={{
@@ -64,7 +65,7 @@ const FooterSection = () => {
           endIcon={<FaArrowRight />}
         >
           Try For Free
-        </Button>
+        </Link>
       </div>
       {/* Spacer to push footer to the bottom */}
       <div className="flex-grow"></div>

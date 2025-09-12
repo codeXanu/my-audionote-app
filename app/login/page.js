@@ -15,7 +15,7 @@ const LoginPage = () => {
   
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
-      if (u) router.replace("/homePage");                // already logged in → go to app
+      if (u) router.replace("/home");                // already logged in → go to app
     });
     return () => unsub();
   }, [router]); // App Router redirect pattern [4]
@@ -23,7 +23,7 @@ const LoginPage = () => {
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);         // sign in
     
-    router.replace("/homePage");                         // navigate after success
+    router.replace("/home");                         // navigate after success
   };
   
 

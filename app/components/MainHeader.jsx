@@ -94,10 +94,10 @@ export default function MainHeader( { activeItem, setActiveItem } ) {
                   </div>
 
                   <nav className="mt-6 flex flex-col flex-1 px-4 gap-2">
-                     <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
-        <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
-        <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
-        <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={true} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} />
+                      <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
+                      <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
+                      <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
+                      <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={true} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} />
                   </nav>
 
                     <div className="bg-white p-4 rounded-4xl border border-gray-300 shadow-sm font-sans m-4">

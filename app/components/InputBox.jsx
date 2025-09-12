@@ -53,16 +53,15 @@ import { FaYoutube } from "react-icons/fa";
 import { IoImage } from "react-icons/io5";
 import { GrFormUpload } from "react-icons/gr";
 import { BsThreeDots } from "react-icons/bs";
-import RecorderButton from "./RecorderButton";
 import RecorderModal from "./RecorderModel";
 
 
-export default function InputBox( {userId} ) {
+export default function InputBox( {userId, setCardsData} ) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const recorderRef = useRef();
 
   return (
-    <div className="w-full max-w-3xl flex justify-center z-55">
+    <div className="w-full max-w-3xl flex justify-center z-55 ">
       <div className="w-full max-w-4xl ">
         <div className="p-4 bg-white rounded-full border border-gray-100 mb-4 shadow-2xl">
           <div className="flex items-center justify-between">
@@ -98,7 +97,7 @@ export default function InputBox( {userId} ) {
         </div>
       </div>
 
-      <RecorderModal ref={recorderRef} userId={userId} />
+      <RecorderModal ref={recorderRef} userId={userId} setCardsData={setCardsData} />
 
       {/* Bottom Drawer */}
       {isDrawerOpen && (
