@@ -12,6 +12,8 @@ const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
   const [isPaused, setIsPaused] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
   const [timer, setTimer] = useState(0);
+  const [type, setType] = useState("");
+  
 
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
@@ -25,7 +27,6 @@ const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
   const streamRef = useRef(null);
 
 
-  
 
   /** Allow parent to open recorder */
   useImperativeHandle(ref, () => ({
@@ -66,14 +67,10 @@ const startRecording = async () => {
 
       mediaRecorder.onstop = () => {
         cleanupRecording();
-        // clearInterval(timerIntervalRef.current);
         if (!isCancelledRef.current) {
-            handleSaveRecording();
+          setType("audio")
+          handleSaveRecording();
         }
-        // if (streamRef.current) {
-        //     streamRef.current.getTracks().forEach((t) => t.stop());
-        //     streamRef.current = null;
-        // }
       };
 
       mediaRecorder.start();
@@ -171,10 +168,10 @@ const handleSaveRecording = async () => {
     const file = new File([blob], "recording.webm", { type: "audio/webm" });
     const url = URL.createObjectURL(blob);
     setAudioURL(url);
-    const formData = buildAudioFormData(file, userId);
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    const formData = await buildAudioFormData(file, userId, blob, type);
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
     try {
       console.log("i am fetching")
       const response = await fetchSummary(formData);
@@ -182,8 +179,8 @@ const handleSaveRecording = async () => {
         id: response.id,
         date: response.createdAt,
         title: response.title || "Untitled",
-        type: response.type || "Audio",
-        duration: "00:13", // 👉 optional, if you want to calculate add here
+        type: response.type ,
+        duration: response.duration, // 👉 optional, if you want to calculate add here
         audioUrl: getAudioURL(response.audioFile),
         transcript: response.transcript,
         content: response.summary,

@@ -160,7 +160,7 @@ export default function HomePage() {
     <>
      
    
-    <div className="flex text-black bg-white h-screen">
+    <div className="flex text-black bg-white h-full">
       {/* Sidebar */}
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} activeItem={activeItem} setActiveItem={setActiveItem} />
 
@@ -173,6 +173,9 @@ export default function HomePage() {
         </div>
 
         {/* Cards Section */}
+        <div className="" >
+
+        
         {
            activeItem === "Home" && 
           <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
@@ -189,6 +192,7 @@ export default function HomePage() {
            activeItem === "Folders" && 
            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
         }
+        </div>
         
         
 

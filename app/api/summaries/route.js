@@ -15,7 +15,8 @@ export async function POST(req) {
     const file = formData.get("file");
     const userId = formData.get("userId");
     const createdAt = formData.get("createdAt");
-    const type = formData.get("type") || "Audio";
+    const type = formData.get("type");
+    const duration = formData.get("duration")
 
     if (!file) {
       return NextResponse.json({ error: "No audio file provided" }, { status: 400 });
@@ -67,6 +68,7 @@ export async function POST(req) {
       id: userId,
       type,
       createdAt,
+      duration,
       title: result.title,
       transcript: transcriptText,
       summary: result.summary,

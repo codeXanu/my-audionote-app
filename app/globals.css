@@ -9,9 +9,7 @@ html { scrollbar-gutter: auto; }
 body {
   background-color: #ffffff;
 }
-/* :root {
-  background-color: #ffffff;
-} */
+
 
 button {
     cursor: pointer;

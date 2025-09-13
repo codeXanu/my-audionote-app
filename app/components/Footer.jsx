@@ -51,20 +51,22 @@ const FooterSection = () => {
           {" "}
           Unleash the power of <br /> Voice Notes with AI{" "}
         </h1>
-        <Link
-          href="home"
-          variant="contained"
-          className="my-btn"
-          sx={{
-            px: 5,
-            py: 2,
-            fontSize: "20px",
-            fontWeight: "700",
-            borderRadius: "12px",
-          }}
-          endIcon={<FaArrowRight />}
-        >
-          Try For Free
+        <Link href="/home">
+          <Button
+            
+            variant="contained"
+            className="my-btn"
+            sx={{
+              px: 5,
+              py: 2,
+              fontSize: "20px",
+              fontWeight: "700",
+              borderRadius: "12px",
+            }}
+            endIcon={<FaArrowRight />}
+            >
+            Try For Free
+          </Button>
         </Link>
       </div>
       {/* Spacer to push footer to the bottom */}

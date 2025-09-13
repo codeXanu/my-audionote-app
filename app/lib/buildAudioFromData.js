@@ -1,3 +1,6 @@
+import { getAudioDuration } from "../utils/getAudioDuration";
+
+
 const getLocalDateTime = () => {
   const now = new Date();
 
@@ -14,15 +17,22 @@ const getLocalDateTime = () => {
   const formatted = now.toLocaleString("en-US", options);
 
   // Convert "Aug 28, 2025, 11:08 PM" → "Aug 28, 2025 . 11:08 PM"
-  return formatted.replace(",", " .");
+  return formatted;
 };
 
 
-export const buildAudioFormData = (audioFile, userId) => {
+export const buildAudioFormData = async (audioFile, userId, blob, type) => {
+
+  const duration = await getAudioDuration(blob);
+  console.log("abcd", + duration)
+  console.log(type)
+
   const formData = new FormData();
   formData.append("file", audioFile, audioFile.name); // audio recording
   formData.append("userId", userId);                    // user id
   formData.append("createdAt", getLocalDateTime());       // IST timestamp
-  formData.append("type", "Audio");                     // fixed type
+  formData.append("type", type);
+  formData.append("duration", duration);
+
   return formData;
 };

@@ -1,20 +1,25 @@
+export function getAudioDuration(blob) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
 
+    audio.addEventListener("loadedmetadata", () => {
+      const totalSeconds = Math.floor(audio.duration);
+      URL.revokeObjectURL(url);
 
-// Usage example to get duration
-export function getAudioDuration(audioFile, callback) {
-  const url = getAudioURL(audioFile);
-  if (!url) {
-    callback(null);
-    return;
-  }
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
 
-  const audio = new Audio(url);
-  audio.addEventListener('loadedmetadata', () => {
-    callback(audio.duration); // Duration in seconds
-    URL.revokeObjectURL(url); // Clean up URL when done
-  });
-  audio.addEventListener('error', () => {
-    callback(null); // handle error case
-    URL.revokeObjectURL(url);
+      const formatted = 
+        String(minutes).padStart(2, "0") + ":" + 
+        String(seconds).padStart(2, "0");
+
+      resolve(formatted);
+    });
+
+    audio.addEventListener("error", (err) => {
+      reject(err);
+    });
   });
 }
+

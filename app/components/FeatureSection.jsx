@@ -156,8 +156,7 @@ export default function FeatureSection() {
               </div>
               <div className="text-gray-800 text-[15px] font-normal leading-snug">
                 The team discussed key objectives for Q4, focusing on specific
-                areas to drive growth and efficiency. An action plan was
-                outlined, assigning tasks and timelines to each...
+                areas to drive growth and efficiency....
               </div>
             </div>
             {/* Spacer div for correct bottom padding */}

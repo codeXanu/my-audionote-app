@@ -13,18 +13,18 @@ export default function Card({ card, onClick }) {
         <span>{card.date}</span>
         {card.type && (
           <span className="flex items-center ml-2 text-gray-600 bg-gray-100 p-2 rounded-full">
-            {card.type === "Audio" && <FaMicrophone className="w-4 h-4 mr-1" />}
+            {card.type === "audio" && <FaMicrophone className="w-4 h-4 mr-1" />}
             {card.type === "Text" && <FaRegFileAlt className="w-4 h-4 mr-1" />}
             {card.type === "Image" && <FaRegImage className="w-4 h-4 mr-1" />}
             {card.type === "Youtube" && <FaYoutube className="w-4 h-4 mr-1 text-red-500" />}
 
-            {card.type === "Audio"
+            {card.type === "audio"
               ? card.duration
-              : card.type === "Text"
+              : card.type === "text"
               ? "Text"
-              : card.type === "Image"
+              : card.type === "image"
               ? "Image"
-              : card.type === "Youtube"
+              : card.type === "youtube"
               ? "YouTube Link"
               : ""}
           </span>
@@ -42,7 +42,12 @@ export default function Card({ card, onClick }) {
 
       {/* Actions */}
       <div className="mt-4 flex justify-end items-center space-x-2">
-        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500">
+        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500" 
+          onClick={(e) => {
+            e.stopPropagation();
+            // Your button-specific logic here
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
@@ -52,7 +57,12 @@ export default function Card({ card, onClick }) {
             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
           </svg>
         </button>
-        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500">
+        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Your button-specific logic here
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
@@ -61,8 +71,13 @@ export default function Card({ card, onClick }) {
           >
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
           </svg>
-        </button>
-        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500">
+        </button >
+        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Your button-specific logic here
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
