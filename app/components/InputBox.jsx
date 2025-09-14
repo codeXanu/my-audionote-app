@@ -48,7 +48,7 @@ import AudioUploadDialog from "./AudioUplaodDialog";
 
 
 
-export default function InputBox( {userId, setCardsData, setIsFetching } ) {
+export default function InputBox( {userId, setCardsData } ) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isUploadingAudio, setIsUploadingAudio] = useState(false)
   const recorderRef = useRef();
@@ -67,7 +67,7 @@ export default function InputBox( {userId, setCardsData, setIsFetching } ) {
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
             {/* To upload the Audio file */}
-            <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen} setIsFetching={setIsFetching} />
+            <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
 
             {/* 3-dot button (Mobile/Tablet only) */}
             <button
@@ -92,7 +92,7 @@ export default function InputBox( {userId, setCardsData, setIsFetching } ) {
         </div>
       </div>
 
-      <RecorderModal ref={recorderRef} userId={userId} setCardsData={setCardsData} setIsFetching={setIsFetching}/>
+      <RecorderModal ref={recorderRef} userId={userId} setCardsData={setCardsData} />
 
       {/* Bottom Drawer */}
       {isDrawerOpen && (

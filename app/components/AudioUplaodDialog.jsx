@@ -16,7 +16,7 @@ const useMessage = () => {
   return [message, setMessage];
 };
 
-export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudio, userId, setCardsData, setIsDrawerOpen, setIsFetching }) {
+export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudio, userId, setCardsData, setIsDrawerOpen }) {
   const [audioFile, setAudioFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [message, setMessage] = useMessage();
@@ -65,10 +65,19 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
 
         try {
             // Pass the File directly (no slice needed)
-            const newCard = await processAudio(audioFile, userId, setIsFetching);
+            const loaderCard = { id: "pending", pending: true };
+            setCardsData((prev) => [loaderCard, ...prev]);
+
+            const newCard = await processAudio(audioFile, userId);
 
             if (newCard) {
-            setCardsData((prev) => [newCard, ...prev]);
+            // setCardsData((prev) => [newCard, ...prev]);
+            setCardsData((prev) => {
+                // Remove the pending card if it exists
+                const withoutPending = prev.filter(card => card.id !== "pending");
+                // Insert the new card at the top if fetch succeeded
+                return newCard ? [newCard, ...withoutPending] : withoutPending;
+            });
             } else {
             console.error("Error: newCard is undefined or invalid");
             }

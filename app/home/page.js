@@ -3,104 +3,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
+import useStore from "../store/useStore";
 
 
-// const cardsData = [
-//    {
-//     id: 1,
-//     date: "Sep 6, 2025 • 9:27 PM",
-//     title: "Job Inquiry from Anuj Kumar Maurya",
-//     type: "Text",
-//     transcript:
-//       "Hello, my name is Anuj Kumar Maurya. I am a software engineer and I am looking for a job opportunity. Could you please help me with that?",
-//     content:
-//       "Hello, my name is Anuj Kumar Maurya. I am a software engineer and I am looking for a job opportunity. Could you please help me with that?",
-//   },
-//   {
-//     id: 2,
-//     date: "Aug 28, 2025 • 11:08 PM",
-//     title: "Night Out Invitation",
-//     type: "Audio",
-//     duration: "00:13",
-//     audioUrl: "https://www.kozco.com/tech/piano2-CoolEdit.mp3", // original URL kept
-//     transcript:
-//       "Hello. How are you? What are you doing? Are you free today for a night out?",
-//     content: 
-//       `Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? 
-//       Hello. How are you? What are you doing? Are you free today for a night out? `,
-//   },
-//   {
-//     id: 3,
-//     date: "Aug 20, 2025 • 4:15 PM",
-//     title: "Vacation Picture",
-//     type: "Image",
-//     imageUrl: "/uploads/images/vacation.png", // original URL kept
-//     transcript: "Extracted text from vacation image using OCR.",
-//     content: "Extracted text from vacation image using OCR.",
-//   },
-//   {
-//     id: 4,
-//     date: "Aug 18, 2025 • 6:30 PM",
-//     title: "AI Tutorial",
-//     type: "Youtube",
-//     youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // original URL kept
-//     transcript:
-//       "This YouTube video explains the basics of building an AI assistant...",
-//     content: "This YouTube video explains the basics of building an AI assistant...",
-//   },
-//   {
-//     id: 5,
-//     date: "Aug 28, 2025 • 11:08 PM",
-//     title: "Night Out Invitation",
-//     content:
-//       "Hello. How are you? What are you doing? Are you free today for a night out?",
-//     duration: "00:13",
-//     type: "Audio",
-//   },
-//   {
-//     id: 6,
-//     date: "Aug 28, 2025 • 11:08 PM",
-//     title: "Night Out Invitation",
-//     content:
-//       "Hello. How are you? What are you doing? Are you free today for a night out?",
-//     duration: "00:13",
-//     type: "Audio",
-//   },
-//   {
-//     id: 7,
-//     date: "Aug 28, 2025 • 11:08 PM",
-//     title: "Night Out Invitation",
-//     content:
-//       "Hello. How are you? What are you doing? Are you free today for a night out?",
-//     duration: "00:13",
-//     type: "Audio",
-//   },
-// ];
 
 
 import Sidebar from "../components/Sidebar";
@@ -113,12 +18,13 @@ import ScreenLoader from "../components/ScreenLoader";
 
 
 
-
 export default function HomePage() {
-  
+
   const router = useRouter();
   const [checking, setChecking] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
+  
+
+  const { isFetching } = useStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -162,9 +68,9 @@ export default function HomePage() {
     
     }
 
-    if (isFetching) {
-      return <ScreenLoader />
-    }
+    // if (isFetching) {
+    //   return <ScreenLoader />
+    // }
 
 
   return (
@@ -203,6 +109,8 @@ export default function HomePage() {
             activeItem === "Folders" && 
             <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
           }
+
+          {/* <CardLoaderMockup /> */}
         </div>
         
         
@@ -210,7 +118,7 @@ export default function HomePage() {
         {/* Input Box */}
         <div className={`fixed bottom-0  ${isOpen ? "left-[20%]" : "left-[8%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
         >
-          <InputBox userId={user?.uid} setCardsData={setCardsData} setIsFetching={setIsFetching} />
+          <InputBox userId={user?.uid} setCardsData={setCardsData} />
         </div>
       </div>
 

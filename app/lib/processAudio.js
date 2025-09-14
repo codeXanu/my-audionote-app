@@ -1,8 +1,13 @@
 import buildAudioFormData from "./buildAudioFromData";
 import fetchSummary from "./fetchSummary";
 import createCardFromResponse from "./createCardFromResponse";
+import useStore from "../store/useStore";
 
-const processAudio = async ( blob, userId, setIsFetching) => {
+
+const processAudio = async ( blob, userId) => {
+  
+  const { isFetching, setIsFetching } = useStore.getState();
+
   try {
     setIsFetching(true)
     const formData = await buildAudioFormData(userId, blob);

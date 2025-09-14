@@ -7,7 +7,7 @@ import processAudio from "../lib/processAudio";
 
 
 
-const RecorderModal = forwardRef(({userId, setCardsData, setIsFetching}, ref) => {
+const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -173,9 +173,19 @@ const handleSaveRecording = async () => {
     // for (let [key, value] of formData.entries()) {
     //   console.log(key, value);
     // }
-    const newCard = await processAudio(blob, userId, setIsFetching)
+    const loaderCard = { id: "pending", pending: true };
+    setCardsData((prev) => [loaderCard, ...prev]);
+
+    const newCard = await processAudio(blob, userId)
+    
     if (newCard) {
-      setCardsData((prev) => [newCard, ...prev]);
+      // setCardsData((prev) => [newCard, ...prev]);
+      setCardsData((prev) => {
+        // Remove the pending card if it exists
+        const withoutPending = prev.filter(card => card.id !== "pending");
+        // Insert the new card at the top if fetch succeeded
+        return newCard ? [newCard, ...withoutPending] : withoutPending;
+      });
     }else {
       console.error("Error: newCard is undefined or invalid");
       // or show it in UI:
