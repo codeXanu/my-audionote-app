@@ -1,0 +1,20 @@
+import buildAudioFormData from "./buildAudioFromData";
+import fetchSummary from "./fetchSummary";
+import createCardFromResponse from "./createCardFromResponse";
+
+const processAudio = async ( blob, userId, setIsFetching) => {
+  try {
+    setIsFetching(true)
+    const formData = await buildAudioFormData(userId, blob);
+    const response = await fetchSummary(formData);
+    return createCardFromResponse(response);
+  } catch (error) {
+    console.error("Error processing audio:", error);
+    return null;
+  } finally {
+    setIsFetching(false); // always runs after try/catch
+  }
+};
+
+
+export default processAudio ;

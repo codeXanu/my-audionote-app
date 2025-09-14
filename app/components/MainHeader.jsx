@@ -14,7 +14,7 @@ import {
 
 import BottomDrawer from "./BottomDrawer";
 
-export default function MainHeader( { activeItem, setActiveItem } ) {
+export default function MainHeader( { activeItem, setActiveItem, user } ) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false)
   
@@ -77,7 +77,7 @@ export default function MainHeader( { activeItem, setActiveItem } ) {
                             <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
                               <User size={16} />
                             </div>
-                            <span className="font-medium">Anuj Maurya</span>
+                            <span className="font-medium">{user}</span>
                         </button>
                         {/* <BottomDrawer /> */}
                         <BottomDrawer

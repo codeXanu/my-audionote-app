@@ -128,7 +128,7 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
         </div>
 
         {/* Audio Row */}
-        {selectedCard.type === "Audio" && selectedCard.audioUrl && (
+        {selectedCard.type && selectedCard.type.startsWith("audio/") && selectedCard.audioUrl && (
           <div className="px-3 py-2 sm:px-4 sm:py-3">
             <AudioBar
               src={selectedCard.audioUrl}

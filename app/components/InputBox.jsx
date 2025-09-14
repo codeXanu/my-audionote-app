@@ -32,20 +32,6 @@
 //   );
 // }
 
-function ActionButton({ icon, label, }) {
-  return (
-    <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all">
-      {icon}
-      <span className="max-w-0 max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all">
-        {label}
-      </span>
-    </button>
-  );
-}
-
-
-
-
 import { useState, useRef } from "react";
 
 import { TbWriting } from "react-icons/tb";
@@ -54,10 +40,17 @@ import { IoImage } from "react-icons/io5";
 import { GrFormUpload } from "react-icons/gr";
 import { BsThreeDots } from "react-icons/bs";
 import RecorderModal from "./RecorderModel";
+import AudioUploadDialog from "./AudioUplaodDialog";
 
 
-export default function InputBox( {userId, setCardsData} ) {
+
+
+
+
+
+export default function InputBox( {userId, setCardsData, setIsFetching } ) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isUploadingAudio, setIsUploadingAudio] = useState(false)
   const recorderRef = useRef();
 
   return (
@@ -71,8 +64,10 @@ export default function InputBox( {userId, setCardsData} ) {
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" />
               <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" />
-              <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" />
+              <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
+            {/* To upload the Audio file */}
+            <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen} setIsFetching={setIsFetching} />
 
             {/* 3-dot button (Mobile/Tablet only) */}
             <button
@@ -97,7 +92,7 @@ export default function InputBox( {userId, setCardsData} ) {
         </div>
       </div>
 
-      <RecorderModal ref={recorderRef} userId={userId} setCardsData={setCardsData} />
+      <RecorderModal ref={recorderRef} userId={userId} setCardsData={setCardsData} setIsFetching={setIsFetching}/>
 
       {/* Bottom Drawer */}
       {isDrawerOpen && (
@@ -113,17 +108,39 @@ export default function InputBox( {userId, setCardsData} ) {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" />
-              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" />
-              <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" />
+              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen}/>
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen} />
+              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" isDrawerOpen={isDrawerOpen}/>
+              <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
             </div>
           </div>
         </div>
       )}
+
+      
     </div>
   );
 }
+
+
+function ActionButton({ icon, label, onClick, isDrawerOpen }) {
+  return (
+    <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 group transition-all" onClick={onClick}>
+      {icon}
+      {/* {label2} */}
+      <span className= {` ${ isDrawerOpen? "ml-1" : "max-w-0"} max-h-6 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all`}>
+        {label}
+      </span>
+    </button>
+  );
+}
+
+
+
+
+
+
+
 
 // function ActionButton({ icon, label }) {
 //   return (

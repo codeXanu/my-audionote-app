@@ -3,7 +3,7 @@
  * @param {FormData} formData - contains file, userId, createdAt, type
  * @returns {Promise<Object>} backend response JSON
  */
-export async function fetchSummary(formData) {
+export default async function fetchSummary(formData) {
   try {
     const res = await fetch("/api/summaries", {
       method: "POST",

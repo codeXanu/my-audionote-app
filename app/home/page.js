@@ -118,11 +118,13 @@ export default function HomePage() {
   
   const router = useRouter();
   const [checking, setChecking] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
-  const { greeting, formattedDate } = getGreetingAndDate("Anuj Maurya");
   const [selectedCard, setSelectedCard] = useState(null);
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const { greeting, formattedDate } = getGreetingAndDate(user?.displayName);
 
   const [cardsData, setCardsData] = useState([]);
 
@@ -131,12 +133,17 @@ export default function HomePage() {
   const [activeItem, setActiveItem] = useState("Home");
 
   useEffect(() => {
+    let cancelled = false
     const unsub = onAuthStateChanged(auth, (u) => {
+      if (cancelled) return;
       setUser(u)
       setChecking(false);
       if (!u) router.replace("/login");
     });
-    return () => unsub();
+    return () => {
+      cancelled = true
+      unsub()
+    }
   }, [router]); // consistent top-level hook [7][4]
 
   
@@ -150,10 +157,14 @@ export default function HomePage() {
       }
     }, [isDailougeOpen]);
 
-    if (checking ) {
+    if (checking || !user ) {
       return <ScreenLoader />;
     
-  }
+    }
+
+    if (isFetching) {
+      return <ScreenLoader />
+    }
 
 
   return (
@@ -162,13 +173,13 @@ export default function HomePage() {
    
     <div className="flex text-black bg-white h-full">
       {/* Sidebar */}
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} activeItem={activeItem} setActiveItem={setActiveItem} />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} activeItem={activeItem} setActiveItem={setActiveItem} user={user?.displayName} />
 
       {/* Main Content */}
       <div className="flex-1 p-6 relative">
-        <MainHeader activeItem={activeItem} setActiveItem={setActiveItem} />
+        <MainHeader activeItem={activeItem} setActiveItem={setActiveItem} user={user?.displayName} />
         <div className="mt-4">
-          <h1 className="text-3xl font-medium text-gray-700 mb-2">{greeting} !</h1>
+          <h1 className="text-3xl font-medium text-gray-700 mb-2">{greeting}</h1>
           <p className="text-xl text-gray-400 font-medium mb-6">{formattedDate}</p>
         </div>
 
@@ -176,22 +187,22 @@ export default function HomePage() {
         <div className="" >
 
         
-        {
-           activeItem === "Home" && 
-          <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
-        }
-        {
-           activeItem === "Favourites" && 
-          <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
-        }
-        {
-           activeItem === "Integrations" && 
-           <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
-        }
-        {
-           activeItem === "Folders" && 
-           <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
-        }
+          {
+            activeItem === "Home" && 
+            <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
+          }
+          {
+            activeItem === "Favourites" && 
+            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
+          }
+          {
+            activeItem === "Integrations" && 
+            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
+          }
+          {
+            activeItem === "Folders" && 
+            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
+          }
         </div>
         
         
@@ -199,7 +210,7 @@ export default function HomePage() {
         {/* Input Box */}
         <div className={`fixed bottom-0  ${isOpen ? "left-[20%]" : "left-[8%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
         >
-          <InputBox userId={user?.uid} setCardsData={setCardsData} />
+          <InputBox userId={user?.uid} setCardsData={setCardsData} setIsFetching={setIsFetching} />
         </div>
       </div>
 

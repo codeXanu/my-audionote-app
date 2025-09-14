@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 
 
-export default function ProfileMenu({ isOpen }) {
+export default function ProfileMenu({ isOpen, user }) {
     const router = useRouter();
 
     // const handleLogout = async () => {
@@ -21,7 +21,7 @@ export default function ProfileMenu({ isOpen }) {
           <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
             <User size={16} />
           </div>
-          {isOpen && <span>Anuj Maurya</span>}
+          {isOpen && <span> {user} </span>}
         </div>
       </MenuButton>
 

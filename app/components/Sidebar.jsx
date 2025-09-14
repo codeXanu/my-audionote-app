@@ -7,7 +7,7 @@ import { User, Home, Star, Zap, Folder,Menu } from "lucide-react";
 import ProfileMenu from "./ProfileMenu";
 
 
-export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem }) {
+export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, user }) {
   
 
   return (
@@ -77,7 +77,7 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem }
       </div>
 
       {/* User */}
-      <ProfileMenu isOpen={isOpen} />
+      <ProfileMenu isOpen={isOpen} user={user} />
       {/* <div className="p-4 border-t border-gray-100 flex items-center space-x-2">
         <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
           <User size={16} />

@@ -3,7 +3,7 @@
  * @param {Object} audioFile - { base64, mimeType, name }
  * @returns {string} URL - can be used in <audio> src or download link
  */
-export function getAudioURL(audioFile) {
+export default function getAudioURL(audioFile) {
   if (!audioFile || !audioFile.base64) return null;
 
   const { base64, mimeType } = audioFile;

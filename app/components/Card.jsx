@@ -13,12 +13,12 @@ export default function Card({ card, onClick }) {
         <span>{card.date}</span>
         {card.type && (
           <span className="flex items-center ml-2 text-gray-600 bg-gray-100 p-2 rounded-full">
-            {card.type === "audio" && <FaMicrophone className="w-4 h-4 mr-1" />}
+            {card.type && card.type.startsWith("audio/") && <FaMicrophone className="w-4 h-4 mr-1" />}
             {card.type === "Text" && <FaRegFileAlt className="w-4 h-4 mr-1" />}
             {card.type === "Image" && <FaRegImage className="w-4 h-4 mr-1" />}
             {card.type === "Youtube" && <FaYoutube className="w-4 h-4 mr-1 text-red-500" />}
 
-            {card.type === "audio"
+            {card.type && card.type.startsWith("audio/")
               ? card.duration
               : card.type === "text"
               ? "Text"

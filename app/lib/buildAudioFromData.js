@@ -21,18 +21,25 @@ const getLocalDateTime = () => {
 };
 
 
-export const buildAudioFormData = async (audioFile, userId, blob, type) => {
-
+const buildAudioFormData = async (userId, blob) => {
+  const audioFile = new File([blob], "recording.webm", { type: "audio/webm" });
   const duration = await getAudioDuration(blob);
   console.log("abcd", + duration)
-  console.log(type)
+  // console.log(type)
 
   const formData = new FormData();
   formData.append("file", audioFile, audioFile.name); // audio recording
   formData.append("userId", userId);                    // user id
   formData.append("createdAt", getLocalDateTime());       // IST timestamp
-  formData.append("type", type);
+  formData.append("type", blob.type);
   formData.append("duration", duration);
+
+
+  console.log("abcd", + duration)
+  // console.log(type)
+
 
   return formData;
 };
+
+export default buildAudioFormData;

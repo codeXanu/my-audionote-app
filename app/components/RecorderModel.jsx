@@ -1,12 +1,13 @@
 'use client'
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import { buildAudioFormData } from "../lib/buildAudioFromData";
-import { fetchSummary } from "../lib/fetchSummary";
-import { getAudioURL } from "../utils/makeAudioUrl";
-import { getAudioDuration } from "../utils/getAudioDuration";
+import  buildAudioFormData  from "../lib/buildAudioFromData";
+import  fetchSummary  from "../lib/fetchSummary";
+import { getAudioURL } from "../utils/getAudioUrl";
+import processAudio from "../lib/processAudio";
 
 
-const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
+
+const RecorderModal = forwardRef(({userId, setCardsData, setIsFetching}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -64,12 +65,12 @@ const startRecording = async () => {
       mediaRecorder.ondataavailable = (e) => {
         if (e.data.size > 0) chunksRef.current.push(e.data);
       };
-
+      setType("audio")
       mediaRecorder.onstop = () => {
         cleanupRecording();
         if (!isCancelledRef.current) {
-          setType("audio")
-          handleSaveRecording();
+          
+          handleSaveRecording( );
         }
       };
 
@@ -165,30 +166,20 @@ const handleSaveRecording = async () => {
     console.log("handleSaveRecordingRun")
     if (chunksRef.current.length === 0) return;
     const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-    const file = new File([blob], "recording.webm", { type: "audio/webm" });
+    
     const url = URL.createObjectURL(blob);
     setAudioURL(url);
-    const formData = await buildAudioFormData(file, userId, blob, type);
+    // const formData = await buildAudioFormData(userId, blob);
     // for (let [key, value] of formData.entries()) {
     //   console.log(key, value);
     // }
-    try {
-      console.log("i am fetching")
-      const response = await fetchSummary(formData);
-      const newCard = {
-        id: response.id,
-        date: response.createdAt,
-        title: response.title || "Untitled",
-        type: response.type ,
-        duration: response.duration, // 👉 optional, if you want to calculate add here
-        audioUrl: getAudioURL(response.audioFile),
-        transcript: response.transcript,
-        content: response.summary,
-      };
-      setCardsData(prev => [newCard, ...prev])
-      console.log("Backend response:", response);
-    } catch (error) {
-      console.error("Error:", error);
+    const newCard = await processAudio(blob, userId, setIsFetching)
+    if (newCard) {
+      setCardsData((prev) => [newCard, ...prev]);
+    }else {
+      console.error("Error: newCard is undefined or invalid");
+      // or show it in UI:
+      // setError("Failed to add new card. Please try again.");
     }
   };
 
@@ -308,7 +299,7 @@ const setupAudioVisualizer = async (stream) => {
                     {/* Pause Button */}
                     <button
                         onClick={togglePause}
-                        className="flex items-center space-x-2 px-6 py-2 rounded-full border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors shadow-sm text-sm lg:text-base"
+                        className="flex items-center space-x-2 px-4 py-2 rounded-full border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors shadow-sm text-sm lg:text-base"
                         title={isPaused ? "Resume Recording" : "Pause Recording"}
                     >
                         {isPaused ? (
