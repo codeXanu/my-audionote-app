@@ -19,25 +19,60 @@ export async function POST(req) {
     const duration = formData.get("duration")
 
     if (!file) {
-      return NextResponse.json({ error: "No audio file provided" }, { status: 400 });
+      return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Convert file to Buffer for OpenAI
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const stream = Readable.from(buffer);
+    let transcriptText = "";
+
+    // --- Case 1: Audio file ---
+    if (type.startsWith("audio")) {
+      // Convert file to Buffer
+      const buffer = Buffer.from(await file.arrayBuffer());
+
+      // Keep base64 for frontend reconstruction
+      const base64Audio = buffer.toString("base64");
+
+      // Transcribe using Whisper
+      const transcription = await openai.audio.transcriptions.create({
+        file: file,
+        model: "whisper-1",
+      });
+
+    // const buffer = Buffer.from(await file.arrayBuffer());
+    // const stream = Readable.from(buffer);
 
     // Convert audio → base64 (so frontend can reconstruct)
     // Or can uplaod to supabase storage and  the get public Url
 
-    const base64Audio = buffer.toString("base64");
+    // const base64Audio = buffer.toString("base64");
 
     // --- Step 1: Transcribe using Whisper ---
-    const transcription = await openai.audio.transcriptions.create({
-      file: file,
-      model: "whisper-1",
-    });
+    // const transcription = await openai.audio.transcriptions.create({
+    //   file: file,
+    //   model: "whisper-1",
+    // });
 
-    const transcriptText = transcription.text;
+    transcriptText = transcription.text;
+
+     // Attach audio details for response
+      var audioFilePayload = {
+        base64: base64Audio,
+        mimeType: file.type,
+        name: file.name,
+      };
+    }
+
+
+    // --- Case 2: Text file ---
+    else if (type.startsWith("text")) {
+      const textBuffer = await file.text(); // reads text file directly
+      console.log(textBuffer)
+      transcriptText = textBuffer;
+
+      // No audio payload here
+      var audioFilePayload = null;
+    }
+
 
     // --- Step 2: Summarize with Chat Completions ---
     const summaryPrompt = `
@@ -72,11 +107,7 @@ export async function POST(req) {
       title: result.title,
       transcript: transcriptText,
       summary: result.summary,
-      audioFile: {
-        base64: base64Audio,
-        mimeType: file.type,
-        name: file.name,
-      }, // or upload to Supabase and store URL
+      audioFile: audioFilePayload // or upload to Supabase and store URL,,,, will be null for text files
     };
 
     return NextResponse.json(responsePayload);

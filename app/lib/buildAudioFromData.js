@@ -1,7 +1,7 @@
 import { getAudioDuration } from "../utils/getAudioDuration";
 
 
-const getLocalDateTime = () => {
+export const getLocalDateTime = () => {
   const now = new Date();
 
   const options = {

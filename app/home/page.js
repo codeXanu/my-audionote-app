@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
-import useStore from "../store/useStore";
+
 
 
 
@@ -15,6 +15,7 @@ import { getGreetingAndDate } from "../utils/getGreeting";
 import MainHeader from "../components/MainHeader";
 import CardDialouge from "../components/CardDialouge";
 import ScreenLoader from "../components/ScreenLoader";
+import useStore from "../store/useStore";
 
 
 
@@ -22,17 +23,17 @@ export default function HomePage() {
 
   const router = useRouter();
   const [checking, setChecking] = useState(true);
+
+  const {user, cardsData} = useStore();
+  const { setUser, setCardsData } = useStore.getState();
   
-
-  const { isFetching } = useStore();
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const { greeting, formattedDate } = getGreetingAndDate(user?.displayName);
 
-  const [cardsData, setCardsData] = useState([]);
+  // const [cardsData, setCardsData] = useState([]);
 
   // console.log(user.uid)
 
@@ -95,7 +96,7 @@ export default function HomePage() {
         
           {
             activeItem === "Home" && 
-            <CardsSection cards={cardsData} setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} />
+            <CardsSection setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} cardsData={cardsData} />
           }
           {
             activeItem === "Favourites" && 

@@ -42,6 +42,9 @@ import { BsThreeDots } from "react-icons/bs";
 import RecorderModal from "./RecorderModel";
 import AudioUploadDialog from "./AudioUplaodDialog";
 
+import useStore from "../store/useStore";
+import TextUploadDialog from "./TextUploadDialog";
+
 
 
 
@@ -53,6 +56,8 @@ export default function InputBox( {userId, setCardsData } ) {
   const [isUploadingAudio, setIsUploadingAudio] = useState(false)
   const recorderRef = useRef();
 
+  const { isTextEditerOpen, setIsTextEditerOpen } = useStore.getState();
+
   return (
     <div className="w-full max-w-3xl flex justify-center z-55 ">
       <div className="w-full max-w-4xl ">
@@ -61,7 +66,7 @@ export default function InputBox( {userId, setCardsData } ) {
             
             {/* Left-side icons (Desktop only) */}
             <div className="hidden lg:flex space-x-2">
-              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" />
+              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" />
               <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
@@ -69,6 +74,7 @@ export default function InputBox( {userId, setCardsData } ) {
             {/* To upload the Audio file */}
             <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
 
+            <TextUploadDialog />
             {/* 3-dot button (Mobile/Tablet only) */}
             <button
               className="lg:hidden p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 transition-all"
@@ -108,7 +114,7 @@ export default function InputBox( {userId, setCardsData } ) {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen}/>
+              <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen} onClick={() => setIsTextEditerOpen(true)} />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen} />
               <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" isDrawerOpen={isDrawerOpen}/>
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
@@ -140,14 +146,4 @@ function ActionButton({ icon, label, onClick, isDrawerOpen }) {
 
 
 
-
-
-// function ActionButton({ icon, label }) {
-//   return (
-//     <button className="flex items-center p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-600 transition-all">
-//       {icon}
-//       <span className="ml-2 text-sm font-medium">{label}</span>
-//     </button>
-//   );
-// }
 

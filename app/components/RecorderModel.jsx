@@ -1,9 +1,8 @@
 'use client'
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import  buildAudioFormData  from "../lib/buildAudioFromData";
-import  fetchSummary  from "../lib/fetchSummary";
-import { getAudioURL } from "../utils/getAudioUrl";
+
 import processAudio from "../lib/processAudio";
+// import useStore from "../store/useStore";
 
 
 
@@ -14,6 +13,8 @@ const RecorderModal = forwardRef(({userId, setCardsData}, ref) => {
   const [audioURL, setAudioURL] = useState(null);
   const [timer, setTimer] = useState(0);
   const [type, setType] = useState("");
+
+  // const { setCardsData } = useStore.getState();
   
 
   const mediaRecorderRef = useRef(null);
@@ -174,9 +175,12 @@ const handleSaveRecording = async () => {
     //   console.log(key, value);
     // }
     const loaderCard = { id: "pending", pending: true };
-    setCardsData((prev) => [loaderCard, ...prev]);
+    setCardsData((prev) =>{
+      console.log('prev cardsData before update:', prev);
+      return [loaderCard, ...prev]});
 
     const newCard = await processAudio(blob, userId)
+    console.log('this is new card' ,newCard)
     
     if (newCard) {
       // setCardsData((prev) => [newCard, ...prev]);

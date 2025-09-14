@@ -21,7 +21,7 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
   const [uploadProgress, setUploadProgress] = useState(0);
   const [message, setMessage] = useMessage();
 
-  console.log(audioFile)
+  // console.log(audioFile)
   // Handle audio file selected
   const handleFileChange = (e) => {
     const file = e.target.files[0];

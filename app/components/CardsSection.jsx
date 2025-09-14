@@ -2,13 +2,18 @@
 
 import Card from "./Card";
 import CardLoaderMockup from "./CardLoaderMockup";
+// import useStore from "../store/useStore";
 
 
-export default function CardsSection({ cards, setSelectedCard, setIsDailougeOpen }) {
+export default function CardsSection({ cardsData, setSelectedCard, setIsDailougeOpen }) {
+
+  // const { cardsData } = useStore.getState([]);
+  // console.log('this is cardsData' ,cardsData)
+
   
   return (
     <div className="flex flex-wrap gap-6 overflow-y-auto mb-20">
-      {cards.map((card, index) => 
+      {cardsData.map((card, index) => 
         card.id === "pending" || card.pending ? (
           <CardLoaderMockup key="pending" />
         ) :
