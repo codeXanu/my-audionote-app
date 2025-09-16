@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { Readable } from "stream";
+import uploadFileToSupabase from "@/app/lib/uploadFileToSupabase";
+import { saveNoteMetadata } from "@/app/lib/saveNoteMetadata";
+import crypto from "crypto";
 // import { openai } from "@/lib/openaiClient";
 
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 })
+
+
+
 
 export async function POST(req) {
   try {
@@ -16,12 +22,14 @@ export async function POST(req) {
     const userId = formData.get("userId");
     const createdAt = formData.get("createdAt");
     const type = formData.get("type");
-    const duration = formData.get("duration")
-
+    const duration = parseInt(formData.get("duration"), 10);
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    const noteId = crypto.randomUUID(); // generate once in backend
+    let fileUrl, filePath;
+    
     let transcriptText = "";
 
     // --- Case 1: Audio file ---
@@ -38,21 +46,23 @@ export async function POST(req) {
         model: "whisper-1",
       });
 
-    // const buffer = Buffer.from(await file.arrayBuffer());
-    // const stream = Readable.from(buffer);
+      // const buffer = Buffer.from(await file.arrayBuffer());
+      // const stream = Readable.from(buffer);
 
-    // Convert audio → base64 (so frontend can reconstruct)
-    // Or can uplaod to supabase storage and  the get public Url
+      // Convert audio → base64 (so frontend can reconstruct)
+      // Or can uplaod to supabase storage and  the get public Url
 
-    // const base64Audio = buffer.toString("base64");
+      // const base64Audio = buffer.toString("base64");
 
-    // --- Step 1: Transcribe using Whisper ---
-    // const transcription = await openai.audio.transcriptions.create({
-    //   file: file,
-    //   model: "whisper-1",
-    // });
+      // --- Step 1: Transcribe using Whisper ---
+      // const transcription = await openai.audio.transcriptions.create({
+      //   file: file,
+      //   model: "whisper-1",
+      // });
 
-    transcriptText = transcription.text;
+      transcriptText = transcription.text;
+
+    
 
      // Attach audio details for response
       var audioFilePayload = {
@@ -97,6 +107,57 @@ export async function POST(req) {
     });
 
     const result = JSON.parse(completion.choices[0].message.content);
+
+
+    // --- Save data in supabase Database
+
+    // const { fileUrl, filePath } = await uploadFileToSupabase( noteId, file );
+    if (type.startsWith("audio")) {
+      // Upload the file only for audio
+      const uploadResult = await uploadFileToSupabase(userId, noteId, file);
+      // noteId = uploadResult.noteId;
+      fileUrl = uploadResult.fileUrl;
+      filePath = uploadResult.filePath;
+
+      // Save metadata
+      await saveNoteMetadata({
+        noteId,
+        userId: userId,
+        type: type,
+        title: result.title,
+        transcript: transcriptText,
+        summary: result.summary,
+        duration: duration,
+        filePath,
+        // fileUrl,
+      });
+    } else {
+      // For non-audio types, you can skip upload for now
+      await saveNoteMetadata({
+        noteId,
+        userId,
+        type,
+        title: result.title,
+        transcript: transcriptText,
+        summary: result.summary,
+        duration,
+        filePath: null,
+        // fileUrl: null,
+      });
+    }
+
+    // await saveNoteMetadata({
+    //   noteId,                     // same as storage folder
+    //   userId: userId,
+    //   type: type,
+    //   title: result.title,
+    //   transcript: transcriptText,
+    //   summary: result.summary,
+    //   duration: duration,
+    //   filePath,
+    // });
+
+    console.log("✅ Note metadata saved successfully");
 
     // --- Step 3: Build response object ---
     const responsePayload = {

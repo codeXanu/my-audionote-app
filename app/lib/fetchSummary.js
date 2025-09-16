@@ -15,6 +15,7 @@ export default async function fetchSummary(formData) {
     }
 
     const data = await res.json();
+    console.log("this is res", data);
     return data;
   } catch (err) {
     console.error("Error fetching summary:", err);
