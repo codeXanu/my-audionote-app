@@ -4,10 +4,6 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
-
-
-
-
 import Sidebar from "../components/Sidebar";
 import CardsSection from "../components/CardsSection";
 import InputBox from "../components/InputBox";
@@ -16,6 +12,7 @@ import MainHeader from "../components/MainHeader";
 import CardDialouge from "../components/CardDialouge";
 import ScreenLoader from "../components/ScreenLoader";
 import useStore from "../store/useStore";
+import fetchNotesByUser from "../lib/fetchNotesByUser";
 
 
 
@@ -52,6 +49,22 @@ export default function HomePage() {
       unsub()
     }
   }, [router]); // consistent top-level hook [7][4]
+
+  // to load data from database....
+  useEffect(() => {
+    if (!user) return; // wait until user is available
+
+    async function loadNotes() {
+      try {
+        const notes = await fetchNotesByUser(user.uid);
+        console.log("Fetched notes:", notes);
+      } catch (err) {
+        console.error("Failed to fetch notes:", err);
+      }
+    }
+
+    loadNotes();
+  }, [user]);
 
   
 

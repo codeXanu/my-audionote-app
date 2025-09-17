@@ -19,31 +19,37 @@ export async function saveNoteMetadata({
   noteId,
   userId,
   type,
+  createdAt,
   title,
   transcript,
   summary,
   duration,
   filePath,
+  fileUrl
 }) {
-  const { error } = await supabaseAdmin
+  const { data, error } = await supabaseAdmin
     .from("notes_metadata")
     .insert([
       {
         id: noteId,          // store the noteId from storage as the row id
         user_id: userId,
         type,
+        created_at: createdAt,
         title,
         transcript,
         summary,
         duration,
         file_path: filePath,
+        file_url: fileUrl,
       },
-    ]);
+    ])
+    .select()
+    .single(); // returns only the newly inserted row as an object
 
   if (error) {
     console.error("Error saving note metadata:", error);
     throw error;
   }
 
-  // no return needed, just save
+  return data; // returns the inserted row object
 }

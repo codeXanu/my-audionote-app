@@ -12,6 +12,7 @@ const processAudio = async ( blob, userId) => {
     setIsFetching(true)
     const formData = await buildAudioFormData(userId, blob);
     const response = await fetchSummary(formData);
+    console.log('this is response from database', response);
     return createCardFromResponse(response);
   } catch (error) {
     console.error("Error processing audio:", error);

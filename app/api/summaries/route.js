@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Readable } from "stream";
 import uploadFileToSupabase from "@/app/lib/uploadFileToSupabase";
 import { saveNoteMetadata } from "@/app/lib/saveNoteMetadata";
 import crypto from "crypto";
@@ -29,7 +28,7 @@ export async function POST(req) {
 
     const noteId = crypto.randomUUID(); // generate once in backend
     let fileUrl, filePath;
-    
+
     let transcriptText = "";
 
     // --- Case 1: Audio file ---
@@ -112,6 +111,8 @@ export async function POST(req) {
     // --- Save data in supabase Database
 
     // const { fileUrl, filePath } = await uploadFileToSupabase( noteId, file );
+    let currentSavedNote;
+
     if (type.startsWith("audio")) {
       // Upload the file only for audio
       const uploadResult = await uploadFileToSupabase(userId, noteId, file);
@@ -120,48 +121,38 @@ export async function POST(req) {
       filePath = uploadResult.filePath;
 
       // Save metadata
-      await saveNoteMetadata({
+      currentSavedNote = await saveNoteMetadata({
         noteId,
         userId: userId,
         type: type,
+        createdAt,
         title: result.title,
         transcript: transcriptText,
         summary: result.summary,
         duration: duration,
         filePath,
-        // fileUrl,
+        fileUrl,
       });
     } else {
       // For non-audio types, you can skip upload for now
-      await saveNoteMetadata({
+      currentSavedNote = await saveNoteMetadata({
         noteId,
         userId,
         type,
+        createdAt,
         title: result.title,
         transcript: transcriptText,
         summary: result.summary,
         duration,
         filePath: null,
-        // fileUrl: null,
+        fileUrl: null,
       });
     }
-
-    // await saveNoteMetadata({
-    //   noteId,                     // same as storage folder
-    //   userId: userId,
-    //   type: type,
-    //   title: result.title,
-    //   transcript: transcriptText,
-    //   summary: result.summary,
-    //   duration: duration,
-    //   filePath,
-    // });
-
-    console.log("✅ Note metadata saved successfully");
+    console.log("✅ Note metadata saved successfully", currentSavedNote);
 
     // --- Step 3: Build response object ---
     const responsePayload = {
-      id: userId,
+      id: noteId,
       type,
       createdAt,
       duration,
@@ -171,7 +162,7 @@ export async function POST(req) {
       audioFile: audioFilePayload // or upload to Supabase and store URL,,,, will be null for text files
     };
 
-    return NextResponse.json(responsePayload);
+    return NextResponse.json(currentSavedNote);
   } catch (err) {
     console.error("Error in /api/summaries:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });

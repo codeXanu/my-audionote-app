@@ -15,12 +15,10 @@ export default async function uploadFileToSupabase(userId, noteId, file) {
     if (error) throw error;
     console.log("file uploaded to supabasse storage.")
 
-  // Get public or signed URL
-  const { data: signedUrlData, error: signedUrlError } = await supabaseAdmin.storage
+  // Get permanent public URL (does not expire)
+  const { data: publicUrlData } = supabaseAdmin.storage
     .from("quick_audio_note")
-    .createSignedUrl(filePath, 60 * 60 * 2);
+    .getPublicUrl(filePath);
 
-    if (signedUrlError) throw signedUrlError;
-
-  return {fileUrl: signedUrlData.signedUrl, filePath };
+  return { fileUrl: publicUrlData.publicUrl, filePath };
 }
