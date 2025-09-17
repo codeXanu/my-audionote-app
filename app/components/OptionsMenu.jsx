@@ -5,10 +5,12 @@ import { FaShare } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import deleteNoteById from '../lib/deleteNoteByNoteId';
 import useStore from '../store/useStore';
+import NoteShareDialog from './NoteShareDialog';
 
 export default function OptionsMenu({ noteId }) {
     
     const { user, setCardsData } = useStore.getState();
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
     async function handleDelete( noteId ) {
         try {
@@ -22,6 +24,8 @@ export default function OptionsMenu({ noteId }) {
         }
     }
     return(
+        <>
+        
         <Menu>
             <MenuButton 
                 className="p-2 rounded-full hover:bg-gray-100  text-gray-500"
@@ -55,6 +59,7 @@ export default function OptionsMenu({ noteId }) {
                             onClick={(e) => {
                                 e.stopPropagation();
                                 // Your button-specific logic here
+                                setIsShareModalOpen(true)
                             }}
                         >
                           <FaShare />
@@ -80,6 +85,14 @@ export default function OptionsMenu({ noteId }) {
                     </div>
             </MenuItems>
         </Menu>
+
+        <NoteShareDialog
+            noteId={noteId}
+            isOpen={isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+        />
+            
+        </>
 
     )
 
