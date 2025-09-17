@@ -13,6 +13,7 @@ import CardDialouge from "../components/CardDialouge";
 import ScreenLoader from "../components/ScreenLoader";
 import useStore from "../store/useStore";
 import fetchNotesByUser from "../lib/fetchNotesByUser";
+import createCardFromResponse from "../lib/createCardFromResponse";
 
 
 
@@ -21,19 +22,13 @@ export default function HomePage() {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
 
-  const {user, cardsData} = useStore();
+  const {user, cardsData } = useStore();
   const { setUser, setCardsData } = useStore.getState();
   
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
-  // const [user, setUser] = useState(null);
   const { greeting, formattedDate } = getGreetingAndDate(user?.displayName);
-
-  // const [cardsData, setCardsData] = useState([]);
-
-  // console.log(user.uid)
-
   const [activeItem, setActiveItem] = useState("Home");
 
   useEffect(() => {
@@ -50,6 +45,7 @@ export default function HomePage() {
     }
   }, [router]); // consistent top-level hook [7][4]
 
+
   // to load data from database....
   useEffect(() => {
     if (!user) return; // wait until user is available
@@ -57,7 +53,10 @@ export default function HomePage() {
     async function loadNotes() {
       try {
         const notes = await fetchNotesByUser(user.uid);
+        const notesCard = notes.map((note) => createCardFromResponse(note) );
+        setCardsData(notesCard);
         console.log("Fetched notes:", notes);
+        
       } catch (err) {
         console.error("Failed to fetch notes:", err);
       }
