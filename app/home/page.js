@@ -22,8 +22,8 @@ export default function HomePage() {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
 
-  const {user, cardsData } = useStore();
-  const { setUser, setCardsData } = useStore.getState();
+  const {user, cardsData, isLoadingDatabase  } = useStore();
+  const { setUser, setCardsData, setIsLoadingDatabase } = useStore.getState();
   
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -52,10 +52,12 @@ export default function HomePage() {
 
     async function loadNotes() {
       try {
+        setIsLoadingDatabase(true);
         const notes = await fetchNotesByUser(user.uid);
         const notesCard = notes.map((note) => createCardFromResponse(note) );
         setCardsData(notesCard);
         console.log("Fetched notes:", notes);
+        setIsLoadingDatabase(false);
         
       } catch (err) {
         console.error("Failed to fetch notes:", err);

@@ -2,6 +2,7 @@
 
 import { truncateContent } from "../utils/truncateContent";
 import { FaMicrophone, FaRegFileAlt, FaRegImage, FaYoutube } from "react-icons/fa";
+import OptionsMenu from "./OptionsMenu";
 
 export default function Card({ card, onClick }) {
   
@@ -72,7 +73,7 @@ export default function Card({ card, onClick }) {
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
           </svg>
         </button >
-        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
+        {/* <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
           onClick={(e) => {
             e.stopPropagation();
             // Your button-specific logic here
@@ -86,7 +87,9 @@ export default function Card({ card, onClick }) {
           >
             <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
           </svg>
-        </button>
+        </button> */}
+
+        <OptionsMenu noteId= {card.id} />
       </div>
     </div>
   );

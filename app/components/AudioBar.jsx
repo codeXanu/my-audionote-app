@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -9,13 +9,20 @@ function formatTime(sec) {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-export default function AudioBar({ src, filename = "audio.mp3", className = "" }) {
+export default function AudioBar({
+  src,
+  filename = "audio.mp3",
+  className = "",
+}) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [current, setCurrent] = useState(0);
 
-  const pct = useMemo(() => (duration ? (current / duration) * 100 : 0), [current, duration]);
+  const pct = useMemo(
+    () => (duration ? (current / duration) * 100 : 0),
+    [current, duration]
+  );
 
   useEffect(() => {
     const a = (audioRef.current = new Audio(src));
@@ -55,13 +62,20 @@ export default function AudioBar({ src, filename = "audio.mp3", className = "" }
         setIsPlaying(false);
       });
       navigator.mediaSession.setActionHandler?.("seekbackward", (details) => {
-        a.currentTime = Math.max(0, a.currentTime - (details?.seekOffset || 10));
+        a.currentTime = Math.max(
+          0,
+          a.currentTime - (details?.seekOffset || 10)
+        );
       });
       navigator.mediaSession.setActionHandler?.("seekforward", (details) => {
-        a.currentTime = Math.min(a.duration || Infinity, a.currentTime + (details?.seekOffset || 10));
+        a.currentTime = Math.min(
+          a.duration || Infinity,
+          a.currentTime + (details?.seekOffset || 10)
+        );
       });
       navigator.mediaSession.setActionHandler?.("seekto", (details) => {
-        if (typeof details.seekTime === "number") a.currentTime = details.seekTime;
+        if (typeof details.seekTime === "number")
+          a.currentTime = details.seekTime;
       });
     }
   }, [filename]); // Media Session behaviors per guidance [21][22]
@@ -84,11 +98,22 @@ export default function AudioBar({ src, filename = "audio.mp3", className = "" }
     setCurrent(next);
   };
 
-  const onDownload = () => {
-    const a = document.createElement("a");
-    a.href = src;
-    a.download = filename;
-    a.click();
+  const onDownload = async () => {
+    try {
+      const response = await fetch(src);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
   };
 
   return (

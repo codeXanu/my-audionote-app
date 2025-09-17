@@ -2,6 +2,7 @@
 
 import Card from "./Card";
 import CardLoaderMockup from "./CardLoaderMockup";
+import useStore from "../store/useStore";
 // import useStore from "../store/useStore";
 
 
@@ -9,17 +10,29 @@ export default function CardsSection({ cardsData, setSelectedCard, setIsDailouge
 
   // const { cardsData } = useStore.getState([]);
   // console.log('this is cardsData' ,cardsData)
+  const { isLoadingDatabase } = useStore();
+
+  console.log('isLoadingDatabase', isLoadingDatabase )
 
   
   return (
     <div className="flex flex-wrap gap-6 overflow-y-auto mb-20">
-      {cardsData.map((card, index) => 
-        card.id === "pending" || card.pending ? (
-          <CardLoaderMockup key="pending" />
-        ) :
-      (
-        <Card key={index} card={card} onClick={() => {setSelectedCard(card); setIsDailougeOpen(true);} } />
-      ))}
+      {/* Show loader ONLY when fetching */}
+      { isLoadingDatabase ? (
+        <CardLoaderMockup />
+      ) : (
+          cardsData.map((card, index) => 
+          card.id === "pending" || card.pending || isLoadingDatabase ? (
+            <CardLoaderMockup key="pending" />
+          ) :
+        (
+          <Card key={index} card={card} onClick={() => {setSelectedCard(card); setIsDailougeOpen(true);} } />
+        )
+
+        )
+      )}
+      
+      
     </div>
   );
 }

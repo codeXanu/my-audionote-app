@@ -24,7 +24,8 @@ const useStore = create((set) => ({
       return { cardsData: updater };
   }),
 
- 
+ isLoadingDatabase: false,
+ setIsLoadingDatabase: (val) => set({isLoadingDatabase: val})
 
 
 
