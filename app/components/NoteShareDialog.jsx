@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Image from "next/image"; // Assuming Next.js for Image component
+
 import { FaWhatsapp } from "react-icons/fa";
 import { FiMessageSquare } from "react-icons/fi";
 import { MdContentCopy } from "react-icons/md";

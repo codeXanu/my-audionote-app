@@ -6,6 +6,7 @@ import { auth } from "../lib/firebase";
 
 import Sidebar from "../components/Sidebar";
 import CardsSection from "../components/CardsSection";
+import IntegrationSection from "../components/IntegrationSection";
 import InputBox from "../components/InputBox";
 import { getGreetingAndDate } from "../utils/getGreeting";
 import MainHeader from "../components/MainHeader";
@@ -115,11 +116,13 @@ export default function HomePage() {
           }
           {
             activeItem === "Favourites" && 
+            
             <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
           }
           {
             activeItem === "Integrations" && 
-            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
+            <IntegrationSection />
+            // <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
           }
           {
             activeItem === "Folders" && 
