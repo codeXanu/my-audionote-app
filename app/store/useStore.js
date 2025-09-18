@@ -25,7 +25,10 @@ const useStore = create((set) => ({
   }),
 
  isLoadingDatabase: false,
- setIsLoadingDatabase: (val) => set({isLoadingDatabase: val})
+ setIsLoadingDatabase: (val) => set({isLoadingDatabase: val}),
+
+ isShareModelOpen: false,
+ setIsShareModelOpen: (val) => set({ isShareModelOpen: val })
 
 
 

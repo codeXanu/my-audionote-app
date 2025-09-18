@@ -5,7 +5,8 @@ import { useState, useMemo } from "react";
 import { FiCopy } from "react-icons/fi";
 import { TiTick } from "react-icons/ti";
 import { FiShare2 } from "react-icons/fi";
-
+import useStore from "../store/useStore";
+import NoteShareDialog from "./NoteShareDialog";
 
 
 
@@ -19,6 +20,8 @@ const ACTIONS = [
 export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailougeOpen }) {
   if (!isOpen || !selectedCard) return null;
   const [copied, setCopied] = useState(false);
+
+  const {isShareModelOpen, setIsShareModelOpen} = useStore.getState();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(renderContent() || "");
@@ -112,6 +115,7 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
                 sm:p-2.5
               "
               title="Share"
+              onClick={() => setIsShareModelOpen(true)}
             >
               <FiShare2 className="w-5 h-5 sm:w-5 sm:h-5" />
             </button>
@@ -239,6 +243,15 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
           .no-scrollbar{ -ms-overflow-style: none; scrollbar-width: none; }
         `}</style>
       </div>
+
+          <NoteShareDialog
+            noteId={selectedCard.id}
+            isOpen={isShareModelOpen}
+            onClose={() => setIsShareModelOpen(false)}
+          />
+
+
+
     </div>
 
 

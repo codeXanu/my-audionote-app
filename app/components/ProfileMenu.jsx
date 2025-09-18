@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator } from "@headlessui/react";
+import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Portal } from "@headlessui/react";
 import { User } from "lucide-react";
 import { handleLogout } from "../utils/handleLogout";
 import { useRouter } from "next/navigation";
@@ -26,6 +26,8 @@ export default function ProfileMenu({ isOpen, user }) {
         </div>
       </MenuButton>
 
+
+      <Portal>
       <MenuItems
         anchor="right end"
         transition
@@ -72,6 +74,7 @@ export default function ProfileMenu({ isOpen, user }) {
           </div>
         </div>
       </MenuItems>
+      </Portal>
     </Menu>
   );
 }

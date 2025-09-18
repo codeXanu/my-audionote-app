@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import React,{ useState } from 'react'
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator } from "@headlessui/react";
 import { FaShare } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -11,6 +11,9 @@ export default function OptionsMenu({ noteId }) {
     
     const { user, setCardsData } = useStore.getState();
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+    
+
 
     async function handleDelete( noteId ) {
         try {

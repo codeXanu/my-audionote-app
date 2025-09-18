@@ -97,7 +97,8 @@ export default function HomePage() {
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} activeItem={activeItem} setActiveItem={setActiveItem} user={user?.displayName} />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 relative">
+      <div className={`flex-1 p-6 relative  ${isOpen ? "max-[1080px]:ml-0 min-[1080px]:ml-84" : "max-[1080px]:ml-0 min-[1080px]:ml-26"} transition-all duration-300 `}>
+
         <MainHeader activeItem={activeItem} setActiveItem={setActiveItem} user={user?.displayName} />
         <div className="mt-4">
           <h1 className="text-3xl font-medium text-gray-700 mb-2">{greeting}</h1>
@@ -142,7 +143,7 @@ export default function HomePage() {
           selectedCard={selectedCard}
           onClose={() => setSelectedCard(null) }
           setIsDailougeOpen={setIsDailougeOpen}
-        />
+      />
     </div>
     
     

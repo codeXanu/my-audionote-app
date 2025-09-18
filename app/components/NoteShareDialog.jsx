@@ -15,6 +15,16 @@ export default function NoteShareDialog({ noteId, isOpen, onClose }) {
 
   const frontendUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
+  React.useEffect(() => {
+            if (isOpen) {
+              document.body.style.overflow = "hidden";
+            } else {
+              document.body.style.overflow = "auto";
+            }
+          }, [isOpen]);
+  
+
+
   if (!isOpen) {
     return null;
   }
@@ -73,6 +83,7 @@ export default function NoteShareDialog({ noteId, isOpen, onClose }) {
       "
       role="dialog"
       aria-modal="true"
+      onClick={(e) => e.stopPropagation()}
     >
       <div
         className="
@@ -88,6 +99,7 @@ export default function NoteShareDialog({ noteId, isOpen, onClose }) {
           pt-[max(env(safe-area-inset-top),12px)]
           pb-[max(env(safe-area-inset-bottom),12px)]
         "
+        onClick={(e) => e.stopPropagation()} 
       >
         {/* Close Button */}
         <button

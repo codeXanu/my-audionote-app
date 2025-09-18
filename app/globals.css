@@ -4,7 +4,7 @@
 html {
   scroll-behavior: smooth;
 }
-html { scrollbar-gutter: auto; }
+html { scrollbar-gutter: stable; }
 
 body {
   background-color: #ffffff;
