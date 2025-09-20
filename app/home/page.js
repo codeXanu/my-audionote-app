@@ -15,6 +15,7 @@ import ScreenLoader from "../components/ScreenLoader";
 import useStore from "../store/useStore";
 import fetchNotesByUser from "../lib/fetchNotesByUser";
 import createCardFromResponse from "../lib/createCardFromResponse";
+import { checkNotionConnection } from "../lib/checkNotionConnection";
 
 
 
@@ -23,8 +24,8 @@ export default function HomePage() {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
 
-  const {user, cardsData, isLoadingDatabase  } = useStore();
-  const { setUser, setCardsData, setIsLoadingDatabase } = useStore.getState();
+  const {user, cardsData, isLoadingDatabase, notionConnected  } = useStore();
+  const { setUser, setCardsData, setIsLoadingDatabase, setNotionConnected } = useStore.getState();
   
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -44,7 +45,7 @@ export default function HomePage() {
       cancelled = true
       unsub()
     }
-  }, [router]); // consistent top-level hook [7][4]
+  }, [router]); 
 
 
   // to load data from database....
@@ -66,6 +67,19 @@ export default function HomePage() {
     }
 
     loadNotes();
+  }, [user]);
+
+  //  to check notion connection
+  useEffect(() => {
+    if (!user) return;
+
+    async function fetchNotionStatus() {
+      const connected = await checkNotionConnection(user.uid);
+      // update your local or global state
+      setNotionConnected(connected)
+    }
+
+    fetchNotionStatus();
   }, [user]);
 
   

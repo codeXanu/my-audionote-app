@@ -7,7 +7,32 @@ import { BiLogoPlayStore } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, provider, signInWithPopup } from "../lib/firebase";
+import { createClient } from '@supabase/supabase-js'
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
+async function saveUser(firebaseUser) {
+  const { uid, displayName, email } = firebaseUser;
+
+  const { data, error } = await supabase
+    .from('users')
+    .upsert(
+      [
+        {
+          user_id: uid,
+          name: displayName || "No Name",
+          email: email,
+        },
+      ],
+      { onConflict: 'user_id' } // this ensures duplicates are ignored
+    );
+    // console.log({ data, error });
+
+  if (error) console.error("Error saving user:", error);
+}
 
 const LoginPage = () => {
   const router = useRouter();
@@ -22,6 +47,9 @@ const LoginPage = () => {
 
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);         // sign in
+    const user = result.user;
+    // console.log("Firebase user:", user);
+    await saveUser(user);
     
     router.replace("/home");                         // navigate after success
   };

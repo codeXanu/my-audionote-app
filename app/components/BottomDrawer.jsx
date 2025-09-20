@@ -20,7 +20,7 @@ export default function BottomDrawer({
     <Dialog
       open={bottomDrawerOpen}
       onClose={onClose}
-      className="relative z-50"
+      className="relative z-70"
     >
       {/* Backdrop */}
       <DialogBackdrop

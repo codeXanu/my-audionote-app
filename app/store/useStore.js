@@ -28,7 +28,10 @@ const useStore = create((set) => ({
  setIsLoadingDatabase: (val) => set({isLoadingDatabase: val}),
 
  isShareModelOpen: false,
- setIsShareModelOpen: (val) => set({ isShareModelOpen: val })
+ setIsShareModelOpen: (val) => set({ isShareModelOpen: val }),
+
+ notionConnected: false,
+ setNotionConnected: (val) => set({ notionConnected: val })
 
 
 

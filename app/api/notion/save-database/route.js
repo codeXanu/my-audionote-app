@@ -1,8 +1,7 @@
 // app/api/notion/save-database/route.js
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/app/lib/supabase";
-// import { createClient } from "@supabase/supabase-js";
-// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 
 export async function POST(req) {
   try {

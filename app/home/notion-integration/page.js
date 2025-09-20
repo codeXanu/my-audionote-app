@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { extractDatabaseId } from "@/app/utils/extractDatabaseId";
 import useStore from "../../store/useStore";
 import { auth } from "@/app/lib/firebase";
-import SaveNoteToNotion from "@/app/components/SaveNoteToNotion";
+
 import { FaMicrophoneAlt } from "react-icons/fa";
 
 export default function SettingsPage() {
