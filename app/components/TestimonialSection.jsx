@@ -9,7 +9,7 @@ const testimonials = [
     avatar: "👤",
     badge: "✒️",
     rating: 4,
-    text: "Bought MyAudioNote and I’m blown away. I use it mostly to record my own voice notes and it automatically turns them into clean, structured summaries. This alone saves me hours every week. The app feels smooth and reliable, and I can’t believe how much time I wasted writing before. Highly recommended!",
+    text: "Bought Quick Audio Note and I’m blown away. I use it mostly to record my own voice notes and it automatically turns them into clean, structured summaries. This alone saves me hours every week. The app feels smooth and reliable, and I can’t believe how much time I wasted writing before. Highly recommended!",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const testimonials = [
     avatar: "🧑‍💻",
     badge: "⭐",
     rating: 5,
-    text: "The PDF summarization feature is a life saver. I upload long research papers and within seconds MyAudioNote gives me a clear breakdown of the key points. No more spending hours reading through dense text. I’ve used other tools, but none feel as seamless and accurate as this one.",
+    text: "The PDF summarization feature is a life saver. I upload long research papers and within seconds Quick Audio Note gives me a clear breakdown of the key points. No more spending hours reading through dense text. I’ve used other tools, but none feel as seamless and accurate as this one.",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const testimonials = [
     avatar: "🔒",
     badge: "✔️",
     rating: 5,
-    text: "Privacy was my biggest concern with apps like this. MyAudioNote keeps everything private and secure, which gives me peace of mind. I can store all my ideas, summaries, and notes without fear of them leaking or being used somewhere else. That alone makes this app invaluable.",
+    text: "Privacy was my biggest concern with apps like this. Quick Audio Note keeps everything private and secure, which gives me peace of mind. I can store all my ideas, summaries, and notes without fear of them leaking or being used somewhere else. That alone makes this app invaluable.",
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const testimonials = [
     avatar: "🎤",
     badge: "🎧",
     rating: 5,
-    text: "Transcription is spot on. I record interviews for my podcast and MyAudioNote instantly gives me an accurate transcript and a neat summary of the key moments. It’s like having a free editor working for me. This has improved my workflow and production speed dramatically.",
+    text: "Transcription is spot on. I record interviews for my podcast and Quick Audio Note instantly gives me an accurate transcript and a neat summary of the key moments. It’s like having a free editor working for me. This has improved my workflow and production speed dramatically.",
   },
   {
     id: 7,
@@ -57,7 +57,7 @@ const testimonials = [
     avatar: "👩‍👧",
     badge: "💖",
     rating: 4,
-    text: "As a mom, I barely get time to sit and write. I use MyAudioNote to record my thoughts while cooking or traveling, and later I get beautifully structured notes. It feels like magic, turning my scattered voice notes into proper journals that I can look back on. Total game changer!",
+    text: "As a mom, I barely get time to sit and write. I use Quick Audio Note to record my thoughts while cooking or traveling, and later I get beautifully structured notes. It feels like magic, turning my scattered voice notes into proper journals that I can look back on. Total game changer!",
   },
   {
     id: 8,
@@ -65,7 +65,7 @@ const testimonials = [
     avatar: "🚀",
     badge: "🔥",
     rating: 5,
-    text: "Running a startup means juggling meetings, pitches, and endless documents. MyAudioNote helps me capture meeting discussions, summarize PDFs from investors, and even generate transcripts of brainstorming sessions. Honestly, I don’t know how I managed before discovering this app.",
+    text: "Running a startup means juggling meetings, pitches, and endless documents. Quick Audio Note helps me capture meeting discussions, summarize PDFs from investors, and even generate transcripts of brainstorming sessions. Honestly, I don’t know how I managed before discovering this app.",
   },
 ];
 

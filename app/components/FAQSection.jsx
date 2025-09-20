@@ -147,9 +147,9 @@ function AccordionItem({ q, a }) {
 // FAQ Data
 const faqData = [
   {
-    question: "How does Audionotes.app function?",
+    question: "How does Quick Audio Note function?",
     answer:
-      "Audionotes.app leverages advanced AI models, including OpenAI's Whisper and other audio models, to transcribe, summarize, and process the text efficiently and accurately.",
+      "Quick Audio Note leverages advanced AI models, including OpenAI's Whisper and other audio models, to transcribe, summarize, and process the text efficiently and accurately.",
   },
   {
     question: "Can I record audio from two sources on my device simultaneously?",
@@ -164,12 +164,12 @@ const faqData = [
   {
     question: "Do you offer refunds for paid plans?",
     answer:
-      "We don't provide refunds for paid subscriptions. We encourage you to try our free plan first to experience Audionotes and make an informed decision before upgrading. This way, you can ensure the features meet your needs before committing to a paid plan.",
+      "We don't provide refunds for paid subscriptions. We encourage you to try our free plan first to experience Quick Audio Note and make an informed decision before upgrading. This way, you can ensure the features meet your needs before committing to a paid plan.",
   },
   {
     question: "How can I get support if I need help?",
     answer:
-      "Our support team is readily available via email at{`support@myaudionoteapp.com`}",
+      "Our support team is readily available via email at{`codexanuj@gmail.com`}",
   },
   {
     question: "What are the audio and file size limits for each plan?",
@@ -191,15 +191,11 @@ const faqData = [
     answer:
       "Yes! You can upgrade or downgrade your plan at any time. Changes take effect at the start of your next billing cycle."
   },
-  {
-    question: "Do you offer team/enterprise plans?",
-    answer:
-      "Yes, for teams of 5 or more users, please contact us at hello@audionotes.app for custom enterprise pricing and features."
-  },
+ 
   {
     question: "Which devices and platforms do you support?",
     answer:
-      "Audionotes works seamlessly across iOS, Android, Web, and Chrome extension. Your notes sync automatically across all devices."
+      "Quick Audio Note works seamlessly on Web in any device. Your notes sync automatically across all devices."
   },
   {
     question: "How can I delete my account?",

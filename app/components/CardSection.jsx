@@ -21,7 +21,7 @@ export default function CardSection() {
             </h1>
             <p className="mt-4 text-gray-500 text-lg font-medium text-pretty max-w-xl mx-auto">
                 From busy professionals to creative writers, students to entrepreneurs, 
-                lawyers to content creators, Audionotes is the only note-taking tool 
+                lawyers to content creators, Quick Audio Note is the only note-taking tool 
                 and AI assistant you’ll ever need.
             </p>
         </div>
@@ -95,7 +95,7 @@ export default function CardSection() {
                         E-mail
                     </h1>
                     <p className="text-gray-500 text-base font-medium text-pretty leading-relaxed ">
-                        Don't write emails, just speak and Audionotes will turn your cluttered ideas into amazingl good emails.
+                        Don't write emails, just speak and Quick Audio Note will turn your cluttered ideas into amazingl good emails.
                     </p>
                 </div>
                 </div>

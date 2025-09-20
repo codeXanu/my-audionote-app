@@ -63,7 +63,7 @@ export default function HeroSection() {
                 Take <span className="text-red-500">Perfect</span> Notes
             </h1>
             <p className="text-gray-500 text-lg font-medium text-pretty max-w-md mx-auto">
-                See how Audionotes turns your audio into clear, organized notes you can use anytime.
+                See how Quick Audio Note turns your audio into clear, organized notes you can use anytime.
             </p>
         </div>
     </>

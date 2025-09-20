@@ -88,7 +88,7 @@ export default function BottomDrawer({
 
                 <button
                   onClick={() => handleLogout(router)}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 bg-red-100 text-gray-800 hover:bg-red-500 active:bg-gray-100 transition-colors"
                 >
                   <span className="i-ph-sign-out-duotone text-lg" />
                   <span className="flex-1">Logout</span>

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 
 
-export default function ProfileMenu({ isOpen, user }) {
+export default function ProfileMenu({ isOpen, user, setActiveItem }) {
     const router = useRouter();
 
     // const handleLogout = async () => {
@@ -38,7 +38,7 @@ export default function ProfileMenu({ isOpen, user }) {
       >
         <div className="py-2">
           <MenuItem>
-            <button className="w-full text-left px-4 py-2 flex items-center gap-3 data-[focus]:bg-gray-50">
+            <button className="w-full text-left px-4 py-2 flex items-center gap-3 data-[focus]:bg-gray-50" onClick={() => setActiveItem("Account")} >
               <span className="i-lucide-user-circle w-5 h-5" />
               Account
             </button>

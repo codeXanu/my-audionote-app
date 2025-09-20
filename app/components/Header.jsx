@@ -33,7 +33,7 @@ export default function Header() {
 
                 {/* Text */}
                 <span className="text-lg font-semibold text-gray-900">
-                    MyAudionotes
+                    Quick Audio Note
                 </span>
             </Link>
             

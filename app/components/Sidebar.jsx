@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, 
           <div className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
             <FaMicrophoneAlt className="h-5 w-5 text-white" />
           </div>
-          {isOpen && <span className="font-bold text-lg ">Audionotes</span>}
+          {isOpen && <span className="font-bold text-lg ">Quick Audio Note</span>}
         </div>
         <button onClick={() => setIsOpen(!isOpen)} className="text-red-500">
           {isOpen ? (
@@ -77,13 +77,8 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, 
       </div>
 
       {/* User */}
-      <ProfileMenu isOpen={isOpen} user={user} />
-      {/* <div className="p-4 border-t border-gray-100 flex items-center space-x-2">
-        <div className="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center">
-          <User size={16} />
-        </div>
-        {isOpen && <span>Anuj Maurya</span>}
-      </div> */}
+      <ProfileMenu isOpen={isOpen} user={user} setActiveItem ={setActiveItem} />
+      
     </div>
 
 

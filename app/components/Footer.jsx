@@ -75,17 +75,17 @@ const FooterSection = () => {
       {/* Footer Content */}
       <footer className="w-full max-w-6xl px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row md:space-x-12 lg:space-x-24">
-          {/* Left Section - Audionotes */}
+          {/* Left Section - Quick Audio Note */}
           <div className="md:w-1/4 mb-10 md:mb-0">
             <Link
               href="/"
               scroll={true}
               className="flex items-center  space-x-2 mb-4 rounded-2xl "
             >
-              <span className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
+              <span className="p-2 bg-[#FF3500] rounded-xl flex items-center justify-center">
                 <FaMicrophoneAlt className="h-4 w-4 text-white" />
               </span>
-              <div className="text-2xl font-semibold "> MyAudioNotes</div>
+              <div className="text-2xl font-semibold "> Quick Audio Note</div>
             </Link>
             <p className="text-sm text-neutral-400 mb-6">
               Capture and turn your voice notes, text notes, notes from images,
@@ -131,7 +131,7 @@ const FooterSection = () => {
         </div>
       </footer>
         <div className="text-center text-neutral-500 text-sm mt-8">
-          © {new Date().getFullYear()} MyAudioNote App. All rights reserved.
+          © {new Date().getFullYear()} Quick Audio Note. All rights reserved.
         </div>
     </div>
   );

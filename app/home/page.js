@@ -157,8 +157,8 @@ export default function HomePage() {
             // <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Integrations Section </h1></div>
           }
           {
-            activeItem === "Folders" && 
-            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Floders Section </h1></div>
+            activeItem === "Account" && 
+            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Account Section </h1></div>
           }
 
           {/* <CardLoaderMockup /> */}

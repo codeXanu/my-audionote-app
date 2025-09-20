@@ -83,7 +83,7 @@ export default function MainHeader( { activeItem, setActiveItem, user } ) {
                         <BottomDrawer
                           bottomDrawerOpen={bottomDrawerOpen}
                           onClose={() => setBottomDrawerOpen(false)}
-                          onAccount={() => console.log('Account')}
+                          onAccount={() =>{ setActiveItem("Account"); setBottomDrawerOpen(false);setMobileOpen(false); }}
                           onSupport={() => console.log('Support')}
                           onPlans={() => console.log('Plans')}
                           
@@ -94,9 +94,9 @@ export default function MainHeader( { activeItem, setActiveItem, user } ) {
                   </div>
 
                   <nav className="mt-6 flex flex-col flex-1 px-4 gap-2">
-                      <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
-                      <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
-                      <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
+                      <SidebarItem icon={<Home size={20} />} label="Home" isOpen={true} onClick={() => {setActiveItem("Home");setMobileOpen(false);}} active={activeItem === "Home"}/>
+                      <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={true} onClick={() => {setActiveItem("Favourites"); setMobileOpen(false);}} active={activeItem === "Favourites"} />
+                      <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={true} onClick={() => {setActiveItem("Integrations"); setMobileOpen(false);}} active={activeItem === "Integrations"} />
                       {/* <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={true} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} /> */}
                   </nav>
 

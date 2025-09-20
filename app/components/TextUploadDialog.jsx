@@ -104,7 +104,10 @@ export default function TextUploadDialog () {
                         className={`w-1/2 px-4 py-2 rounded-full font-medium text-white bg-gray-800 hover:bg-gray-900 disabled:bg-gray-400`}
                         disabled={!isTextValid}
                         title={!isTextValid ? "Text must be 15-3000 chars" : "Summarise"}
-                        onClick={handleSummariseText} // add your handler
+                        onClick={() => {
+                            handleSummariseText();
+                            setText("");
+                        }}
                     >
                         Summarise
                     </button>
