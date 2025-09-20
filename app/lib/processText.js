@@ -16,6 +16,7 @@ export default async function processText() {
     const formData = await buildTextFormData(user.uid, plainText);
     console.log('this is form data',formData);
     const response = await fetchSummary(formData);
+    console.log( 'this is response' ,response)
     return createCardFromResponse(response);
   } catch (error) {
     console.error("Error processing audio:", error);

@@ -13,6 +13,7 @@ const createCardFromResponse = (response) => ({
   audioUrl: response.file_url,
   transcript: response.transcript,
   content: response.summary,
+  notionSync: response.notionSync?.success
 });
 
 

@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, 
         <SidebarItem icon={<Home size={20} />} label="Home" isOpen={isOpen} onClick={() => setActiveItem("Home")} active={activeItem === "Home"}/>
         <SidebarItem icon={<Star size={20} />} label="Favourites" isOpen={isOpen} onClick={() => setActiveItem("Favourites")} active={activeItem === "Favourites"} />
         <SidebarItem icon={<Zap size={20} />} label="Integrations" isOpen={isOpen} onClick={() => setActiveItem("Integrations")} active={activeItem === "Integrations"} />
-        <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={isOpen} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} />
+        {/* <SidebarItem icon={<Folder size={20} />} label="Folders" isOpen={isOpen} onClick={() => setActiveItem("Folders")} active={activeItem === "Folders"} /> */}
       </nav>
 
       {/* Upgrade Box */}

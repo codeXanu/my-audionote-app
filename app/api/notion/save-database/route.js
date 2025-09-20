@@ -1,0 +1,29 @@
+// app/api/notion/save-database/route.js
+import { NextResponse } from "next/server";
+import { supabaseAdmin } from "@/app/lib/supabase";
+// import { createClient } from "@supabase/supabase-js";
+// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const { userId, databaseId } = body;
+    if (!userId || !databaseId) {
+      return NextResponse.json({ error: "Missing userId or databaseId" }, { status: 400 });
+    }
+
+    const { error, data } = await supabaseAdmin
+      .from("notion_tokens")
+      .upsert({ user_id: userId, database_id: databaseId }, { onConflict: "user_id" });
+
+    if (error) {
+      console.error("save-database supabase err", error);
+      return NextResponse.json({ error: "Failed to save database id" }, { status: 500 });
+    }
+    console.log("Upsert result:", data);
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

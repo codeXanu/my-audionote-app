@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import uploadFileToSupabase from "@/app/lib/uploadFileToSupabase";
 import { saveNoteMetadata } from "@/app/lib/saveNoteMetadata";
 import crypto from "crypto";
+import { syncNoteToNotion } from "@/app/lib/syncNoteToNotion";
 // import { openai } from "@/lib/openaiClient";
 
 
@@ -150,6 +151,11 @@ export async function POST(req) {
     }
     console.log("✅ Note metadata saved successfully", currentSavedNote);
 
+
+    const notionResult = await syncNoteToNotion(currentSavedNote, userId);
+    console.log("Notion sync result:", notionResult);
+
+
     // --- Step 3: Build response object ---
     const responsePayload = {
       id: noteId,
@@ -162,7 +168,10 @@ export async function POST(req) {
       audioFile: audioFilePayload // or upload to Supabase and store URL,,,, will be null for text files
     };
 
-    return NextResponse.json(currentSavedNote);
+    return NextResponse.json({
+      ...currentSavedNote,
+      notionSync: notionResult,
+    });
   } catch (err) {
     console.error("Error in /api/summaries:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
