@@ -16,6 +16,8 @@ import useStore from "../store/useStore";
 import fetchNotesByUser from "../lib/fetchNotesByUser";
 import createCardFromResponse from "../lib/createCardFromResponse";
 import { checkNotionConnection } from "../lib/checkNotionConnection";
+import FavouritesSection from "../components/favouritesSection";
+import { toggleFavourite } from "../lib/toggleFavourite";
 
 
 
@@ -68,6 +70,22 @@ export default function HomePage() {
 
     loadNotes();
   }, [user]);
+
+  async function handleToggleFavourite(noteId, newStatus) {
+    // optimistic update
+    setCardsData(prev =>
+      prev.map(c => (c.id === noteId ? { ...c, is_favourite: newStatus } : c))
+    );
+
+    // persist via your lib function
+    const ok = await toggleFavourite(noteId, newStatus);
+    if (!ok) {
+      // rollback if failed
+      setCardsData(prev =>
+        prev.map(c => (c.id === noteId ? { ...c, is_favourite: !newStatus } : c))
+      );
+    }
+  }
 
   //  to check notion connection
   useEffect(() => {
@@ -126,12 +144,12 @@ export default function HomePage() {
         
           {
             activeItem === "Home" && 
-            <CardsSection setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} cardsData={cardsData} />
+            <CardsSection setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} cardsData={cardsData} onToggleFavourite={handleToggleFavourite} />
           }
           {
             activeItem === "Favourites" && 
-            
-            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
+            <FavouritesSection setSelectedCard={setSelectedCard} setIsDailougeOpen={setIsDailougeOpen} cardsData={cardsData} onToggleFavourite={handleToggleFavourite} />
+            // <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Favourites Section </h1></div>
           }
           {
             activeItem === "Integrations" && 

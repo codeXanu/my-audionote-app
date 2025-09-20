@@ -1,12 +1,30 @@
 'use client'
 
+import { useState } from "react";
 import { truncateContent } from "../utils/truncateContent";
 import { FaMicrophone, FaRegFileAlt, FaRegImage, FaYoutube } from "react-icons/fa";
-import { SiNotion } from "react-icons/si";
 import OptionsMenu from "./OptionsMenu";
+import { FaStar } from "react-icons/fa6";
+import { toggleFavourite } from "../lib/toggleFavourite";
 
-export default function Card({ card, onClick }) {
+export default function Card({ card, onClick, onToggleFavourite }) {
   
+  const [isFavourite, setIsFavourite] = useState(card.is_favourite);
+
+  // const handleFavouriteClick = async (e) => {
+  //   e.stopPropagation();
+
+  //   // Optimistic UI update
+  //   setIsFavourite((prev) => !prev);
+  //   onUpdateFavourite(card.id, !isFavourite);
+
+  //   const success = await toggleFavourite(card.id, !isFavourite);
+  //   if (!success) {
+  //     // rollback if API fails
+  //     setIsFavourite((prev) => !prev);
+  //     onUpdateFavourite(card.id, isFavourite);
+  //   }
+  // };
 
   return (
     <div onClick={onClick} className="bg-white p-4 rounded-xl shadow-md overflow-hidden border border-gray-300 w-full sm:w-[calc(50%-12px)] lg:w-[30%] flex flex-col min-h-[180px] md:min-h-[400px] hover:shadow-lg transition-shadow">
@@ -44,45 +62,15 @@ export default function Card({ card, onClick }) {
 
       {/* Actions */}
       <div className="mt-4 flex justify-end items-center space-x-2">
-        {/* <button className="p-2 rounded-full text-gray-500" 
+        <button className={`p-2 rounded-full transition-colors ${ card.is_favourite ? "text-red-500" : "text-gray-400 hover:text-gray-600"} `} 
           onClick={(e) => {
             e.stopPropagation();
-            // Your button-specific logic here
+            onToggleFavourite(card.id, !card.is_favourite);
           }}
         >
-          {card.notionSync === true && <SiNotion /> }
-        </button> */}
-        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Your button-specific logic here
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-          </svg>
-        </button >
-        {/* <button className="p-2 rounded-full hover:bg-gray-100 text-gray-500"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Your button-specific logic here
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-          </svg>
-        </button> */}
-
+          {<FaStar className="w-6 h-6" /> }
+        </button>
+        
         <OptionsMenu noteId= {card.id} />
       </div>
     </div>
