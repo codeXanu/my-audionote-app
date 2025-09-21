@@ -1,10 +1,15 @@
 'use client'
-import { useState } from "react";
+import React,{ useState } from "react";
 import { TiTick } from "react-icons/ti";
+import NotAvailableDialog from "./NotAvailableDialog";
 
 
 export default function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
+   const [isNotAvailableDialogOpen, setIsNotAvailableDialogOpen] = React.useState(false);
+      const handleCloseDialog = () => {
+          setIsNotAvailableDialogOpen(false);
+      };
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-12 mt-10">
@@ -71,6 +76,7 @@ export default function PricingSection() {
             { text: "Notes from Images", included: false },
             { text: "Whatsapp Bot", included: false },
           ]}
+          setIsNotAvailableDialogOpen ={setIsNotAvailableDialogOpen}
         />
 
         {/* Pro */}
@@ -93,8 +99,11 @@ export default function PricingSection() {
             { text: "Notes from Images", included: true },
             { text: "WhatsApp Bot", included: true },
           ]}
+          setIsNotAvailableDialogOpen ={setIsNotAvailableDialogOpen}
         />
       </div>
+
+       {isNotAvailableDialogOpen && <NotAvailableDialog onClose={handleCloseDialog} />}
     </div>
   );
 }
@@ -108,6 +117,7 @@ function PricingCard({
   button,
   features,
   popular,
+  setIsNotAvailableDialogOpen
 }) {
   return (
     <div
@@ -129,7 +139,7 @@ function PricingCard({
         {saveText}
       </div>
       <p className="text-gray-600 text-sm mt-2">{desc}</p>
-      <button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 rounded-full mt-6">
+      <button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 rounded-full mt-6" onClick={() => setIsNotAvailableDialogOpen(true)} >
         {button}
       </button>
 

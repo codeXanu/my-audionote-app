@@ -18,6 +18,7 @@ import createCardFromResponse from "../lib/createCardFromResponse";
 import { checkNotionConnection } from "../lib/checkNotionConnection";
 import FavouritesSection from "../components/favouritesSection";
 import { toggleFavourite } from "../lib/toggleFavourite";
+import Account from "../components/Account";
 
 
 
@@ -158,19 +159,22 @@ export default function HomePage() {
           }
           {
             activeItem === "Account" && 
-            <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Account Section </h1></div>
+            <Account />
+            // <div className="flex justify-center items-center h-40 "> <h1 className="text-5xl font-medium text-gray-700" > This is Account Section </h1></div>
           }
 
-          {/* <CardLoaderMockup /> */}
+          
         </div>
         
         
 
         {/* Input Box */}
+       { activeItem === "Integrations" || activeItem === "Account" ? "" :
+          
         <div className={`fixed bottom-0  ${isOpen ? "left-[20%]" : "left-[8%]"} right-0 flex justify-center transition-all duration-300 z-50 max-[1080px]:left-0  max-[1080px]:w-full`}
         >
           <InputBox userId={user?.uid} setCardsData={setCardsData} />
-        </div>
+        </div>}
       </div>
 
       <CardDialouge

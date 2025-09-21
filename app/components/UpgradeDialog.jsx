@@ -4,9 +4,9 @@ import { FaMicrophoneAlt } from "react-icons/fa";
 import NotAvailableDialog from './NotAvailableDialog';
 
 const UpgradeDialog = ({ onClose }) => {
-    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    const [isNotAvailableDialogOpen, setIsNotAvailableDialogOpen] = React.useState(false);
     const handleCloseDialog = () => {
-        setIsDialogOpen(false);
+        setIsNotAvailableDialogOpen(false);
     };
   return (
 
@@ -140,7 +140,7 @@ const UpgradeDialog = ({ onClose }) => {
         {/* Upgrade Button */}
         <div className="p-4 sm:p-6 mt-auto">
           <button
-            onClick={() => setIsDialogOpen(true)}
+            onClick={() => setIsNotAvailableDialogOpen(true)}
             className="w-full px-6 py-3 bg-red-500 text-white rounded-full font-medium hover:bg-red-600 transition-colors"
           >
             Upgrade Plan
@@ -148,7 +148,7 @@ const UpgradeDialog = ({ onClose }) => {
         </div>
       </div>
 
-       {isDialogOpen && <NotAvailableDialog onClose={handleCloseDialog} />}
+       {isNotAvailableDialogOpen && <NotAvailableDialog onClose={handleCloseDialog} />}
     </div>
   );
 };

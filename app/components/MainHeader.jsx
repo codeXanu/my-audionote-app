@@ -34,9 +34,9 @@ export default function MainHeader( { activeItem, setActiveItem, user } ) {
         </div>
 
         {/* Right Upgrade */}
-        <button className="p-2 bg-red-50 rounded-3xl">
+        <a href="https://quick-audio-note.vercel.app/pricing" target="_blank" className="p-2 bg-red-50 rounded-3xl">
           <MdWorkspacePremium className="text-red-500 h-6 w-6 " />
-        </button>
+        </a>
       </div>
 
       {/* ✅ Mobile Drawer (Headless UI) */}
@@ -107,7 +107,7 @@ export default function MainHeader( { activeItem, setActiveItem, user } ) {
                         <span className="text-orange-600 font-bold">FREE</span>
                       </div>
                       <a
-                        href="#"
+                        href="https://quick-audio-note.vercel.app/pricing" target="_blank"
                         className="flex items-center justify-between p-3 rounded-4xl bg-red-50 text-red-600 font-medium transition-colors hover:bg-red-200"
                       >
                         <div className="flex items-center">

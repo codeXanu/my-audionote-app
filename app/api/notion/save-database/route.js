@@ -26,3 +26,29 @@ export async function POST(req) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
+
+
+export async function DELETE(req) {
+  try {
+    const { userId } = await req.json();
+    if (!userId) {
+      return NextResponse.json({ error: "Missing userId" }, { status: 400 });
+    }
+
+    const { error } = await supabaseAdmin
+      .from("notion_tokens")
+      .delete()
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error("disconnect supabase err", error);
+      return NextResponse.json({ error: "Failed to disconnect Notion" }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true, message: "Notion disconnected successfully" });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

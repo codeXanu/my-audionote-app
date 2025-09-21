@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, 
           <div className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
             <FaMicrophoneAlt className="h-5 w-5 text-white" />
           </div>
-          {isOpen && <span className="font-bold text-lg ">Quick Audio Note</span>}
+          {isOpen && <span className="font-bold text-lg whitespace-nowrap overflow-hidden transition-all duration-300 ">Quick Audio Note</span>}
         </div>
         <button onClick={() => setIsOpen(!isOpen)} className="text-red-500">
           {isOpen ? (
@@ -59,7 +59,8 @@ export default function Sidebar({ isOpen, setIsOpen, activeItem, setActiveItem, 
               <span className="text-orange-600 font-bold">FREE</span>
             </div>
             <a
-              href="#"
+              href="https://quick-audio-note.vercel.app/pricing"
+              target="_blank"
               className="flex items-center justify-between p-3 rounded-4xl bg-red-50 text-red-600 font-medium transition-colors hover:bg-red-200"
             >
               <div className="flex items-center">
@@ -93,7 +94,7 @@ export function SidebarItem({ icon, label, isOpen, active, onClick }) {
   return (
     <div onClick={onClick} className={`flex items-center rounded-full p-4 space-x-2 cursor-pointer transition-all duration-300 ${active ? "bg-red-50 font-semibold" : "hover:bg-gray-200"} `}>
       {icon}
-      {isOpen && <span >{label}</span>}
+      {isOpen && <span className={`transition-all duration-300 whitespace-nowrap overflow-hidden` } >{label}</span>}
     </div>
   );
 }

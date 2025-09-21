@@ -3,7 +3,7 @@ import { useState } from "react";
 import { extractDatabaseId } from "../utils/extractDatabaseId";
 
 export default function ConnectNotionModal({ userId, onClose }) {
-    console.log('this is user from anuj', userId )
+  console.log('this is user from anuj', userId )
   const [dbUrl, setDbUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
