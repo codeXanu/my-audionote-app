@@ -27,7 +27,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
             <Link href="/" className="flex items-center gap-3">
                 {/* Mic inside red circle */}
-                <div className="p-2 bg-[#FF3500] rounded-2xl flex items-center justify-center">
+                <div className="p-2 bg-red-500 rounded-2xl flex items-center justify-center">
                     <FaMicrophoneAlt className="h-5 w-5 text-white" />
                 </div>
 
@@ -60,8 +60,8 @@ export default function Header() {
           <Link href="/#faq"  className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
             FAQ
           </Link>
-          <Link href="#" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
-            Mobile App
+          <Link href="/#integrate" className="text-sm/6 font-semibold rounded-lg px-3 py-2 text-black hover:bg-gray-100">
+            Integration
           </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -108,10 +108,10 @@ export default function Header() {
                   FAQ
                 </Link>
                 <Link
-                  href="#"
+                  href="/#integrate"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Mobile App
+                  Integration
                 </Link>
               </div>
               <div className="py-6">

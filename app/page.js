@@ -7,6 +7,7 @@ import TestimonialSection from "./components/TestimonialSection";
 import PricingSection from "./components/PricingSection";
 import FAQSection from "./components/FAQSection";
 import Footer from "./components/Footer";
+import ConnectSection from "./components/ConnectSection";
 import { FormatQuoteRounded } from "@mui/icons-material";
 
 export default function Home() {
@@ -18,6 +19,9 @@ export default function Home() {
    <FeatureShowcase />
     <section id="features">
     <FeatureSection />
+    </section>
+    <section id="integrate" >
+      <ConnectSection />
     </section>
    <PrivacyFirstSection />
    <TestimonialSection />

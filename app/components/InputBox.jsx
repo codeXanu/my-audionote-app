@@ -44,6 +44,7 @@ import AudioUploadDialog from "./AudioUplaodDialog";
 
 import useStore from "../store/useStore";
 import TextUploadDialog from "./TextUploadDialog";
+import UpgradeDialog from "./UpgradeDialog";
 
 
 
@@ -58,6 +59,13 @@ export default function InputBox( {userId, setCardsData } ) {
 
   const { isTextEditerOpen, setIsTextEditerOpen } = useStore.getState();
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Set to true to show initially
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+  
+
   return (
     <div className="w-full max-w-3xl flex justify-center z-55 ">
       <div className="w-full max-w-4xl ">
@@ -67,8 +75,8 @@ export default function InputBox( {userId, setCardsData } ) {
             {/* Left-side icons (Desktop only) */}
             <div className="hidden lg:flex space-x-2">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" />
-              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" />
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
             {/* To upload the Audio file */}
@@ -115,15 +123,15 @@ export default function InputBox( {userId, setCardsData } ) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen} onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen} />
-              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" isDrawerOpen={isDrawerOpen}/>
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
             </div>
           </div>
         </div>
       )}
 
-      
+      {isDialogOpen && <UpgradeDialog onClose={handleCloseDialog} />}
     </div>
   );
 }

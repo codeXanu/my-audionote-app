@@ -82,10 +82,10 @@ const FooterSection = () => {
               scroll={true}
               className="flex items-center  space-x-2 mb-4 rounded-2xl "
             >
-              <span className="p-2 bg-[#FF3500] rounded-xl flex items-center justify-center">
+              <span className="p-2 bg-red-500 rounded-xl flex items-center justify-center">
                 <FaMicrophoneAlt className="h-4 w-4 text-white" />
               </span>
-              <div className="text-2xl font-semibold "> Quick Audio Note</div>
+              <div className="text-2xl font-semibold "> QuickAudioNote</div>
             </Link>
             <p className="text-sm text-neutral-400 mb-6">
               Capture and turn your voice notes, text notes, notes from images,

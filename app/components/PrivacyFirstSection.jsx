@@ -10,7 +10,7 @@ import { SiPrivateinternetaccess } from "react-icons/si";
 export default function PrivacyFirstSection() {
   return (
     <>
-      <section className="bg-[#171413] text-white body-font mt-[-70] mb-10">
+      <section className="bg-[#171413] text-white body-font mb-10">
         <div className="container px-5 py-24 mx-auto">
           <div className="text-center mb-30">
             <h1 className="flex items-center justify-center gap-2 text-3xl font-bold leading-loose sm:text-3xl  title-font text-white mb-4 ">
