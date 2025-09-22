@@ -10,7 +10,7 @@ export default async function deleteNoteById(userId, noteId) {
       throw new Error(errorText || "Failed to delete note");
     }
 
-    alert('card deleted...')
+    alert('Note deleted successfully!')
     return true;
   } catch (err) {
     console.error("Error deleting note:", err);

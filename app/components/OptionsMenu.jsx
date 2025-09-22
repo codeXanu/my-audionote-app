@@ -17,6 +17,10 @@ export default function OptionsMenu({ noteId }) {
 
     async function handleDelete( noteId ) {
         try {
+            const confirmDelete = window.confirm("Are you sure you want to delete this note?");
+            if (!confirmDelete) return; // stop if user clicks cancel
+    
+
             await deleteNoteById(user.uid, noteId);
 
             // frontend se bhi card remove kar do

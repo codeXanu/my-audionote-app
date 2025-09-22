@@ -1,39 +1,4 @@
-// import { TbWriting } from "react-icons/tb";
-// import { FaYoutube } from "react-icons/fa";
-// import { IoImage } from "react-icons/io5";
-// import { GrFormUpload } from "react-icons/gr";
-// import RecorderButton from "./RecorderButton";
-
-// export default function InputBox() {
-    
-//   return (
-//     <div className="w-full flex justify-center z-50">
-//       <div className="w-full max-w-4xl px-4">
-//         <div className="p-4 bg-white rounded-full border border-gray-100 mb-4 shadow-2xl">
-//           <div className="flex items-center justify-between">
-//             {/* Left-side icons */}
-//             <div className="flex space-x-2">
-//               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note"/>
-//               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" />
-//               <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" />
-//               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" />
-//             </div>
-
-//             {/* Record button */}
-//             {/* <button className="p-3 px-6 rounded-full bg-red-500 text-white flex items-center font-medium shadow-lg hover:bg-red-600 transition-colors">
-//               <span className="w-2 h-2 rounded-full bg-white mr-2"></span>
-//               Start recording
-//             </button> */}
-//             <RecorderButton />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useState, useRef } from "react";
-
 import { TbWriting } from "react-icons/tb";
 import { FaYoutube } from "react-icons/fa";
 import { IoImage } from "react-icons/io5";
@@ -42,12 +7,10 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdOutlinePictureAsPdf } from "react-icons/md";
 import RecorderModal from "./RecorderModel";
 import AudioUploadDialog from "./AudioUplaodDialog";
-
 import useStore from "../store/useStore";
 import TextUploadDialog from "./TextUploadDialog";
 import UpgradeDialog from "./UpgradeDialog";
-
-
+import PdfHandleDialog from "./PdfHandleDialog";
 
 
 
@@ -59,8 +22,8 @@ export default function InputBox( {userId, setCardsData } ) {
   const recorderRef = useRef();
 
   const { isTextEditerOpen, setIsTextEditerOpen } = useStore.getState();
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Set to true to show initially
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Set to true to show initially for premium feature 
+  const [ isUploadingPdf, setIsUploadingPdf ] = useState(false);
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
@@ -77,11 +40,12 @@ export default function InputBox( {userId, setCardsData } ) {
             <div className="hidden lg:flex space-x-2">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsDialogOpen(true)} />
-              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" onClick={()=>setIsUploadingPdf(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
             {/* To upload the Audio file */}
             <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
+            <PdfHandleDialog isUploadingPdf={isUploadingPdf}  setIsUploadingPdf={setIsUploadingPdf} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
 
             <TextUploadDialog />
             {/* 3-dot button (Mobile/Tablet only) */}

@@ -32,7 +32,7 @@ export default function TextUploadDialog () {
         console.log('prev cardsData before update:', prev);
         return [loaderCard, ...prev]});
 
-        const newCard = await processText(text, userId)
+        const newCard = await processText(plainText, userId)
         console.log('this is new card' , newCard)
         
         if (newCard) {
