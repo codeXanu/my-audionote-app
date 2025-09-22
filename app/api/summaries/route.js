@@ -4,7 +4,8 @@ import uploadFileToSupabase from "@/app/lib/uploadFileToSupabase";
 import { saveNoteMetadata } from "@/app/lib/saveNoteMetadata";
 import crypto from "crypto";
 import { syncNoteToNotion } from "@/app/lib/syncNoteToNotion";
-// import { openai } from "@/lib/openaiClient";
+import { sendNoteToWebhook } from "@/app/lib/sendNoteToWebhook";
+import getWebhookUrl from "@/app/lib/getWebhookUrl";
 
 
 const openai = new OpenAI({
@@ -155,6 +156,21 @@ export async function POST(req) {
     const notionResult = await syncNoteToNotion(currentSavedNote, userId);
     console.log("Notion sync result:", notionResult);
 
+    const noteToWebhook = {
+        noteId,
+        type: type,
+        createdAt,
+        title: result.title,
+        transcript: transcriptText,
+        summary: result.summary,
+        duration: duration,
+        fileUrl,
+    }
+
+    const webhookUrl = await getWebhookUrl(userId);
+    console.log("finally", webhookUrl)
+    const webhoookResult = await sendNoteToWebhook(webhookUrl, noteToWebhook);
+
 
     // --- Step 3: Build response object ---
     const responsePayload = {
@@ -171,6 +187,7 @@ export async function POST(req) {
     return NextResponse.json({
       ...currentSavedNote,
       notionSync: notionResult,
+      webhookSync: webhoookResult,
     });
   } catch (err) {
     console.error("Error in /api/summaries:", err);

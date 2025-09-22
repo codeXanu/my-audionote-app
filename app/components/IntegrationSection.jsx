@@ -1,18 +1,25 @@
 'use client'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SiNotion } from "react-icons/si";
 import { MdOutlineWebhook } from "react-icons/md";
 import ConnectNotionModal from './ConnectNotionModal';
 import useStore from '../store/useStore';
 import DisconnectDialog from './DisconnectDialog';
+import WebhookDialog from './WebhookDialog';
 
 
 const IntegrationSection = () => {
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { user, notionConnected } = useStore();
   const { setNotionConnected } = useStore.getState();
-  const [isDisconnectOpen, setIsDisconnectOpen] = React.useState(false);
+  const [isDisconnectOpen, setIsDisconnectOpen] = useState(false);
+  const [isWebhookDialogOpen, setIsWebhookDialogOpen] = useState(false);
+  const [isWebhookConnected, setIsWebhookConnected] = useState(false);
+
+
+
+  const userId = user.uid;
 
 
   const handleDisconnect = async () => {
@@ -42,6 +49,31 @@ const IntegrationSection = () => {
       alert("Something went wrong while disconnecting");
     }
   };
+
+
+  // Function to check the webhook status on component load
+  useEffect(() => {
+    const checkWebhookStatus = async () => {
+      try {
+        const response = await fetch(`/api/webhook?userId=${userId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        if (data.webhook_url) {
+          setIsWebhookConnected(true);
+        } else {
+          setIsWebhookConnected(false);
+        }
+      } catch (error) {
+        console.error("Failed to check webhook status:", error);
+      }
+    };
+
+    if (userId) {
+      checkWebhookStatus();
+    }
+  }, [userId]);
   
 
   return (
@@ -77,10 +109,10 @@ const IntegrationSection = () => {
           <h3 className="text-xl font-bold text-gray-900 mb-4">Webhook</h3>
           <p className="text-sm font-semibold text-center text-gray-500 mb-8">Send your notes to your App or Server using Webhooks</p>
           <button
-          className="mt-auto w-full py-2 px-4 bg-gray-800 text-white font-medium rounded-full hover:bg-gray-900 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50"
-
+          className={`mt-auto w-full py-2 px-4 ${isWebhookConnected ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-800 text-gray-500 hover:bg-gray-900'} text-white font-medium rounded-full  transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50  `}
+            onClick={() => setIsWebhookDialogOpen(true)}
           >
-            + Connect
+           {isWebhookConnected ? 'Connected' : '+ Connect'}  
           </button>
         </div>
 
@@ -98,6 +130,14 @@ const IntegrationSection = () => {
         <DisconnectDialog  userName={user.displayName} onClose={() => setIsDisconnectOpen(false)} onDisconnect={handleDisconnect} />
       }
       
+      <WebhookDialog
+        isOpen={isWebhookDialogOpen}
+        onClose={() => setIsWebhookDialogOpen(false)}
+        userId={user.uid} // Pass your user ID here
+        onSaveSuccess={() => { /* Handle UI update after save/delete */ }}
+        setIsWebhookConnected={setIsWebhookConnected}
+        isWebhookConnected ={isWebhookConnected}
+      />
 
     </>
   );

@@ -73,8 +73,8 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Text */}
-                <span className="text-lg font-semibold text-gray-900">
-                    MyAudionotes
+                <span className="text-lg font-bold text-gray-900">
+                    Quick Audio Note
                 </span>
           </div>
       </div>

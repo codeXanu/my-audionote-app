@@ -39,6 +39,7 @@ import { FaYoutube } from "react-icons/fa";
 import { IoImage } from "react-icons/io5";
 import { GrFormUpload } from "react-icons/gr";
 import { BsThreeDots } from "react-icons/bs";
+import { MdOutlinePictureAsPdf } from "react-icons/md";
 import RecorderModal from "./RecorderModel";
 import AudioUploadDialog from "./AudioUplaodDialog";
 
@@ -76,7 +77,7 @@ export default function InputBox( {userId, setCardsData } ) {
             <div className="hidden lg:flex space-x-2">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsDialogOpen(true)} />
-              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
             {/* To upload the Audio file */}
@@ -124,7 +125,7 @@ export default function InputBox( {userId, setCardsData } ) {
             <div className="grid grid-cols-2 gap-4">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen} onClick={() => setIsTextEditerOpen(true)} />
               <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
-              <ActionButton icon={<IoImage className="w-6 h-6" />} label="Upload Image" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
             </div>
           </div>

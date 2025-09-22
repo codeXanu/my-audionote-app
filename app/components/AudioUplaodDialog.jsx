@@ -100,7 +100,7 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-999 p-4">
-      <div className="bg-white rounded-2xl lg:rounded-full shadow-xl p-8 w-full max-w-4xl">
+      <div className="bg-white rounded-2xl lg:rounded-full shadow-xl p-6 w-full max-w-4xl">
         {/* Main Content Container */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-2">
 

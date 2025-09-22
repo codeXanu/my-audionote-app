@@ -14,7 +14,8 @@ const createCardFromResponse = (response) => ({
   transcript: response.transcript,
   content: response.summary,
   notionSync: response.notionSync?.success,
-  is_favourite: response.is_favourite
+  is_favourite: response.is_favourite,
+  webhookSync: response.webhookSync?.success
 });
 
 

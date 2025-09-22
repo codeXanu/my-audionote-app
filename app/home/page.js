@@ -101,7 +101,6 @@ export default function HomePage() {
     fetchNotionStatus();
   }, [user]);
 
-  
 
     // Disable background scroll when modal is open
     useEffect(() => {
