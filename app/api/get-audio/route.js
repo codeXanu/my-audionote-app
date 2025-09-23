@@ -26,7 +26,7 @@ export async function GET(req) {
     console.log('this is returned' ,format)
 
     // Instead of fetching & buffering, stream it back directly
-    const audioStream = ytdl(videoUrl, { format });
+   const audioStream = ytdl(videoUrl, { quality: "highestaudio", filter: "audioonly" });
 
     // Convert Node.js stream -> Web ReadableStream (for Next.js)
     const stream = new ReadableStream({
@@ -43,12 +43,12 @@ export async function GET(req) {
     // const buffer = await response.arrayBuffer();
 
      return new NextResponse(stream, {
-      headers: {
-        "Content-Type": format.mimeType || "audio/webm",
-        "Content-Disposition": "inline; filename=audio.webm",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+        headers: {
+          "Content-Type": "audio/webm",
+          "Content-Disposition": "inline; filename=audio.webm",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
   } catch (err) {
     console.error("Error fetching audio:", err);
     return NextResponse.json({ error: "Failed to fetch audio URL" }, { status: 500 });

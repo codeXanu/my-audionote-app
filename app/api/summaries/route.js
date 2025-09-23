@@ -22,7 +22,8 @@ export async function POST(req) {
     const file = formData.get("file");
     const userId = formData.get("userId");
     const createdAt = formData.get("createdAt");
-    const type = formData.get("type");
+    const type = file.type
+    const cardType = formData.get("type");
     const duration = parseInt(formData.get("duration"), 10);
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -134,6 +135,7 @@ export async function POST(req) {
         duration: duration,
         filePath,
         fileUrl,
+        cardType: cardType
       });
     } else {
       // For non-audio types, you can skip upload for now
@@ -148,6 +150,7 @@ export async function POST(req) {
         duration,
         filePath: null,
         fileUrl: null,
+        cardType: cardType
       });
     }
     console.log("✅ Note metadata saved successfully", currentSavedNote);
@@ -158,7 +161,7 @@ export async function POST(req) {
 
     const noteToWebhook = {
         noteId,
-        type: type,
+        type: cardType,
         createdAt,
         title: result.title,
         transcript: transcriptText,

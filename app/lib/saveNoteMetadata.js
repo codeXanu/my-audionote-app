@@ -25,7 +25,8 @@ export async function saveNoteMetadata({
   summary,
   duration,
   filePath,
-  fileUrl
+  fileUrl,
+  cardType
 }) {
   const { data, error } = await supabaseAdmin
     .from("notes_metadata")
@@ -41,6 +42,7 @@ export async function saveNoteMetadata({
         duration,
         file_path: filePath,
         file_url: fileUrl,
+        card_type: cardType
       },
     ])
     .select()

@@ -6,14 +6,14 @@ import useStore from "../store/useStore";
 const getPlainText = (html) =>
   html ? (new DOMParser().parseFromString(html, "text/html")).body.textContent || "" : "";
 
-export default async function processText(theText, userId) {
+export default async function processText(theText, userId, type) {
 
     const { isFetching, setIsFetching, text, user } = useStore.getState();
 
   try {
     setIsFetching(true)
     const plainText = getPlainText(text);
-    const formData = await buildTextFormData(userId, theText);
+    const formData = await buildTextFormData(userId, theText, type);
     console.log('this is form data',formData);
     const response = await fetchSummary(formData);
     console.log( 'this is response' ,response)

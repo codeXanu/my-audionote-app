@@ -4,13 +4,13 @@ import createCardFromResponse from "./createCardFromResponse";
 import useStore from "../store/useStore";
 
 
-const processAudio = async ( blob, userId) => {
+const processAudio = async ( blob, userId, type) => {
   
   const { isFetching, setIsFetching } = useStore.getState();
 
   try {
     setIsFetching(true)
-    const formData = await buildAudioFormData(userId, blob);
+    const formData = await buildAudioFormData(userId, blob, type);
     const response = await fetchSummary(formData);
     console.log('this is response from database', response);
     return createCardFromResponse(response);

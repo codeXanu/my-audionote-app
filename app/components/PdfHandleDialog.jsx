@@ -145,8 +145,9 @@ export default function PdfHandleDialog({ isUploadingPdf, setIsUploadingPdf, use
 
       // Trim to 1000 words max
       const trimmedWords = extractedText.split(/\s+/).slice(0, 1000).join(' ');
-        console.log("this is  trimmed text", trimmedWords);
-      const newCard = await processText(trimmedWords, userId);
+      console.log("this is  trimmed text", trimmedWords);
+
+      const newCard = await processText(trimmedWords, userId, "pdf");
 
       if (newCard) {
         setCardsData((prev) => {

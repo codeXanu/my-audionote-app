@@ -179,7 +179,8 @@ const handleSaveRecording = async () => {
       console.log('prev cardsData before update:', prev);
       return [loaderCard, ...prev]});
 
-    const newCard = await processAudio(blob, userId)
+    const newCard = await processAudio(blob, userId, "audio")
+
     console.log('this is new card' ,newCard)
     
     if (newCard) {

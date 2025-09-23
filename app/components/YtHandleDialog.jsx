@@ -44,7 +44,7 @@ export default function YtHandleDialog({ isUploadingYt, setIsUploadingYt, userId
       const audioBlob = await fetchAudioBlob(youtubeLink);
       console.log('bloooob', audioBlob);
     
-      const newCard = await processAudio(audioBlob, userId);
+      const newCard = await processAudio(audioBlob, userId, "youtube");
 
       if (newCard) {
         setCardsData(prev => {
@@ -141,7 +141,7 @@ export default function YtHandleDialog({ isUploadingYt, setIsUploadingYt, userId
             />
             {isProcessing && (
               <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden mb-2">
-                <div className="bg-red-500 h-4 w-full animate-pulse" />
+                <div className="bg-red-100 h-8 w-full animate-pulse"> <p className='text-sm text-gray-800 font-medium p-1 text-center' >Work in progress. It may take time. Please wait.</p> </div>
               </div>
             )}
             {message && (

@@ -5,6 +5,7 @@ import { truncateContent } from "../utils/truncateContent";
 import { FaMicrophone, FaRegFileAlt, FaRegImage, FaYoutube } from "react-icons/fa";
 import OptionsMenu from "./OptionsMenu";
 import { FaStar } from "react-icons/fa6";
+import { MdOutlinePictureAsPdf } from "react-icons/md";
 
 
 export default function Card({ card, onClick, onToggleFavourite }) {
@@ -17,18 +18,18 @@ export default function Card({ card, onClick, onToggleFavourite }) {
         <span>{card.date}</span>
         {card.type && (
           <span className="flex items-center ml-2 text-gray-600 bg-gray-100 p-2 rounded-full">
-            {card.type && card.type.startsWith("audio/") && <FaMicrophone className="w-4 h-4 mr-1" />}
-            {card.type && card.type.startsWith("text/") && <FaRegFileAlt className="w-4 h-4 mr-1" />}
-            {card.type === "Image" && <FaRegImage className="w-4 h-4 mr-1" />}
-            {card.type === "Youtube" && <FaYoutube className="w-4 h-4 mr-1 text-red-500" />}
+            {card.cardType && card.cardType.startsWith("audio") && <FaMicrophone className="w-4 h-4 mr-1" />}
+            {card.cardType && card.cardType.startsWith("text") && <FaRegFileAlt className="w-4 h-4 mr-1" />}
+            {card.cardType && card.cardType === "pdf" && <MdOutlinePictureAsPdf className="w-4 h-4 mr-1" />}
+            {card.cardType && card.cardType === "youtube" && <FaYoutube className="w-4 h-4 mr-1 " />}
 
-            {card.type && card.type.startsWith("audio/")
+            {card.cardType && card.cardType.startsWith("audio")
               ? card.duration
-              : card.type && card.type.startsWith("text/")
+              : card.cardType && card.cardType.startsWith("text")
               ? "Text"
-              : card.type === "image"
-              ? "Image"
-              : card.type === "youtube"
+              : card.cardType && card.cardType === "pdf"
+              ? "Pdf"
+              : card.cardType && card.cardType === "youtube"
               ? "YouTube Link"
               : ""}
           </span>

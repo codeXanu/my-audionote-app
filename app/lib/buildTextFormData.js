@@ -1,6 +1,6 @@
 import { getLocalDateTime } from "./buildAudioFromData";
 
-const buildTextFormData = async (userId, text) => {
+const buildTextFormData = async (userId, text, type) => {
     
     const file = new File([text], "input.txt", { type: "text/plain" });
 
@@ -8,7 +8,7 @@ const buildTextFormData = async (userId, text) => {
   formData.append("file", file, file.name);                   // text content
   formData.append("userId", userId);               // user id
   formData.append("createdAt", getLocalDateTime()); // IST timestamp
-  formData.append("type", "text/plain");           // content type for plain text
+  formData.append("type", type);           // content type for plain text
 
   return formData;
 }

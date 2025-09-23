@@ -68,7 +68,7 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
             const loaderCard = { id: "pending", pending: true };
             setCardsData((prev) => [loaderCard, ...prev]);
 
-            const newCard = await processAudio(audioFile, userId);
+            const newCard = await processAudio(audioFile, userId, "audio" );
 
             if (newCard) {
             // setCardsData((prev) => [newCard, ...prev]);
