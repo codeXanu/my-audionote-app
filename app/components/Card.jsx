@@ -5,27 +5,11 @@ import { truncateContent } from "../utils/truncateContent";
 import { FaMicrophone, FaRegFileAlt, FaRegImage, FaYoutube } from "react-icons/fa";
 import OptionsMenu from "./OptionsMenu";
 import { FaStar } from "react-icons/fa6";
-import { toggleFavourite } from "../lib/toggleFavourite";
+
 
 export default function Card({ card, onClick, onToggleFavourite }) {
   
-  const [isFavourite, setIsFavourite] = useState(card.is_favourite);
-
-  // const handleFavouriteClick = async (e) => {
-  //   e.stopPropagation();
-
-  //   // Optimistic UI update
-  //   setIsFavourite((prev) => !prev);
-  //   onUpdateFavourite(card.id, !isFavourite);
-
-  //   const success = await toggleFavourite(card.id, !isFavourite);
-  //   if (!success) {
-  //     // rollback if API fails
-  //     setIsFavourite((prev) => !prev);
-  //     onUpdateFavourite(card.id, isFavourite);
-  //   }
-  // };
-
+  
   return (
     <div onClick={onClick} className="bg-white p-4 rounded-xl shadow-md overflow-hidden border border-gray-300 w-full sm:w-[calc(50%-12px)] lg:w-[30%] flex flex-col min-h-[180px] md:min-h-[400px] hover:shadow-lg transition-shadow">
       {/* Date + Duration */}

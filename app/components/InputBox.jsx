@@ -11,6 +11,7 @@ import useStore from "../store/useStore";
 import TextUploadDialog from "./TextUploadDialog";
 import UpgradeDialog from "./UpgradeDialog";
 import PdfHandleDialog from "./PdfHandleDialog";
+import YtHandleDialog from "./YtHandleDialog";
 
 
 
@@ -24,6 +25,7 @@ export default function InputBox( {userId, setCardsData } ) {
   const { isTextEditerOpen, setIsTextEditerOpen } = useStore.getState();
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Set to true to show initially for premium feature 
   const [ isUploadingPdf, setIsUploadingPdf ] = useState(false);
+  const [ isUploadingYt, setIsUploadingYt ] = useState(false);
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
@@ -39,14 +41,14 @@ export default function InputBox( {userId, setCardsData } ) {
             {/* Left-side icons (Desktop only) */}
             <div className="hidden lg:flex space-x-2">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsUploadingYt(true)} />
               <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" onClick={()=>setIsUploadingPdf(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
             {/* To upload the Audio file */}
             <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
             <PdfHandleDialog isUploadingPdf={isUploadingPdf}  setIsUploadingPdf={setIsUploadingPdf} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
-
+            <YtHandleDialog isUploadingYt={isUploadingYt} setIsUploadingYt={setIsUploadingYt} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen} />
             <TextUploadDialog />
             {/* 3-dot button (Mobile/Tablet only) */}
             <button
@@ -88,8 +90,8 @@ export default function InputBox( {userId, setCardsData } ) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen} onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
-              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsUploadingYt(true)} />
+              <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsUploadingPdf(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
             </div>
           </div>

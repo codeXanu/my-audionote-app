@@ -33,8 +33,8 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
     () => [
       { key: "notes", label: "AI Notes" },
       { key: "transcript", label: "Transcript" },
-      { key: "create", label: "Create" },
-      { key: "speaker", label: "Speaker Transcript" },
+      // { key: "create", label: "Create" },
+      // { key: "speaker", label: "Speaker Transcript" },
     ],
     []
   );
@@ -225,7 +225,7 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
         </div>
 
         {/* Bottom Bar */}
-        <div
+        {/* <div
           className="
             h-12 sm:h-12
             m-2 sm:m-2
@@ -234,7 +234,7 @@ export default function CardDialouge({ isOpen, onClose, selectedCard, setIsDailo
           "
         >
           <button className="text-white font-semibold text-base sm:text-lg">Ask AI</button>
-        </div>
+        </div> */}
 
         {/* fade-in keyframes */}
         <style>{`
