@@ -31,8 +31,8 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
       setMessage('Please upload an audio file!');
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      setMessage('Audio file must be less than 10MB');
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage('Audio file must be less than 5MB');
       return;
     }
 
@@ -79,10 +79,14 @@ export default function AudioUploadDialog({ isUploadingAudio, setIsUploadingAudi
                 return newCard ? [newCard, ...withoutPending] : withoutPending;
             });
             } else {
-            console.error("Error: newCard is undefined or invalid");
+              console.error("Error: newCard is undefined or invalid");
+              alert("Something went wrong");
+              setCardsData(prev => prev.filter(c => c.id !== "pending"));
             }
         } catch (err) {
-            console.error("Upload error:", err);
+          console.error("Upload error:", err);
+          alert("Something went wrong");
+          setCardsData(prev => prev.filter(c => c.id !== "pending"));
         }
         setAudioFile(null);
     };

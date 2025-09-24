@@ -39,6 +39,7 @@ const WebhookDialog = ({ isOpen, onClose, userId, onSaveSuccess,isWebhookConnect
       console.error('Save error:', error);
     } finally {
       setIsLoading(false);
+      setTimeout(() => { onClose(); setMessage(''); }, 2000);
     }
   };
 

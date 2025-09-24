@@ -17,8 +17,8 @@ const FooterSection = () => {
     ],
     support: [
       { text: "Support", url: "/support" },
-      { text: "Privacy Policy", url: "/privacy" },
-      { text: "Terms of Service", url: "/terms" },
+      { text: "Privacy Policy", url: "/privacy-policy" },
+      { text: "Terms of Service", url: "/terms-of-service" },
       { text: "Refund Policy", url: "/refund" },
     ],
     useCases: [
@@ -36,8 +36,8 @@ const FooterSection = () => {
       { text: "Students", url: "/for/students" },
     ],
     blogs: [
-      { text: "How to Write Meeting...", url: "/blog/meeting-notes" },
-      { text: "Different Types...", url: "/blog/different-types" },
+      { text: "How to Connect Notion...", url: "/blog/how-to-connect-notion" },
+      { text: "How to Connect Webhook Url... ", url: "/blog/how-to-connect-webhook" },
       { text: "Best Note...", url: "/blog/best-note-app" },
       { text: "Top 5 Note...", url: "/blog/top-5-notes" },
     ],

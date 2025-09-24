@@ -10,7 +10,7 @@ const useMessage = () => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage('');
-      }, 3000);
+      }, 8000);
       return () => clearTimeout(timer);
     }
   }, [message]);
@@ -61,9 +61,14 @@ export default function YtHandleDialog({ isUploadingYt, setIsUploadingYt, userId
     } catch (err) {
       console.error('YouTube processing error:', err);
       setMessage(`An error occurred: ${err.message}`);
+
+      // remove loader card on error
+      setCardsData(prev => prev.filter(c => c.id !== 'pending'));
+
     } finally {
       setIsProcessing(false);
       setYoutubeLink('');
+      setIsUploadingYt(false);
     }
   };
 
@@ -140,8 +145,8 @@ export default function YtHandleDialog({ isUploadingYt, setIsUploadingYt, userId
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 mb-4"
             />
             {isProcessing && (
-              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden mb-2">
-                <div className="bg-red-100 h-8 w-full animate-pulse"> <p className='text-sm text-gray-800 font-medium p-1 text-center' >Work in progress. It may take time. Please wait.</p> </div>
+              <div className="w-full bg-red-100 rounded-full h-10 flex items-center text-center overflow-hidden mb-2">
+                <div className="bg-red-100 h-8 w-full animate-pulse"> <p className='text-sm text-gray-800 font-medium p-1 ' >Work in progress. It may take time. Please wait.</p> </div>
               </div>
             )}
             {message && (

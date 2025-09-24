@@ -41,7 +41,7 @@ export default function InputBox( {userId, setCardsData } ) {
             {/* Left-side icons (Desktop only) */}
             <div className="hidden lg:flex space-x-2">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsUploadingYt(true)} />
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" onClick={()=>setIsUploadingPdf(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio File" onClick={()=>setIsUploadingAudio(true)} />
             </div>
@@ -49,7 +49,7 @@ export default function InputBox( {userId, setCardsData } ) {
             <AudioUploadDialog isUploadingAudio={isUploadingAudio} setIsUploadingAudio={setIsUploadingAudio} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
             <PdfHandleDialog isUploadingPdf={isUploadingPdf}  setIsUploadingPdf={setIsUploadingPdf} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen}  />
             <YtHandleDialog isUploadingYt={isUploadingYt} setIsUploadingYt={setIsUploadingYt} userId={userId} setCardsData={setCardsData} setIsDrawerOpen={setIsDrawerOpen} />
-            <TextUploadDialog />
+            <TextUploadDialog  userId={userId} />
             {/* 3-dot button (Mobile/Tablet only) */}
             <button
               className="lg:hidden p-3 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 transition-all"
@@ -90,7 +90,7 @@ export default function InputBox( {userId, setCardsData } ) {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <ActionButton icon={<TbWriting className="w-6 h-6" />} label="Text Note" isDrawerOpen={isDrawerOpen} onClick={() => setIsTextEditerOpen(true)} />
-              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsUploadingYt(true)} />
+              <ActionButton icon={<FaYoutube className="w-6 h-6" />} label="YouTube Link" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsDialogOpen(true)} />
               <ActionButton icon={<MdOutlinePictureAsPdf className="w-6 h-6" />} label="Upload pdf" isDrawerOpen={isDrawerOpen}  onClick={()=>setIsUploadingPdf(true)} />
               <ActionButton icon={<GrFormUpload className="w-6 h-6" />} label="Upload Audio" isDrawerOpen={isDrawerOpen} onClick={()=>setIsUploadingAudio(true)} />
             </div>

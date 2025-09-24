@@ -35,7 +35,7 @@ export default function HomePage() {
   const [isDailougeOpen, setIsDailougeOpen] = useState(false);
   const { greeting, formattedDate } = getGreetingAndDate(user?.displayName);
   const [activeItem, setActiveItem] = useState("Home");
-
+  // console.log("on the home page", user)
   useEffect(() => {
     let cancelled = false
     const unsub = onAuthStateChanged(auth, (u) => {

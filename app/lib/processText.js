@@ -13,6 +13,7 @@ export default async function processText(theText, userId, type) {
   try {
     setIsFetching(true)
     const plainText = getPlainText(text);
+    console.log('at processText', userId)
     const formData = await buildTextFormData(userId, theText, type);
     console.log('this is form data',formData);
     const response = await fetchSummary(formData);

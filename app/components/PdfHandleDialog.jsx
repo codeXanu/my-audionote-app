@@ -156,10 +156,14 @@ export default function PdfHandleDialog({ isUploadingPdf, setIsUploadingPdf, use
         });
       } else {
         console.error('Error: newCard is invalid');
+        alert("Something went wrong");
+        setCardsData(prev => prev.filter(c => c.id !== "pending"));
       }
     } catch (err) {
       console.error('PDF processing error:', err);
       setMessage('Failed to process PDF');
+      alert("Something went wrong");
+      setCardsData(prev => prev.filter(c => c.id !== "pending"));
     }
     setPdfFile(null);
   };

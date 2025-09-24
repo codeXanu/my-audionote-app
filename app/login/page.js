@@ -106,12 +106,19 @@ const LoginPage = () => {
             </div>
             
             {/* Preview Images */}
-            <div className="flex gap-4 overflow-hidden bg-white">
-                <img
-                    src="/hero-image.png"
-                    alt="web preview"
-                    className="rounded-xl shadow-lg h-[550px] object-contain relative w-full"
-                />
+            <div className="relative flex justify-center ">
+                  <img
+                      src="/home.png" // Assuming this is your web preview image
+                      alt="web preview"
+                      className="absolute right-0 rounded-tl-xl border-t-4 border-l-4  shadow-lg max-w-full h-[430px] object-cover overflow-hidden "
+                      style={{ width: '830px' }} // Adjust width as needed
+                  />
+                  {/* <img
+                      src="/record2.jpg" // You'll need a separate image for the mobile app preview
+                      alt="mobile preview"
+                      className="absolute right-10 top-33 -translate-y-1/2 rounded-xl border-4 shadow-lg h-[400px] object-cover z-20"
+                      style={{ width: '200px' }} // Adjust width as needed
+                  /> */}
             </div>
         </div>
         

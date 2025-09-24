@@ -68,9 +68,9 @@ export default function ProfileMenu({ isOpen, user, setActiveItem }) {
           </MenuItem>
 
           <div className="px-4 py-2 text-xs text-gray-500 flex gap-2">
-            <a className="hover:underline">Privacy policy</a>
+            <a href="/privacy-policy" target="_blank" className="hover:underline">Privacy policy</a>
             <span>•</span>
-            <a className="hover:underline">Terms & conditions</a>
+            <a href="/terms-of-service" target="_blank" className="hover:underline">Terms & conditions</a>
           </div>
         </div>
       </MenuItems>

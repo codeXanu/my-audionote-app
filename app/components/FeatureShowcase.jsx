@@ -1,5 +1,10 @@
 "use client";
-import showcase from "../../public/showcase.png";
+
+import { FaRegShareSquare } from "react-icons/fa";
+import { IoServer } from "react-icons/io5";
+import { LuFileText } from "react-icons/lu";
+import { CgTranscript } from "react-icons/cg";
+import { FaMicrophoneAlt } from "react-icons/fa";
 
 import { useEffect, useState } from "react";
 
@@ -7,37 +12,37 @@ const features = [
   {
     id: 1,
     title: "Record, Write, Upload a File or add a YouTube video link",
-    desc: "Capture and create notes from voice recordings, text notes, audio/video files, images or youtube links",
-    icon: "🎤",
-    image: "/showcase.png", // replace with your phone images
+    desc: "Capture and create notes from voice recordings, text notes, audio files, Pdfs or youtube links",
+    icon: <FaMicrophoneAlt />,
+    image: "/record2.jpg", // replace with your phone images
   },
   {
     id: 2,
     title: "Transcribe and/or Translate",
     desc: "Get transcripts in 30+ languages",
-    icon: "📄",
-    image: "/showcase.png",
+    icon: <CgTranscript />,
+    image: "/transcribe.jpg",
   },
   {
     id: 3,
     title: "Summarize or create custom outputs",
     desc: "Get high quality summaries, meeting notes, lecture notes or even custom outputs",
-    icon: "📝",
-    image: "/showcase.png",
+    icon: <LuFileText />,
+    image: "/summary.jpg",
   },
   {
     id: 4,
-    title: "Chat with your note",
-    desc: "Ask questions and chat with your note",
-    icon: "💬",
-    image: "/showcase.png",
+    title: "Integrate your notes instantly",
+    desc: "Get your notes instantly on Notion and Webhook Url, by just to Connect you Notion account and Webhook Url.",
+    icon: <IoServer />,
+    image: "/integrate.jpg",
   },
   {
     id: 5,
     title: "Publish/Share your note",
-    desc: "Publish a note and share your notes with your friends",
-    icon: "🔗",
-    image: "/showcase.png",
+    desc: "Publish a note and share your notes with your friends ",
+    icon: <FaRegShareSquare />,
+    image: "/share.jpg",
   },
 ];
 
@@ -67,7 +72,7 @@ export default function FeatureShowcase() {
             }`}
           >
             <div className="flex items-start gap-5">
-              <span className="text-2xl">{item.icon}</span>
+              <span className={`text-2xl mt-2 ${activeIndex === index ? "text-red-500" : "text-gray-500 hover:border-orange-300"}`}>{item.icon}</span>
               <div>
                 <h1 className="text-black text-lg mb-2 sm:text-xl title-font font-bold">
                   {item.title}
@@ -86,11 +91,11 @@ export default function FeatureShowcase() {
         <div className="scale-70 m-0 sm:scale-50 md:scale-60 lg:scale-70">
           <div className="mockup-phone m-0">
             <div className="mockup-phone-camera"></div>
-            <div className="mockup-phone-display bg-black rounded-2x overflow-hidden flex items-center justify-center place-content-center">
+            <div className="mockup-phone-display bg-black rounded-2x flex items-center justify-center place-content-center">
               <img
                 src={features[activeIndex].image}
                 alt="Phone"
-                className="w-full h-full object-cover overflow-hidden"
+                className="max-w-full max-h-full object-cover"
               />
             </div>
           </div>

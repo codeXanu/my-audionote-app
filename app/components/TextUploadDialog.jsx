@@ -9,9 +9,9 @@ const getPlainText = html =>
   html ? (new DOMParser().parseFromString(html, 'text/html')).body.textContent || "" : "";
 
 
-export default function TextUploadDialog () {
+export default function TextUploadDialog ({ userId }) {
     const { isTextEditerOpen, setIsTextEditerOpen } = useStore();
-    const { text, setText, setCardsData, userId } = useStore();
+    const { text, setText, setCardsData } = useStore();
     
     
 
@@ -29,24 +29,27 @@ export default function TextUploadDialog () {
         setIsTextEditerOpen(false);
         const loaderCard = { id: "pending", pending: true };
         setCardsData((prev) =>{
-        console.log('prev cardsData before update:', prev);
+        // console.log('prev cardsData before update:', prev);
         return [loaderCard, ...prev]});
 
-        const newCard = await processText(plainText, userId, "text");
-        console.log('this is new card' , newCard)
-        
-        if (newCard) {
-        // setCardsData((prev) => [newCard, ...prev]);
-        setCardsData((prev) => {
-            // Remove the pending card if it exists
-            const withoutPending = prev.filter(card => card.id !== "pending");
-            // Insert the new card at the top if fetch succeeded
-            return newCard ? [newCard, ...withoutPending] : withoutPending;
-        });
-        }else {
-        console.error("Error: newCard is undefined or invalid");
-        // or show it in UI:
-        // setError("Failed to add new card. Please try again.");
+        try {
+            // console.log("from text dialog", userId);
+            const newCard = await processText(plainText, userId, "text");
+            if (newCard) {
+            setCardsData(prev => {
+                const withoutPending = prev.filter(card => card.id !== "pending");
+                return [newCard, ...withoutPending];
+            });
+            } else {
+            console.error("Error: newCard is undefined or invalid");
+            // You can opt to show an error UI instead of alert here
+            alert("Something went wrong");
+            setCardsData(prev => prev.filter(c => c.id !== "pending"));
+            }
+        } catch (error) {
+            console.error("Error during text processing:", error);
+            alert("An unexpected error occurred.");
+            setCardsData(prev => prev.filter(c => c.id !== "pending"));
         }
 
     }

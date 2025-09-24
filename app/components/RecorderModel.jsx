@@ -193,8 +193,8 @@ const handleSaveRecording = async () => {
       });
     }else {
       console.error("Error: newCard is undefined or invalid");
-      // or show it in UI:
-      // setError("Failed to add new card. Please try again.");
+        alert("Something went wrong");
+        setCardsData(prev => prev.filter(c => c.id !== "pending"));
     }
   };
 

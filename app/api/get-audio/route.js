@@ -1,57 +1,58 @@
 import { NextResponse } from "next/server";
-import ytdl from "@distube/ytdl-core";
 
 export async function GET(req) {
-    console.log('yt backend started')
   try {
     const { searchParams } = new URL(req.url);
     const videoUrl = searchParams.get("url");
 
     if (!videoUrl) {
-      return NextResponse.json({ error: "No URL provided" }, { status: 400 });
+      return NextResponse.json({ error: "Missing url parameter" }, { status: 400 });
     }
 
-    // Best audio-only format
-    const info = await ytdl.getInfo(videoUrl);
-    let audioFormats = ytdl.filterFormats(info.formats, "audioonly");
-    if (!audioFormats.length) {
-      return NextResponse.json({ error: "No audio format found" }, { status: 404 });
+    // Extract videoId from standard or short URL
+    let videoId;
+    if (videoUrl.includes("youtu.be/")) {
+      videoId = videoUrl.split("/").pop().split("?")[0];
+    } else {
+      videoId = new URL(videoUrl).searchParams.get("v");
     }
-    audioFormats = audioFormats.filter(
-        f => f.audioTrack?.audioIsDefault || !f.audioTrack?.isAutoDubbed
-    );
 
-    // pick the best one (highest bitrate)
-    const format = audioFormats.sort((a, b) => (b.audioBitrate || 0) - (a.audioBitrate || 0))[0];
-    console.log('this is returned' ,format)
+    if (!videoId) {
+      return NextResponse.json({ error: "Cannot parse videoId" }, { status: 400 });
+    }
 
-    // Instead of fetching & buffering, stream it back directly
-   const audioStream = ytdl(videoUrl, { quality: "highestaudio", filter: "audioonly" });
+    // List of Piped instances for fallback
+    const PIPED_INSTANCES = [
+      "https://piped.kavin.rocks",
+      "https://pipedapi.kavin.rocks"
+    ];
 
-    // Convert Node.js stream -> Web ReadableStream (for Next.js)
-    const stream = new ReadableStream({
-      async start(controller) {
-        for await (const chunk of audioStream) {
-          controller.enqueue(chunk);
-        }
-        controller.close();
-      },
-    });
+    let apiRes;
+    for (const baseUrl of PIPED_INSTANCES) {
+      try {
+        apiRes = await fetch(`${baseUrl}/streams/${videoId}`);
+        if (apiRes.ok) break;
+      } catch (e) {
+        console.warn(`Failed to fetch from ${baseUrl}:`, e);
+      }
+    }
 
-    // Fetch the actual stream
-    // const response = await fetch(format.url);
-    // const buffer = await response.arrayBuffer();
+    if (!apiRes || !apiRes.ok) {
+      return NextResponse.json({ error: "All Piped instances failed" }, { status: 500 });
+    }
 
-     return new NextResponse(stream, {
-        headers: {
-          "Content-Type": "audio/webm",
-          "Content-Disposition": "inline; filename=audio.webm",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
+    const data = await apiRes.json();
+    if (!data.audioStreams || data.audioStreams.length === 0) {
+      return NextResponse.json({ error: "No audio streams found" }, { status: 404 });
+    }
+
+    // Pick the highest bitrate audio
+    const audioStream = data.audioStreams.sort((a, b) => b.bitrate - a.bitrate)[0];
+
+    // Return JSON with audio URL — frontend will fetch as Blob
+    return NextResponse.json({ audioUrl: audioStream.url });
   } catch (err) {
-    console.error("Error fetching audio:", err);
-    return NextResponse.json({ error: "Failed to fetch audio URL" }, { status: 500 });
+    console.error("Error in /api/get-audio:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
-

@@ -21,6 +21,7 @@ export async function POST(req) {
 
     const file = formData.get("file");
     const userId = formData.get("userId");
+    console.log("back", userId)
     const createdAt = formData.get("createdAt");
     const type = file.type
     const cardType = formData.get("type");
@@ -93,8 +94,8 @@ export async function POST(req) {
 
         Return the result as a JSON object with exactly two keys:
         1. "title": A very short, clear topic title (max 7 words).
-        2. "summary": A concise, human-friendly summary of the transcript in the same language.
-
+        2. "summary": A concise, human-friendly summary of the transcript in the same language. write the summary in detail.
+        
         Transcript:
         ${transcriptText}
     `;
@@ -141,7 +142,7 @@ export async function POST(req) {
       // For non-audio types, you can skip upload for now
       currentSavedNote = await saveNoteMetadata({
         noteId,
-        userId,
+        userId: userId,
         type,
         createdAt,
         title: result.title,

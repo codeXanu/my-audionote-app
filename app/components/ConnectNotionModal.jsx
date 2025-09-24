@@ -92,7 +92,7 @@ export default function ConnectNotionModal({ userId, onClose }) {
         <ol className="list-decimal list-inside" >
           <li className="mb-2" >Create a Database in your Notion workspace (not in private space).</li>
           <li className="mb-2" >Add columns: Title, Summary, Transcript, CreatedAt.</li>
-          <li className="mb-2 " > <a href="" className="text-blue-600 hover:text-blue-800 underline decoration-dotted decoration-2">See complete detailed hints🔗</a> </li>
+          <li className="mb-2 " > <a href="/blog/how-to-connect-notion" target="_blank" className="text-blue-600 hover:text-blue-800 underline decoration-dotted decoration-2">See complete detailed hints🔗</a> </li>
           <li className="mb-2" >Click "Connect" → you’ll be redirected to the Notion Authorization page, allow access to your created databse.</li>
           <li className="mb-2" >you will be redirected to Quick Audio Note's "notion-integration" page.</li>
           <li>Go In Notion, select your database → Share → copy link → paste into the input box on the integration page → Submit.</li>
