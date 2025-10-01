@@ -1,4 +1,5 @@
-import { initializeApp, getApps, cert, getAuth } from "firebase-admin/app";
+import { initializeApp, getApps, cert } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
 
 
 if (!getApps().length) {
