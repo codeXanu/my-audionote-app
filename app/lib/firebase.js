@@ -1,6 +1,4 @@
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
@@ -14,7 +12,9 @@ const firebaseConfig = {
 
 
 
-const app = initializeApp(firebaseConfig);
+// ✅ prevent "Firebase App already exists" error
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 

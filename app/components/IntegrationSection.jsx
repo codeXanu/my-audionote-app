@@ -6,6 +6,8 @@ import ConnectNotionModal from './ConnectNotionModal';
 import useStore from '../store/useStore';
 import DisconnectDialog from './DisconnectDialog';
 import WebhookDialog from './WebhookDialog';
+import { TbBrandZapier } from "react-icons/tb";
+import ZapierDialog from './zapierDialog';
 
 
 const IntegrationSection = () => {
@@ -16,7 +18,7 @@ const IntegrationSection = () => {
   const [isDisconnectOpen, setIsDisconnectOpen] = useState(false);
   const [isWebhookDialogOpen, setIsWebhookDialogOpen] = useState(false);
   const [isWebhookConnected, setIsWebhookConnected] = useState(false);
-
+  const [isZapierDialogOpen, setIsZapierDialogOpen] = useState(false);
 
 
   const userId = user.uid;
@@ -116,6 +118,21 @@ const IntegrationSection = () => {
           </button>
         </div>
 
+        {/* Zapier Card */}
+        <div className="flex flex-col items-center p-8 bg-white border border-gray-200  rounded-xl transition-shadow duration-300 hover:shadow-lg w-full max-w-xl sm:w-[48%] lg:w-[25%]">
+          <div className="flex items-center justify-center p-2 rounded-full mb-4">
+            <TbBrandZapier className='w-16 h-16 p-2 rounded-lg text-red-500 ' />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Zapier</h3>
+          <p className="text-sm font-semibold text-center text-gray-500 mb-8">Connect Audionotes with 2000+ other apps using Zapier</p>
+          <button
+          className={`mt-auto w-full py-2 px-4 ${isWebhookConnected ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-800 text-gray-500 hover:bg-gray-900'} text-white font-medium rounded-full  transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50  `}
+            onClick={() => setIsZapierDialogOpen(true)}
+          >
+           {isWebhookConnected ? 'Connected' : '+ Connect'}  
+          </button>
+        </div>
+
 
       </div>
 
@@ -138,6 +155,8 @@ const IntegrationSection = () => {
         setIsWebhookConnected={setIsWebhookConnected}
         isWebhookConnected ={isWebhookConnected}
       />
+
+      <ZapierDialog isOpen={isZapierDialogOpen} onClose={() => setIsZapierDialogOpen(false)} />
 
     </>
   );
