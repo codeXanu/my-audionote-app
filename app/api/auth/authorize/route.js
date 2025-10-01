@@ -23,9 +23,11 @@ export async function GET(req) {
   const match = cookieHeader.match(/__session=([^;]+)/);
   const idToken = match ? match[1] : null;
 
-  if (!idToken) {
+   if (!idToken) {
     // User not logged in → redirect to login page
-    return Response.redirect("/login?redirect=/api/auth/authorize", 302);
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const loginRedirect = `${baseUrl}/login?redirect=/api/auth/authorize`;
+    return Response.redirect(loginRedirect, 302);
   }
 
   let userId;
