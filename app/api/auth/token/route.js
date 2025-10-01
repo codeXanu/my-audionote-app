@@ -5,8 +5,20 @@ const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 export async function POST(req) {
   const body = await req.json();
-  const { code } = body;
+  const { code, client_id, client_secret } = body;
 
+  // 1. Validate Zapier credentials
+  if (
+    client_id !== process.env.ZAPIER_CLIENT_ID ||
+    client_secret !== process.env.ZAPIER_CLIENT_SECRET
+  ) {
+    return new Response(
+      JSON.stringify({ error: "Invalid client credentials" }),
+      { status: 401 }
+    );
+  }
+
+  // 2. Lookup auth code in Supabase
   const { data, error } = await supabaseAdmin
     .from("zapier_auth_codes")
     .select("user_id")
@@ -14,18 +26,22 @@ export async function POST(req) {
     .single();
 
   if (error || !data) {
-    return new Response(JSON.stringify({ error: "Invalid or expired code" }), { status: 400 });
+    return new Response(
+      JSON.stringify({ error: "Invalid or expired code" }),
+      { status: 400 }
+    );
   }
 
   const userId = data.user_id;
 
+  // 3. Issue JWT token
   const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" });
 
   return new Response(
     JSON.stringify({
       access_token: accessToken,
       token_type: "Bearer",
-      expires_in: 604800,
+      expires_in: 604800, // 7 days
     }),
     { status: 200 }
   );

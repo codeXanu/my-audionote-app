@@ -1,14 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth, onAuthStateChanged } from "../lib/firebase";
-
-// const firebaseConfig = {
-//   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-//   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-// };
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
 
 export default function ZapierDialog({ isOpen, onClose }) {
   const [user, setUser] = useState(null);
@@ -25,14 +17,9 @@ export default function ZapierDialog({ isOpen, onClose }) {
     if (!user) return alert("Please log in first");
     setIsLoading(true);
 
-    // Zapier OAuth redirect
-    const redirectUri = "https://zapier.com/dashboard/auth/oauth/return/App1234CLI"; 
-    const state = "zapier-state";
-    const url = `/api/auth/authorize?redirect_uri=${encodeURIComponent(
-      redirectUri
-    )}&state=${encodeURIComponent(state)}&user_id=${user.uid}`;
-
-    window.location.href = url;
+    // Redirect to your backend authorize endpoint
+    // Zapier will append client_id, state, redirect_uri automatically
+    window.location.href = `/api/auth/authorize`;
   };
 
   if (!isOpen) return null;
