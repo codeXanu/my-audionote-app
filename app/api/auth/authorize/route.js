@@ -7,6 +7,7 @@ export async function GET(req) {
   const redirect_uri = searchParams.get("redirect_uri");
   const state = searchParams.get("state");
   const client_id = searchParams.get("client_id");
+  console.log('clientis', client_id);
 
   // 1️⃣ Validate Zapier client_id
   if (client_id !== process.env.ZAPIER_CLIENT_ID) {

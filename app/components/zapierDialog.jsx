@@ -17,9 +17,17 @@ export default function ZapierDialog({ isOpen, onClose }) {
     if (!user) return alert("Please log in first");
     setIsLoading(true);
 
-    // Redirect to your backend authorize endpoint
-    // Zapier will append client_id, state, redirect_uri automatically
-    window.location.href = `/api/auth/authorize`;
+    // Zapier OAuth redirect info
+    const redirectUri = "https://zapier.com/dashboard/auth/oauth/return/App231332CLIAPI/";
+    const state = "zapier-test-state"; // optional, Zapier usually provides it dynamically
+    const clientId = process.env.NEXT_PUBLIC_ZAPIER_CLIENT_ID; // your Zapier Client ID
+
+    // Build authorize URL with required query params
+    const url = `/api/auth/authorize?redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&state=${encodeURIComponent(state)}&client_id=${encodeURIComponent(clientId)}&user_id=${user.uid}`;
+
+    window.location.href = url;
   };
 
   if (!isOpen) return null;
