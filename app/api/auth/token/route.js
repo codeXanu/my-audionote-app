@@ -4,8 +4,11 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 export async function POST(req) {
-  const body = await req.json();
-  const { code, client_id, client_secret } = body;
+  const formData = await req.formData();
+  const code = formData.get("code");
+  const client_id = formData.get("client_id");
+  const client_secret = formData.get("client_secret");
+  const grant_type = formData.get("grant_type");
 
   // 1. Validate Zapier credentials
   if (
@@ -15,6 +18,13 @@ export async function POST(req) {
     return new Response(
       JSON.stringify({ error: "Invalid client credentials" }),
       { status: 401 }
+    );
+  }
+
+  if (grant_type !== "authorization_code") {
+    return new Response(
+      JSON.stringify({ error: "Unsupported grant_type" }),
+      { status: 400 }
     );
   }
 
