@@ -13,9 +13,21 @@ export default function ZapierDialog({ isOpen, onClose }) {
     return () => unsubscribe();
   }, []);
 
-  const handleZapierConnect = () => {
+  const handleZapierConnect = async () => {
     if (!user) return alert("Please log in first");
     setIsLoading(true);
+
+    const idToken = await user.getIdToken();
+
+    // Call your backend to generate a session key
+    const res = await fetch("/api/session/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ idToken }),
+    });
+
+    const data = await res.json();
+    if (!data.sessionKey) return alert("Failed to create session");
 
     // Zapier OAuth redirect info
     const redirectUri = "https://zapier.com/dashboard/auth/oauth/return/App231332CLIAPI/";
@@ -25,7 +37,7 @@ export default function ZapierDialog({ isOpen, onClose }) {
     // Build authorize URL with required query params
     const url = `/api/auth/authorize?redirect_uri=${encodeURIComponent(
       redirectUri
-    )}&state=${encodeURIComponent(state)}&client_id=${encodeURIComponent(clientId)}&user_id=${user.uid}`;
+    )}&state=${encodeURIComponent(state)}&client_id=${encodeURIComponent(clientId)}&session_key=${encodeURIComponent(data.sessionKey)}`;
 
     window.location.href = url;
   };
