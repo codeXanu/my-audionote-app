@@ -5,7 +5,13 @@ import { NextResponse } from "next/server";
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 export async function POST(req) {
-  const { code, client_id, client_secret, grant_type } = await req.json();
+  const text = await req.text();
+  const params = new URLSearchParams(text);
+
+  const code = params.get("code");
+  const client_id = params.get("client_id");
+  const client_secret = params.get("client_secret");
+  const grant_type = params.get("grant_type");
 
   if (
     client_id !== process.env.ZAPIER_CLIENT_ID ||
@@ -13,11 +19,11 @@ export async function POST(req) {
   ) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
+
   if (grant_type !== "authorization_code") {
     return NextResponse.json({ error: "Invalid grant_type" }, { status: 400 });
   }
 
-  // verify code
   const { data } = await supabaseAdmin
     .from("zapier_auth_codes")
     .select("user_id")
