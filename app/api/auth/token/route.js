@@ -1,58 +1,37 @@
 import { supabaseAdmin } from "@/app/lib/supabase";
 import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 export async function POST(req) {
-  const formData = await req.formData();
-  const code = formData.get("code");
-  const client_id = formData.get("client_id");
-  const client_secret = formData.get("client_secret");
-  const grant_type = formData.get("grant_type");
+  const { code, client_id, client_secret, grant_type } = await req.json();
 
-  // 1. Validate Zapier credentials
   if (
     client_id !== process.env.ZAPIER_CLIENT_ID ||
     client_secret !== process.env.ZAPIER_CLIENT_SECRET
   ) {
-    return new Response(
-      JSON.stringify({ error: "Invalid client credentials" }),
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
-
   if (grant_type !== "authorization_code") {
-    return new Response(
-      JSON.stringify({ error: "Unsupported grant_type" }),
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Invalid grant_type" }, { status: 400 });
   }
 
-  // 2. Lookup auth code in Supabase
-  const { data, error } = await supabaseAdmin
+  // verify code
+  const { data } = await supabaseAdmin
     .from("zapier_auth_codes")
     .select("user_id")
     .eq("code", code)
     .single();
 
-  if (error || !data) {
-    return new Response(
-      JSON.stringify({ error: "Invalid or expired code" }),
-      { status: 400 }
-    );
+  if (!data) {
+    return NextResponse.json({ error: "Invalid code" }, { status: 400 });
   }
 
-  const userId = data.user_id;
-
-  // 3. Issue JWT token
-  const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" });
-
-  return new Response(
-    JSON.stringify({
-      access_token: accessToken,
-      token_type: "Bearer",
-      expires_in: 604800, // 7 days
-    }),
-    { status: 200 }
-  );
+  const token = jwt.sign({ userId: data.user_id }, JWT_SECRET, { expiresIn: "7d" });
+  return NextResponse.json({
+    access_token: token,
+    token_type: "Bearer",
+    expires_in: 604800,
+  });
 }

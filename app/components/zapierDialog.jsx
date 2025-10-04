@@ -14,32 +14,45 @@ export default function ZapierDialog({ isOpen, onClose }) {
   }, []);
 
   const handleZapierConnect = async () => {
-    if (!user) return alert("Please log in first");
+    if (!user) {
+      alert("Please log in first");
+      return;
+    }
     setIsLoading(true);
 
-    const idToken = await user.getIdToken();
+    try {
+      const idToken = await user.getIdToken();
 
-    // Call your backend to generate a session key
-    const res = await fetch("/api/session/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken }),
-    });
+      // Call backend to create a session key, server maps it to user id
+      const res = await fetch("/api/session/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
 
-    const data = await res.json();
-    if (!data.sessionKey) return alert("Failed to create session");
+      const data = await res.json();
+      if (!data.sessionKey) {
+        alert("Failed to create session");
+        setIsLoading(false);
+        return;
+      }
 
-    // Zapier OAuth redirect info
-    const redirectUri = "https://zapier.com/dashboard/auth/oauth/return/App231332CLIAPI/";
-    const state = "zapier-test-state"; // optional, Zapier usually provides it dynamically
-    const clientId = process.env.NEXT_PUBLIC_ZAPIER_CLIENT_ID; // your Zapier Client ID
+      const redirectUri = "https://zapier.com/dashboard/auth/oauth/return/App231332CLIAPI/";
+      const state = encodeURIComponent("some_unique_state_value"); // or generate dynamically
+      const clientId = process.env.NEXT_PUBLIC_ZAPIER_CLIENT_ID;
 
-    // Build authorize URL with required query params
-    const url = `/api/auth/authorize?redirect_uri=${encodeURIComponent(
-      redirectUri
-    )}&state=${encodeURIComponent(state)}&client_id=${encodeURIComponent(clientId)}&session_key=${encodeURIComponent(data.sessionKey)}`;
+      // Build your authorize URL with necessary params
+      const url = `/api/auth/authorize?redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&state=${state}&client_id=${encodeURIComponent(clientId)}&session_key=${encodeURIComponent(
+        data.sessionKey
+      )}`;
 
-    window.location.href = url;
+      window.location.href = url;
+    } catch (error) {
+      alert("Error connecting to Zapier: " + error.message);
+      setIsLoading(false);
+    }
   };
 
   if (!isOpen) return null;

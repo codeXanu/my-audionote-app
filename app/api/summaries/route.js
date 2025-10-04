@@ -6,6 +6,7 @@ import crypto from "crypto";
 import { syncNoteToNotion } from "@/app/lib/syncNoteToNotion";
 import { sendNoteToWebhook } from "@/app/lib/sendNoteToWebhook";
 import getWebhookUrl from "@/app/lib/getWebhookUrl";
+import { triggerZapierWebhooks } from "@/app/lib/zapierTrigger";
 
 
 const openai = new OpenAI({
@@ -174,6 +175,9 @@ export async function POST(req) {
     const webhookUrl = await getWebhookUrl(userId);
     console.log("finally", webhookUrl)
     const webhoookResult = await sendNoteToWebhook(webhookUrl, noteToWebhook);
+
+    // After save:
+  await triggerZapierWebhooks(userId, noteToWebhook);
 
 
     // --- Step 3: Build response object ---
